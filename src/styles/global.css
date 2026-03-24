@@ -1,0 +1,89 @@
+@import "tailwindcss";
+
+@theme {
+  /* Fonds sombres — le vide interstellaire */
+  --color-void-950: #06060f;
+  --color-void-900: #0a0a1a;
+  --color-void-800: #12122a;
+  --color-void-700: #1a1a3e;
+  --color-void-600: #252552;
+
+  /* Accents — l'éther, la résonance */
+  --color-ether-600: #4f46e5;
+  --color-ether-500: #6366f1;
+  --color-ether-400: #818cf8;
+  --color-ether-300: #a5b4fc;
+  --color-ether-200: #c7d2fe;
+
+  /* Alertes — la Fracture */
+  --color-fracture-500: #f59e0b;
+  --color-fracture-400: #fbbf24;
+  --color-fracture-300: #fcd34d;
+
+  /* Éveillés */
+  --color-awakened-500: #10b981;
+  --color-awakened-400: #34d399;
+  --color-awakened-300: #6ee7b7;
+
+  /* Danger */
+  --color-danger-500: #ef4444;
+  --color-danger-400: #f87171;
+
+  /* Typographie */
+  --font-display: "Space Grotesk", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+}
+
+/* Base */
+html {
+  font-family: var(--font-body);
+  background-color: var(--color-void-950);
+  color: #e2e8f0;
+}
+
+/* Typographie lecture */
+.prose {
+  max-width: 65ch;
+  line-height: 1.8;
+  font-size: 1.125rem;
+}
+
+.prose p {
+  margin-bottom: 1.5em;
+}
+
+.prose hr {
+  border: none;
+  text-align: center;
+  margin: 2.5em 0;
+}
+
+.prose hr::after {
+  content: "✦ ✦ ✦";
+  color: var(--color-ether-500);
+  letter-spacing: 0.5em;
+  font-size: 0.75rem;
+}
+
+.prose h1 {
+  font-family: var(--font-display);
+  font-size: 2.25rem;
+  font-weight: 700;
+  margin-bottom: 1em;
+  color: white;
+}
+
+.prose h2 {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-top: 2em;
+  margin-bottom: 0.75em;
+  color: var(--color-ether-300);
+}
+
+.prose em {
+  color: var(--color-ether-300);
+  font-style: italic;
+}

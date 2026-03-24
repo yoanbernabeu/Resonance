@@ -1,0 +1,147 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getAllChapterIssues } from '../lib/github';
+
+const user = Astro.locals.user;
+const repoOwner = import.meta.env.GITHUB_REPO_OWNER;
+
+if (!user || user.login !== repoOwner) {
+  return new Response('Accès non autorisé', { status: 403 });
+}
+
+const issues = await getAllChapterIssues().catch(() => []);
+---
+
+<BaseLayout title="Admin — Résonance">
+  <div class="max-w-3xl mx-auto px-4 py-12 md:py-20">
+    <header class="mb-12">
+      <h1 class="font-display text-3xl font-bold text-white mb-2">Administration</h1>
+      <p class="text-slate-400">Gestion des phases et des chapitres</p>
+    </header>
+
+    <!-- Nouveau chapitre -->
+    <div class="bg-void-800/50 border border-void-700 rounded-xl p-6 mb-10">
+      <h2 class="font-display text-lg font-semibold text-white mb-4">Nouveau chapitre</h2>
+      <button
+        id="btn-new-chapter"
+        class="px-5 py-2 bg-ether-600 hover:bg-ether-500 text-white text-sm font-medium rounded-lg transition-colors"
+      >
+        Créer l'issue du prochain chapitre
+      </button>
+      <p id="new-chapter-msg" class="text-sm mt-2 hidden"></p>
+    </div>
+
+    <!-- Issues existantes -->
+    {issues.length > 0 && (
+      <div>
+        <h2 class="font-display text-xl font-semibold text-white mb-6">Chapitres</h2>
+        <div class="space-y-4">
+          {issues.map(issue => (
+            <div class="bg-void-800/30 border border-void-700 rounded-xl p-5" data-issue={issue.number}>
+              <div class="flex items-center justify-between mb-3">
+                <h3 class="font-display font-semibold text-white">{issue.title}</h3>
+                <span class:list={[
+                  'text-xs px-2 py-0.5 rounded-full border',
+                  issue.phase === 'propositions' && 'bg-ether-600/20 text-ether-300 border-ether-600/30',
+                  issue.phase === 'votes' && 'bg-fracture-500/20 text-fracture-300 border-fracture-500/30',
+                  issue.phase === 'redaction' && 'bg-awakened-500/20 text-awakened-300 border-awakened-500/30',
+                  !issue.phase && 'bg-void-700 text-slate-500 border-void-600',
+                ]}>
+                  {issue.phase ? `phase:${issue.phase}` : 'terminé'}
+                </span>
+              </div>
+
+              <div class="flex gap-2">
+                {issue.phase === 'propositions' && (
+                  <button
+                    class="phase-btn px-4 py-1.5 bg-fracture-500/20 hover:bg-fracture-500/30 text-fracture-300 text-sm rounded-lg transition-colors border border-fracture-500/30"
+                    data-issue-number={issue.number}
+                    data-new-phase="votes"
+                  >
+                    Passer aux votes
+                  </button>
+                )}
+                {issue.phase === 'votes' && (
+                  <button
+                    class="phase-btn px-4 py-1.5 bg-awakened-500/20 hover:bg-awakened-500/30 text-awakened-300 text-sm rounded-lg transition-colors border border-awakened-500/30"
+                    data-issue-number={issue.number}
+                    data-new-phase="redaction"
+                  >
+                    Clôturer les votes
+                  </button>
+                )}
+                {issue.phase === 'redaction' && (
+                  <span class="text-sm text-slate-500">En cours de rédaction</span>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    )}
+
+    {issues.length === 0 && (
+      <p class="text-slate-500">Aucun chapitre créé. Commencez par créer le premier !</p>
+    )}
+  </div>
+
+  <script>
+    // Nouveau chapitre
+    document.getElementById('btn-new-chapter')?.addEventListener('click', async (e) => {
+      const btn = e.currentTarget as HTMLButtonElement;
+      const msg = document.getElementById('new-chapter-msg')!;
+      btn.disabled = true;
+
+      try {
+        const res = await fetch('/api/admin/phase', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ action: 'create' }),
+        });
+
+        if (res.ok) {
+          msg.textContent = 'Chapitre créé !';
+          msg.className = 'text-sm mt-2 text-awakened-400';
+          setTimeout(() => window.location.reload(), 1000);
+        } else {
+          const data = await res.json();
+          msg.textContent = data.error || 'Erreur';
+          msg.className = 'text-sm mt-2 text-danger-400';
+          btn.disabled = false;
+        }
+      } catch {
+        msg.textContent = 'Erreur de connexion';
+        msg.className = 'text-sm mt-2 text-danger-400';
+        btn.disabled = false;
+      }
+    });
+
+    // Transitions de phase
+    document.querySelectorAll('.phase-btn').forEach(btn => {
+      btn.addEventListener('click', async (e) => {
+        const target = e.currentTarget as HTMLButtonElement;
+        target.disabled = true;
+
+        try {
+          const res = await fetch('/api/admin/phase', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              action: 'transition',
+              issueNumber: Number(target.dataset.issueNumber),
+              newPhase: target.dataset.newPhase,
+            }),
+          });
+
+          if (res.ok) {
+            window.location.reload();
+          } else {
+            target.disabled = false;
+          }
+        } catch {
+          target.disabled = false;
+        }
+      });
+    });
+  </script>
+</BaseLayout>

@@ -1,0 +1,65 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CategoryBadge from '../components/CategoryBadge.astro';
+import { getAllChapterIssues, getProposals } from '../lib/github';
+
+const user = Astro.locals.user;
+
+if (!user) {
+  return Astro.redirect('/api/auth/login?redirect_to=/profil');
+}
+
+const issues = await getAllChapterIssues().catch(() => []);
+
+const userProposals: Array<{
+  chapterTitle: string;
+  proposals: Awaited<ReturnType<typeof getProposals>>;
+}> = [];
+
+for (const issue of issues) {
+  const proposals = await getProposals(issue.number, user.login).catch(() => []);
+  const mine = proposals.filter(p => p.author === user.login && !p.isMinimized);
+  if (mine.length > 0) {
+    userProposals.push({ chapterTitle: issue.title, proposals: mine });
+  }
+}
+---
+
+<BaseLayout title="Mon profil — Résonance">
+  <div class="max-w-3xl mx-auto px-4 py-12 md:py-20">
+    <header class="flex items-center gap-4 mb-12">
+      <img src={user.avatarUrl} alt={user.login} class="w-16 h-16 rounded-full" />
+      <div>
+        <h1 class="font-display text-2xl font-bold text-white">{user.login}</h1>
+        <p class="text-slate-500 text-sm">Contributeur·ice</p>
+      </div>
+    </header>
+
+    <section>
+      <h2 class="font-display text-xl font-semibold text-white mb-6">Mes propositions</h2>
+
+      {userProposals.length === 0 ? (
+        <p class="text-slate-500">Vous n'avez pas encore soumis de proposition.</p>
+      ) : (
+        <div class="space-y-8">
+          {userProposals.map(({ chapterTitle, proposals }) => (
+            <div>
+              <h3 class="text-sm text-slate-400 mb-3">{chapterTitle}</h3>
+              <div class="space-y-3">
+                {proposals.map(p => (
+                  <div class="bg-void-800/30 border border-void-700 rounded-xl p-4">
+                    <div class="flex items-center gap-3 mb-2">
+                      <CategoryBadge category={p.category} />
+                      <span class="text-xs text-slate-500">Score : {p.score}</span>
+                    </div>
+                    <p class="text-slate-200 text-sm">{p.description}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+    </section>
+  </div>
+</BaseLayout>

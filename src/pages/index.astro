@@ -1,0 +1,116 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getAllChapters } from '../lib/chapters';
+
+const chapters = await getAllChapters();
+---
+
+<BaseLayout title="Résonance — Écriture collective assistée par IA">
+  <!-- Hero -->
+  <section class="relative overflow-hidden">
+    <!-- Fond étoilé subtil -->
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--color-void-800)_0%,_var(--color-void-950)_70%)]"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,_rgba(99,102,241,0.08)_0%,_transparent_50%)]"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,_rgba(16,185,129,0.05)_0%,_transparent_50%)]"></div>
+
+    <div class="relative max-w-4xl mx-auto px-4 py-24 md:py-36 text-center">
+      <p class="text-ether-400 text-sm font-medium tracking-widest uppercase mb-6">
+        Expérience d'écriture collective
+      </p>
+      <h1 class="font-display text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
+        Résonance
+      </h1>
+      <p class="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto mb-8 leading-relaxed">
+        Une histoire de science-fiction construite par la communauté, chapitre après chapitre.
+        Proposez des idées, votez, et façonnez un univers interstellaire.
+      </p>
+
+      <div class="flex flex-col sm:flex-row gap-4 justify-center mb-16">
+        <a href="/lecture" class="px-6 py-3 bg-ether-600 hover:bg-ether-500 text-white font-medium rounded-lg transition-colors">
+          Commencer la lecture
+        </a>
+        <a href="/propositions" class="px-6 py-3 bg-void-700 hover:bg-void-600 text-slate-200 font-medium rounded-lg transition-colors border border-void-600">
+          Participer
+        </a>
+      </div>
+
+      <!-- Citation du prologue -->
+      <blockquote class="text-slate-500 italic text-sm max-w-xl mx-auto border-l-2 border-ether-600/30 pl-4 text-left">
+        « Quelque chose dort dans les fondations de la galaxie.
+        Et l'humanité, occupée à panser ses propres blessures, a oublié de s'en inquiéter. »
+      </blockquote>
+    </div>
+  </section>
+
+  <!-- Comment ça marche -->
+  <section class="max-w-5xl mx-auto px-4 py-20">
+    <h2 class="font-display text-2xl font-semibold text-white text-center mb-12">
+      Comment ça fonctionne
+    </h2>
+    <div class="grid md:grid-cols-3 gap-8">
+      <div class="bg-void-800/50 border border-void-700 rounded-xl p-6">
+        <div class="text-ether-400 text-2xl mb-3">01</div>
+        <h3 class="font-display text-lg font-semibold text-white mb-2">Proposez</h3>
+        <p class="text-slate-400 text-sm leading-relaxed">
+          Soumettez vos idées : personnages, lieux, événements, twists…
+          Chaque proposition peut influencer le prochain chapitre.
+        </p>
+      </div>
+      <div class="bg-void-800/50 border border-void-700 rounded-xl p-6">
+        <div class="text-ether-400 text-2xl mb-3">02</div>
+        <h3 class="font-display text-lg font-semibold text-white mb-2">Votez</h3>
+        <p class="text-slate-400 text-sm leading-relaxed">
+          La communauté vote pour les meilleures idées.
+          Les propositions les plus populaires guident l'écriture.
+        </p>
+      </div>
+      <div class="bg-void-800/50 border border-void-700 rounded-xl p-6">
+        <div class="text-ether-400 text-2xl mb-3">03</div>
+        <h3 class="font-display text-lg font-semibold text-white mb-2">Lisez</h3>
+        <p class="text-slate-400 text-sm leading-relaxed">
+          Le chapitre est rédigé avec l'aide de l'IA, à partir de vos idées.
+          L'epub se construit au fil de l'aventure.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Chapitres publiés -->
+  {chapters.length > 0 && (
+    <section class="max-w-4xl mx-auto px-4 py-16">
+      <h2 class="font-display text-2xl font-semibold text-white text-center mb-10">
+        Chapitres publiés
+      </h2>
+      <div class="space-y-4">
+        {chapters.map((chapter) => (
+          <a
+            href={`/lecture/${chapter.slug}`}
+            class="block bg-void-800/30 border border-void-700 hover:border-ether-600/50 rounded-xl p-6 transition-colors group"
+          >
+            <div class="flex items-baseline justify-between mb-2">
+              <h3 class="font-display text-lg font-semibold text-white group-hover:text-ether-400 transition-colors">
+                {chapter.titre}
+              </h3>
+              <span class="text-xs text-slate-600">{chapter.datePublication}</span>
+            </div>
+            <p class="text-sm text-slate-400">{chapter.resume}</p>
+          </a>
+        ))}
+      </div>
+    </section>
+  )}
+
+  <!-- Note inclusive -->
+  <section class="max-w-3xl mx-auto px-4 py-16">
+    <div class="bg-void-800/30 border border-void-700 rounded-xl p-6 text-center">
+      <p class="text-sm text-slate-400 leading-relaxed">
+        Résonance est une <strong class="text-slate-300">expérience créative et communautaire</strong>.
+        Ce projet ne remplace en rien le travail des auteur·ice·s.
+        Nous encourageons vivement les contributeur·ice·s à
+        <a href="https://www.babelio.com/livres-/sciencefiction/42" target="_blank" rel="noopener" class="text-ether-400 hover:text-ether-300 underline">
+          lire et soutenir de vrais auteur·ice·s
+        </a> de science-fiction et de fantasy.
+      </p>
+    </div>
+  </section>
+</BaseLayout>

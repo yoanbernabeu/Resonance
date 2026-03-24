@@ -1,0 +1,27 @@
+---
+import ChapterLayout from '../../layouts/ChapterLayout.astro';
+import { getAllChapters, getChapter } from '../../lib/chapters';
+import { marked } from 'marked';
+
+const { slug } = Astro.params;
+
+if (!slug) {
+  return Astro.redirect('/lecture');
+}
+
+const chapter = await getChapter(slug);
+if (!chapter) {
+  return Astro.redirect('/lecture');
+}
+
+const allChapters = await getAllChapters();
+const currentIndex = allChapters.findIndex(c => c.slug === slug);
+const prevChapter = currentIndex > 0 ? allChapters[currentIndex - 1] : null;
+const nextChapter = currentIndex < allChapters.length - 1 ? allChapters[currentIndex + 1] : null;
+
+const htmlContent = await marked.parse(chapter.content);
+---
+
+<ChapterLayout chapter={chapter.meta} prevChapter={prevChapter} nextChapter={nextChapter}>
+  <Fragment set:html={htmlContent} />
+</ChapterLayout>

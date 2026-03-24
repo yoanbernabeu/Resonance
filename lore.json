@@ -1,0 +1,163 @@
+{
+  "version": 1,
+  "derniereMiseAJour": "2026-03-24",
+  "epoques": [
+    {
+      "nom": "L'Hégémonie Solaire",
+      "description": "Empire unifié de l'humanité. Trente-sept systèmes, deux cents mondes habités, onze cents stations orbitales. Reliés par les Veines, un réseau de transit supraluminique.",
+      "statut": "effondré",
+      "chapitre": "prologue"
+    },
+    {
+      "nom": "La Fracture",
+      "description": "Sept ans de guerre civile déclenchée par la peur des Éveillés. Sécessions, blocus, batailles orbitales, purges planétaires. Les Veines sabotées, des mondes entiers coupés du reste de l'humanité.",
+      "duree": "7 ans",
+      "chapitre": "prologue"
+    },
+    {
+      "nom": "Post-Fracture",
+      "description": "L'Hégémonie n'existe plus. Territoires autonomes, confédérations fragiles, systèmes isolés. Les Veines fonctionnent partiellement. Les Éveillés vivent cachés.",
+      "anneesEcoulees": 53,
+      "chapitre": "prologue"
+    }
+  ],
+  "factions": [
+    {
+      "nom": "L'Hégémonie Solaire",
+      "statut": "dissoute",
+      "description": "Ancien empire unifié de l'humanité. A tenté de contrôler les Éveillés via les Décrets de Containment, déclenchant la Fracture.",
+      "chapitre": "prologue"
+    },
+    {
+      "nom": "Les Éveillés",
+      "statut": "clandestins",
+      "description": "Humains dotés de capacités extraordinaires (perception électromagnétique, télékinésie, télépathie). Leur apparition est liée aux vestiges des Bâtisseurs. Craints, persécutés, ils vivent cachés depuis la Fracture.",
+      "chapitre": "prologue"
+    },
+    {
+      "nom": "Les Bâtisseurs",
+      "statut": "disparus",
+      "description": "Civilisation alien disparue depuis des centaines de millénaires. Aucune trace de leur apparence physique. Leurs structures monumentales et artefacts semblent encore actifs par résonance.",
+      "chapitre": "prologue"
+    },
+    {
+      "nom": "Guildes de technicien·ne·s des Veines",
+      "statut": "actives",
+      "description": "Maintiennent les Veines encore fonctionnelles, dernier rempart contre la dissolution complète des échanges interstellaires.",
+      "chapitre": "prologue"
+    }
+  ],
+  "lieux": [
+    {
+      "nom": "La Lisière",
+      "type": "région",
+      "description": "Chapelet de systèmes à demi cartographiés, ancienne frontière de l'expansion hégémonique. Aujourd'hui zone semi-anarchique où vivent récupérateur·ice·s, contrebandier·ère·s, prospecteur·ice·s de ruines et Éveillé·e·s en fuite.",
+      "chapitre": "prologue"
+    },
+    {
+      "nom": "Achéron-IV",
+      "type": "planète",
+      "description": "Site de la première découverte de vestiges des Bâtisseurs. Cathédrales souterraines aux parois gravées de motifs indéchiffrables.",
+      "chapitre": "prologue"
+    },
+    {
+      "nom": "Kael Prime",
+      "type": "planète",
+      "description": "Structures cristallines des Bâtisseurs enfouies sous trois kilomètres de glace, intactes depuis quatre cent mille ans.",
+      "chapitre": "prologue"
+    },
+    {
+      "nom": "Nébuleuse d'Orphée",
+      "type": "nébuleuse",
+      "description": "Satellites artificiels des Bâtisseurs en orbite autour d'étoiles mortes, coques d'alliage inentamable.",
+      "chapitre": "prologue"
+    },
+    {
+      "nom": "Thessaly",
+      "type": "planète",
+      "description": "Réseau souterrain de filaments bio-mécaniques des Bâtisseurs, pulsant encore faiblement depuis une source d'énergie non identifiée.",
+      "chapitre": "prologue"
+    },
+    {
+      "nom": "Caelum-VII",
+      "type": "station orbitale",
+      "description": "Station où un Éveillé désintégra accidentellement une cloison pressurisée, causant trente-sept morts.",
+      "chapitre": "prologue"
+    },
+    {
+      "nom": "Véga-II",
+      "type": "planète",
+      "description": "Monde où une adolescente Éveillée projeta une onde de choc qui rasa un quartier, déclenchant des manifestations anti-Éveillés dans toute l'Hégémonie.",
+      "chapitre": "prologue"
+    },
+    {
+      "nom": "La Terre",
+      "type": "planète",
+      "description": "Monde originel de l'humanité, dont plus personne ne sait situer l'emplacement exact sur les cartes stellaires.",
+      "chapitre": "prologue"
+    }
+  ],
+  "technologies": [
+    {
+      "nom": "Les Veines",
+      "description": "Réseau de transit supraluminique tissé entre les systèmes. Partiellement détruit ou instable depuis la Fracture, maintenu par des guildes de technicien·ne·s.",
+      "statut": "partiellement détruit",
+      "chapitre": "prologue"
+    }
+  ],
+  "personnages": [],
+  "artefacts": [
+    {
+      "nom": "Cathédrales d'Achéron",
+      "description": "Couloirs et salles souterraines aux parois gravées de motifs indéchiffrables mais qui semblent signifier.",
+      "chapitre": "prologue"
+    },
+    {
+      "nom": "Cristaux de Kael Prime",
+      "description": "Structures cristallines enfouies sous la glace, intactes depuis quatre cent mille ans.",
+      "chapitre": "prologue"
+    },
+    {
+      "nom": "Satellites d'Orphée",
+      "description": "Satellites artificiels en orbite autour d'étoiles mortes, coques d'alliage irreproductible.",
+      "chapitre": "prologue"
+    },
+    {
+      "nom": "Filaments de Thessaly",
+      "description": "Réseau souterrain de filaments bio-mécaniques pulsant encore, alimentés par une source d'énergie inconnue.",
+      "chapitre": "prologue"
+    }
+  ],
+  "evenementsCles": [
+    {
+      "nom": "Découverte des vestiges d'Achéron-IV",
+      "description": "Première preuve d'une civilisation alien disparue, après onze ans d'étude par une xénoarchéologue oubliée.",
+      "chapitre": "prologue"
+    },
+    {
+      "nom": "Apparition des Éveillé·e·s",
+      "description": "Sur une fenêtre de vingt à trente ans, des enfants naissent avec des capacités extraordinaires sur des mondes proches de vestiges des Bâtisseurs.",
+      "chapitre": "prologue"
+    },
+    {
+      "nom": "Incident de Caelum-VII",
+      "description": "Un Éveillé désintègre accidentellement une cloison pressurisée. Trente-sept morts.",
+      "chapitre": "prologue"
+    },
+    {
+      "nom": "Incident de Véga-II",
+      "description": "Une adolescente Éveillée, terrifiée, projette une onde de choc qui rase un quartier entier.",
+      "chapitre": "prologue"
+    },
+    {
+      "nom": "Décrets de Containment",
+      "description": "Le Sénat hégémonique vote le recensement obligatoire, les restrictions de déplacement et les zones de résidence surveillée pour les Éveillé·e·s.",
+      "chapitre": "prologue"
+    },
+    {
+      "nom": "La Fracture",
+      "description": "Sept ans de guerre civile. Sécessions, purges, sabotage des Veines. L'Hégémonie s'effondre.",
+      "chapitre": "prologue"
+    }
+  ]
+}

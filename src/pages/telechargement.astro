@@ -1,0 +1,109 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getServerOctokit } from '../lib/github';
+
+const OWNER = import.meta.env.GITHUB_REPO_OWNER;
+const REPO = import.meta.env.GITHUB_REPO_NAME;
+
+interface Release {
+  tag: string;
+  title: string;
+  body: string;
+  date: string;
+  epubUrl: string | null;
+  epubSize: string | null;
+}
+
+let releases: Release[] = [];
+
+try {
+  const octokit = getServerOctokit();
+  const { data } = await octokit.repos.listReleases({
+    owner: OWNER,
+    repo: REPO,
+    per_page: 20,
+  });
+
+  releases = data.map(release => {
+    const epubAsset = release.assets.find(a => a.name.endsWith('.epub'));
+    return {
+      tag: release.tag_name,
+      title: release.name || release.tag_name,
+      body: release.body || '',
+      date: new Date(release.published_at || release.created_at).toLocaleDateString('fr-FR'),
+      epubUrl: epubAsset?.browser_download_url || null,
+      epubSize: epubAsset ? `${(epubAsset.size / (1024 * 1024)).toFixed(1)} Mo` : null,
+    };
+  });
+} catch {
+  // pas de releases encore
+}
+---
+
+<BaseLayout title="Téléchargement — Résonance">
+  <div class="max-w-3xl mx-auto px-4 py-12 md:py-20">
+    <header class="text-center mb-12">
+      <h1 class="font-display text-3xl md:text-4xl font-bold text-white mb-4">
+        Téléchargement
+      </h1>
+      <p class="text-slate-400">
+        Téléchargez Résonance en epub, enrichi chapitre après chapitre
+      </p>
+    </header>
+
+    {releases.length === 0 ? (
+      <div class="text-center py-16">
+        <p class="text-slate-500 text-lg">Aucune version disponible pour le moment.</p>
+        <p class="text-slate-600 text-sm mt-2">Le premier epub sera généré après la publication du premier chapitre.</p>
+      </div>
+    ) : (
+      <div class="space-y-4">
+        {releases.map((release, index) => (
+          <div
+            class:list={[
+              'border rounded-xl p-6',
+              index === 0
+                ? 'bg-ether-600/10 border-ether-600/30'
+                : 'bg-void-800/30 border-void-700',
+            ]}
+          >
+            <div class="flex items-start justify-between gap-4">
+              <div class="flex-1">
+                <div class="flex items-center gap-3 mb-1">
+                  <h2 class:list={[
+                    'font-display font-semibold',
+                    index === 0 ? 'text-ether-300' : 'text-white',
+                  ]}>
+                    {release.title}
+                  </h2>
+                  {index === 0 && (
+                    <span class="text-xs px-2 py-0.5 rounded-full bg-ether-600/20 text-ether-400 border border-ether-600/30">
+                      Dernière version
+                    </span>
+                  )}
+                </div>
+                <p class="text-xs text-slate-600 mb-2">{release.date} — {release.tag}</p>
+              </div>
+
+              {release.epubUrl ? (
+                <a
+                  href={release.epubUrl}
+                  class:list={[
+                    'shrink-0 px-4 py-2 text-sm font-medium rounded-lg transition-colors',
+                    index === 0
+                      ? 'bg-ether-600 hover:bg-ether-500 text-white'
+                      : 'bg-void-700 hover:bg-void-600 text-slate-200 border border-void-600',
+                  ]}
+                >
+                  Télécharger {release.epubSize && `(${release.epubSize})`}
+                </a>
+              ) : (
+                <span class="text-xs text-slate-600 shrink-0">Epub en cours de génération…</span>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+    )}
+  </div>
+</BaseLayout>

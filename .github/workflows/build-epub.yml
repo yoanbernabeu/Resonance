@@ -1,0 +1,139 @@
+name: Build & Upload Epub
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  build-epub:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Installer Pandoc
+        run: sudo apt-get install -y pandoc
+
+      - name: Collecter les chapitres et contributeur·ice·s
+        uses: actions/github-script@v7
+        id: collect
+        with:
+          script: |
+            const fs = require('fs');
+            const path = require('path');
+
+            // Lire les chapitres dans l'ordre
+            const chaptersDir = 'chapitres';
+            const dirs = fs.readdirSync(chaptersDir, { withFileTypes: true })
+              .filter(d => d.isDirectory())
+              .map(d => d.name);
+
+            const chapters = [];
+            for (const dir of dirs) {
+              const metaPath = path.join(chaptersDir, dir, 'meta.json');
+              const contentPath = path.join(chaptersDir, dir, 'content.md');
+              if (fs.existsSync(metaPath) && fs.existsSync(contentPath)) {
+                const meta = JSON.parse(fs.readFileSync(metaPath, 'utf-8'));
+                const content = fs.readFileSync(contentPath, 'utf-8');
+                chapters.push({ meta, content });
+              }
+            }
+            chapters.sort((a, b) => a.meta.numero - b.meta.numero);
+
+            // Récupérer les contributeur·ice·s via les issues
+            const contributors = new Set();
+            const proposalPattern = /^\*\*\[.+?\]\*\*/;
+
+            for (const ch of chapters) {
+              if (!ch.meta.issueNumber) continue;
+              try {
+                const comments = await github.paginate(
+                  github.rest.issues.listComments,
+                  {
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    issue_number: ch.meta.issueNumber,
+                    per_page: 100
+                  }
+                );
+                for (const c of comments) {
+                  if (c.user && !c.user.login.includes('[bot]') && !c.minimized && proposalPattern.test(c.body || '')) {
+                    contributors.add(c.user.login);
+                  }
+                }
+              } catch (e) {
+                console.log(`Impossible de lire l'issue ${ch.meta.issueNumber}: ${e.message}`);
+              }
+            }
+
+            // Construire le markdown complet
+            let markdown = '';
+
+            for (const ch of chapters) {
+              const label = ch.meta.numero === 0 ? 'Prologue' : `Chapitre ${ch.meta.numero}`;
+              markdown += `# ${ch.meta.titre}\n\n`;
+              markdown += ch.content + '\n\n';
+              markdown += '\\newpage\n\n';
+            }
+
+            // Page contributeur·ice·s à la fin
+            const sortedContributors = [...contributors].sort((a, b) => a.localeCompare(b));
+
+            markdown += '# Contributeur·ice·s\n\n';
+            markdown += 'Résonance est une expérience d\'écriture collective assistée par IA.\n';
+            markdown += 'Ce livre n\'existerait pas sans les idées de :\n\n';
+
+            if (sortedContributors.length > 0) {
+              for (const c of sortedContributors) {
+                markdown += `- @${c}\n`;
+              }
+            } else {
+              markdown += '- *(les contributeur·ice·s apparaîtront ici à partir du chapitre 1)*\n';
+            }
+
+            markdown += '\n';
+            markdown += 'Rédaction assistée par Claude (Anthropic).\n\n';
+            markdown += 'Un projet de la communauté YoanDev.\n\n';
+            markdown += '---\n\n';
+            markdown += 'Ce projet ne remplace en rien le travail des auteur·ice·s.\n';
+            markdown += 'Lisez et soutenez de vrais auteur·ice·s de science-fiction et de fantasy.\n\n';
+            markdown += 'Licence : CC BY-NC-SA 4.0\n';
+
+            fs.writeFileSync('epub-input.md', markdown);
+
+            // Métadonnées Pandoc
+            const metadata = [
+              'title: "Résonance"',
+              'creator: "Communauté YoanDev & Claude"',
+              'language: fr',
+              'rights: "CC BY-NC-SA 4.0"',
+            ].join('\n');
+            fs.writeFileSync('epub-metadata.yaml', metadata);
+
+            core.setOutput('chapter_count', chapters.length);
+            core.setOutput('contributor_count', sortedContributors.length);
+
+      - name: Générer l'epub
+        run: pandoc epub-input.md -o resonance.epub --metadata-file=epub-metadata.yaml
+
+      - name: Uploader l'epub sur la Release
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const releaseId = context.payload.release.id;
+            const tag = context.payload.release.tag_name;
+            const fileName = `resonance-${tag}.epub`;
+
+            await github.rest.repos.uploadReleaseAsset({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              release_id: releaseId,
+              name: fileName,
+              data: fs.readFileSync('resonance.epub'),
+              headers: {
+                'content-type': 'application/epub+zip'
+              }
+            });
+
+            console.log(`Epub ${fileName} uploadé sur la release ${tag}`);

@@ -1,0 +1,146 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CategoryBadge from '../components/CategoryBadge.astro';
+import { getActiveChapterIssue, getProposals } from '../lib/github';
+import { PROPOSAL_CATEGORIES, type ProposalCategory } from '../lib/types';
+
+const user = Astro.locals.user;
+const activeIssue = await getActiveChapterIssue('votes').catch(() => null);
+
+let proposals: Awaited<ReturnType<typeof getProposals>> = [];
+
+if (activeIssue) {
+  proposals = (await getProposals(activeIssue.number, user?.login).catch(() => []))
+    .filter(p => !p.isMinimized);
+}
+
+const groupedProposals = PROPOSAL_CATEGORIES
+  .map(cat => ({
+    category: cat,
+    items: proposals.filter(p => p.category === cat).sort((a, b) => b.score - a.score),
+  }))
+  .filter(g => g.items.length > 0);
+---
+
+<BaseLayout title="Votes — Résonance">
+  <div class="max-w-3xl mx-auto px-4 py-12 md:py-20">
+    <header class="text-center mb-12">
+      <h1 class="font-display text-3xl md:text-4xl font-bold text-white mb-4">
+        Votes
+      </h1>
+      <p class="text-slate-400">
+        Votez pour les propositions qui guideront le prochain chapitre
+      </p>
+    </header>
+
+    {!activeIssue ? (
+      <div class="text-center py-16">
+        <p class="text-slate-500 text-lg">Aucune phase de votes n'est ouverte pour le moment.</p>
+        <p class="text-slate-600 text-sm mt-2">Revenez bientôt !</p>
+      </div>
+    ) : !user ? (
+      <div class="text-center py-16">
+        <p class="text-slate-400 mb-4">Connectez-vous avec GitHub pour voter.</p>
+        <a
+          href={`/api/auth/login?redirect_to=/votes`}
+          class="inline-block px-6 py-3 bg-void-700 hover:bg-void-600 text-slate-200 rounded-lg transition-colors border border-void-600"
+        >
+          Se connecter avec GitHub
+        </a>
+      </div>
+    ) : groupedProposals.length === 0 ? (
+      <div class="text-center py-16">
+        <p class="text-slate-500 text-lg">Aucune proposition à voter.</p>
+      </div>
+    ) : (
+      <div class="space-y-10">
+        {groupedProposals.map(group => (
+          <section>
+            <h2 class="font-display text-lg font-semibold text-white mb-4 flex items-center gap-3">
+              <CategoryBadge category={group.category} />
+              <span>{group.items.length} {group.items.length > 1 ? 'propositions' : 'proposition'}</span>
+            </h2>
+            <div class="space-y-3">
+              {group.items.map(proposal => (
+                <div class="bg-void-800/30 border border-void-700 rounded-xl p-4 flex gap-4" data-proposal-id={proposal.id}>
+                  {/* Votes */}
+                  <div class="flex flex-col items-center gap-1 shrink-0">
+                    <button
+                      class:list={[
+                        'vote-btn w-8 h-8 rounded flex items-center justify-center text-lg transition-colors',
+                        proposal.userVote === '+1'
+                          ? 'bg-ether-600 text-white'
+                          : 'bg-void-700 text-slate-400 hover:text-ether-400 hover:bg-void-600',
+                      ]}
+                      data-comment-id={proposal.id}
+                      data-vote="+1"
+                    >
+                      ↑
+                    </button>
+                    <span class="text-sm font-semibold text-white vote-score">{proposal.score}</span>
+                    <button
+                      class:list={[
+                        'vote-btn w-8 h-8 rounded flex items-center justify-center text-lg transition-colors',
+                        proposal.userVote === '-1'
+                          ? 'bg-danger-500 text-white'
+                          : 'bg-void-700 text-slate-400 hover:text-danger-400 hover:bg-void-600',
+                      ]}
+                      data-comment-id={proposal.id}
+                      data-vote="-1"
+                    >
+                      ↓
+                    </button>
+                  </div>
+
+                  {/* Contenu */}
+                  <div class="flex-1 min-w-0">
+                    <div class="flex items-center gap-2 mb-1">
+                      <img src={proposal.avatarUrl} alt={proposal.author} class="w-5 h-5 rounded-full" />
+                      <span class="text-sm text-slate-500">{proposal.author}</span>
+                    </div>
+                    <p class="text-slate-200 text-sm">{proposal.description}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+        ))}
+      </div>
+    )}
+  </div>
+
+  <script>
+    document.querySelectorAll('.vote-btn').forEach(btn => {
+      btn.addEventListener('click', async (e) => {
+        const target = e.currentTarget as HTMLButtonElement;
+        const commentId = target.dataset.commentId;
+        const vote = target.dataset.vote as '+1' | '-1';
+        const endpoint = vote === '+1' ? '/api/votes/upvote' : '/api/votes/downvote';
+
+        target.disabled = true;
+
+        try {
+          const res = await fetch(endpoint, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ commentId: Number(commentId) }),
+          });
+
+          if (res.ok) {
+            const data = await res.json();
+            const card = target.closest('[data-proposal-id]');
+            const scoreEl = card?.querySelector('.vote-score');
+            if (scoreEl) scoreEl.textContent = String(data.score);
+
+            // Refresh pour mettre à jour les états des boutons
+            window.location.reload();
+          }
+        } catch {
+          // silently fail
+        } finally {
+          target.disabled = false;
+        }
+      });
+    });
+  </script>
+</BaseLayout>

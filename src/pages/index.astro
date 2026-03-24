@@ -12,47 +12,34 @@ const phaseInfo = await getActivePhase().catch(() => ({ phase: null, chapterTitl
   <div class="absolute top-0 left-0 right-0 h-[700px] bg-[radial-gradient(ellipse_at_50%_0%,_rgba(0,212,170,0.05)_0%,_transparent_70%)] pointer-events-none"></div>
 
   <div class="relative max-w-2xl mx-auto px-5">
-    <!-- Hero : le titre et l'univers -->
-    <section class="pt-20 pb-12 md:pt-32 md:pb-16">
-      <p class="text-sm text-cyan font-medium mb-5 fade-up">Un roman de science-fiction écrit par la communauté</p>
+    <!-- Hero -->
+    <section class="pt-12 md:pt-24">
+      <p class="text-sm text-cyan font-medium mb-4 fade-up">Un roman de SF écrit par la communauté</p>
 
-      <h1 class="text-5xl md:text-6xl font-bold text-text leading-[1.1] mb-8 tracking-tight fade-up fade-up-1">
+      <h1 class="text-4xl md:text-6xl font-bold text-text leading-[1.1] mb-5 tracking-tight fade-up fade-up-1">
         Résonance
       </h1>
 
-      <div class="space-y-4 text-text-secondary leading-relaxed fade-up fade-up-2">
-        <p>
-          Il fut un temps où l'humanité parlait d'une seule voix. L'Hégémonie Solaire — trente-sept systèmes, deux cents mondes habités — avait vaincu la distance. Puis tout s'est effondré.
-        </p>
-        <p>
-          Cinquante-trois ans après la Fracture, dans la Lisière — ces systèmes périphériques oubliés de tous —, des contrebandier·ère·s, des prospecteur·ice·s de ruines et d'ancien·ne·s soldat·e·s survivent au jour le jour. Les vestiges d'une civilisation alien disparue, les <strong class="text-text">Bâtisseurs</strong>, parsèment les mondes de structures impossibles qui semblent encore <em class="text-cyan">résonner</em>.
-        </p>
-        <p>
-          Et parmi les humains, certain·e·s ont changé. Les <strong class="text-text">Éveillé·e·s</strong> — télépathes, télékinésistes, percepteur·ice·s de l'invisible — vivent cachés, traqués, craints. Personne ne sait si leur existence est un don des Bâtisseurs ou une menace pour ce qui reste de l'humanité.
-        </p>
-        <p class="text-text">
-          Quelque chose dort dans les fondations de la galaxie. Et l'humanité a oublié de s'en inquiéter.
-        </p>
-      </div>
-    </section>
+      <p class="text-text-secondary leading-relaxed mb-6 fade-up fade-up-2">
+        L'Hégémonie Solaire s'est effondrée. Dans la Lisière, les vestiges des <strong class="text-text">Bâtisseurs</strong> — une civilisation alien disparue — semblent encore <em class="text-cyan not-italic">résonner</em>. Les <strong class="text-text">Éveillé·e·s</strong>, des humains aux capacités extraordinaires, vivent cachés. Quelque chose dort dans les fondations de la galaxie.
+      </p>
 
-    <!-- CTA -->
-    <section class="pb-12 fade-up fade-up-3">
-      <div class="flex flex-wrap gap-3">
+      <!-- CTA -->
+      <div class="flex flex-col sm:flex-row gap-3 fade-up fade-up-3">
         {phaseInfo.phase === 'propositions' ? (
-          <a href="/participer" class="text-sm font-semibold px-5 py-2.5 bg-cyan text-void rounded-lg hover:brightness-110 transition">
+          <a href="/participer" class="text-sm font-semibold px-5 py-2.5 bg-cyan text-void rounded-lg hover:brightness-110 transition text-center">
             Proposer une idée →
           </a>
         ) : phaseInfo.phase === 'votes' ? (
-          <a href="/participer" class="text-sm font-semibold px-5 py-2.5 bg-cyan text-void rounded-lg hover:brightness-110 transition">
+          <a href="/participer" class="text-sm font-semibold px-5 py-2.5 bg-cyan text-void rounded-lg hover:brightness-110 transition text-center">
             Voter maintenant →
           </a>
         ) : (
-          <a href="/lecture" class="text-sm font-semibold px-5 py-2.5 bg-cyan text-void rounded-lg hover:brightness-110 transition">
+          <a href="/lecture" class="text-sm font-semibold px-5 py-2.5 bg-cyan text-void rounded-lg hover:brightness-110 transition text-center">
             Commencer la lecture →
           </a>
         )}
-        <a href="/comment-ca-marche" class="text-sm font-medium px-5 py-2.5 text-text-muted hover:text-text border border-void-border hover:border-void-border-hover rounded-lg transition-colors">
+        <a href="/comment-ca-marche" class="text-sm font-medium px-5 py-2.5 text-text-muted hover:text-text border border-void-border hover:border-void-border-hover rounded-lg transition-colors text-center">
           Comment participer ?
         </a>
       </div>
@@ -60,7 +47,7 @@ const phaseInfo = await getActivePhase().catch(() => ({ phase: null, chapterTitl
 
     <!-- Chapitres -->
     {chapters.length > 0 && (
-      <section class="py-12 border-t border-void-border">
+      <section class="pt-16 pb-12 mt-4 border-t border-void-border">
         <p class="text-xs font-semibold text-text-muted uppercase tracking-wider mb-6">Chapitres publiés</p>
         <div>
           {chapters.map((chapter) => (
@@ -83,14 +70,6 @@ const phaseInfo = await getActivePhase().catch(() => ({ phase: null, chapterTitl
       </section>
     )}
 
-    <!-- Note -->
-    <section class="py-12">
-      <p class="text-xs text-text-muted leading-relaxed">
-        Résonance est une expérience créative et communautaire assistée par IA. Ce projet ne remplace pas le travail des auteur·ice·s.
-        <a href="https://www.babelio.com/livres-/sciencefiction/42" target="_blank" rel="noopener" class="underline hover:text-text-secondary transition-colors">
-          Soutenez de vrais auteur·ice·s.
-        </a>
-      </p>
-    </section>
+
   </div>
 </BaseLayout>

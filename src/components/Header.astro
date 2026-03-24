@@ -17,6 +17,7 @@ const navLinks = [
       Résonance
     </a>
 
+    <!-- Nav desktop -->
     <div class="hidden md:flex items-center gap-7">
       {navLinks.map(link => (
         <a
@@ -33,14 +34,14 @@ const navLinks = [
       ))}
     </div>
 
-    <div>
+    <div class="flex items-center gap-3">
       {user ? (
         <div class="flex items-center gap-3">
           <a href="/profil" class="flex items-center gap-2 text-[13px] text-text-secondary hover:text-text transition-colors">
             <img src={user.avatarUrl} alt={user.login} class="w-6 h-6 rounded-full ring-1 ring-void-border" />
             <span class="hidden sm:inline">{user.login}</span>
           </a>
-          <a href="/api/auth/logout" class="text-xs text-text-muted hover:text-text-secondary transition-colors">
+          <a href="/api/auth/logout" class="text-xs text-text-muted hover:text-text-secondary transition-colors hidden sm:inline">
             Quitter
           </a>
         </div>
@@ -49,6 +50,56 @@ const navLinks = [
           Connexion
         </a>
       )}
+
+      <!-- Bouton hamburger mobile -->
+      <button id="menu-toggle" class="md:hidden ml-2 p-1 text-text-muted hover:text-text transition-colors" aria-label="Menu">
+        <svg id="icon-open" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <line x1="3" y1="6" x2="21" y2="6" />
+          <line x1="3" y1="12" x2="21" y2="12" />
+          <line x1="3" y1="18" x2="21" y2="18" />
+        </svg>
+        <svg id="icon-close" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="hidden">
+          <line x1="6" y1="6" x2="18" y2="18" />
+          <line x1="6" y1="18" x2="18" y2="6" />
+        </svg>
+      </button>
     </div>
   </nav>
+
+  <!-- Nav mobile -->
+  <div id="mobile-menu" class="hidden md:hidden border-t border-void-border bg-void-light">
+    <div class="px-5 py-4 flex flex-col gap-3">
+      {navLinks.map(link => (
+        <a
+          href={link.href}
+          class:list={[
+            'text-sm font-medium py-1 transition-colors',
+            currentPath === link.href || (link.href !== '/' && currentPath.startsWith(link.href))
+              ? 'text-cyan'
+              : 'text-text-secondary hover:text-text',
+          ]}
+        >
+          {link.label}
+        </a>
+      ))}
+      {user && (
+        <a href="/api/auth/logout" class="text-sm text-text-muted hover:text-text-secondary transition-colors pt-2 border-t border-void-border">
+          Déconnexion
+        </a>
+      )}
+    </div>
+  </div>
 </header>
+
+<script>
+  const toggle = document.getElementById('menu-toggle')!;
+  const menu = document.getElementById('mobile-menu')!;
+  const iconOpen = document.getElementById('icon-open')!;
+  const iconClose = document.getElementById('icon-close')!;
+
+  toggle.addEventListener('click', () => {
+    const open = menu.classList.toggle('hidden');
+    iconOpen.classList.toggle('hidden', !open);
+    iconClose.classList.toggle('hidden', open);
+  });
+</script>

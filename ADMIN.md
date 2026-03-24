@@ -7,8 +7,8 @@
 Créer une OAuth App sur [github.com/settings/developers](https://github.com/settings/developers) :
 
 - **Application name :** Résonance
-- **Homepage URL :** `https://resonance.yoandev.co`
-- **Authorization callback URL :** `https://resonance.yoandev.co/api/auth/callback`
+- **Homepage URL :** `https://resonance.histoires.io`
+- **Authorization callback URL :** `https://resonance.histoires.io/api/auth/callback`
 
 Récupérer le `Client ID` et générer un `Client Secret`.
 
@@ -26,14 +26,14 @@ GITHUB_CLIENT_SECRET=xxx
 GITHUB_REPO_OWNER=yoanbernabeu
 GITHUB_REPO_NAME=Resonance
 GITHUB_PAT=ghp_xxx
-SITE_URL=https://resonance.yoandev.co
+SITE_URL=https://resonance.histoires.io
 ```
 
 Configurer les mêmes variables dans Netlify (Site settings → Environment variables).
 
 ### 4. DNS
 
-Ajouter un CNAME `resonance.yoandev.co` pointant vers le domaine Netlify du site.
+Ajouter un CNAME `resonance.histoires.io` pointant vers le domaine Netlify du site.
 
 ### 5. Déploiement
 

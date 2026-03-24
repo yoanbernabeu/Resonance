@@ -9,7 +9,7 @@ Résonance est un roman de science-fiction construit chapitre après chapitre pa
 
 ## Lire & Participer
 
-**[resonance.yoandev.co](https://resonance.yoandev.co)**
+**[resonance.histoires.io](https://resonance.histoires.io)**
 
 ## Comment ça fonctionne
 

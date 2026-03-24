@@ -51,7 +51,7 @@
 - **Frontend :** Astro + Tailwind (design sci-fi sombre, lisible, épuré)
 - **Backend :** GitHub Issues & Reactions (API GitHub)
 - **Auth :** GitHub OAuth
-- **Déploiement :** Netlify (sous-domaine de yoandev.co)
+- **Déploiement :** Netlify (sous-domaine de histoires.io)
 - **Repo :** public, open source (un seul repo pour le code + les issues)
 - **Epub :** build automatique via GitHub Action à chaque Release (Pandoc), attaché comme asset de release
 - **Licence :** CC BY-NC-SA 4.0 (code et contenu)

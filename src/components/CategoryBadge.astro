@@ -8,15 +8,15 @@ interface Props {
 const { category } = Astro.props;
 
 const colors: Record<ProposalCategory, string> = {
-  'Personnage': 'bg-ether-600/20 text-ether-300 border-ether-600/30',
-  'Lieu': 'bg-awakened-500/20 text-awakened-300 border-awakened-500/30',
-  'Événement': 'bg-fracture-500/20 text-fracture-300 border-fracture-500/30',
-  'Objet/Artefact': 'bg-purple-600/20 text-purple-300 border-purple-600/30',
-  'Twist': 'bg-danger-500/20 text-danger-400 border-danger-500/30',
-  'Lore': 'bg-cyan-600/20 text-cyan-300 border-cyan-600/30',
+  'Personnage': 'bg-purple-500/15 text-purple-300',
+  'Lieu': 'bg-emerald-500/15 text-emerald-300',
+  'Événement': 'bg-amber-500/15 text-amber-300',
+  'Objet/Artefact': 'bg-blue-500/15 text-blue-300',
+  'Twist': 'bg-rose-500/15 text-rose-300',
+  'Lore': 'bg-cyan-500/15 text-cyan-300',
 };
 ---
 
-<span class:list={['text-xs px-2 py-0.5 rounded-full border', colors[category]]}>
+<span class:list={['text-xs font-medium px-2 py-0.5 rounded', colors[category]]}>
   {category}
 </span>

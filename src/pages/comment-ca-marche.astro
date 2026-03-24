@@ -1,0 +1,133 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Comment ça marche — Résonance">
+  <div class="max-w-2xl mx-auto px-5 py-16 md:py-24">
+    <h1 class="text-3xl font-bold text-text mb-3 tracking-tight">Comment ça marche</h1>
+    <p class="text-text-secondary mb-12">
+      Résonance est un roman de science-fiction écrit collectivement. Chaque chapitre passe par trois phases. Voici le process en toute transparence.
+    </p>
+
+    <!-- Phase 1 -->
+    <section class="mb-12">
+      <div class="flex items-center gap-3 mb-4">
+        <span class="text-xs font-bold text-white bg-phase-propose rounded w-6 h-6 flex items-center justify-center shrink-0">1</span>
+        <h2 class="text-xl font-bold text-text">Propositions</h2>
+      </div>
+      <div class="pl-9 space-y-3 text-text-secondary leading-relaxed">
+        <p>
+          Quand un nouveau chapitre est lancé, la phase de propositions s'ouvre. Vous pouvez soumettre jusqu'à <strong class="text-text">3 idées</strong> par chapitre, chacune dans une catégorie :
+        </p>
+        <ul class="space-y-1 text-sm">
+          <li><strong class="text-text">Personnage</strong> — un nouveau personnage, un trait, une évolution</li>
+          <li><strong class="text-text">Lieu</strong> — un monde, une station, un endroit</li>
+          <li><strong class="text-text">Événement</strong> — quelque chose qui se passe dans l'histoire</li>
+          <li><strong class="text-text">Objet / Artefact</strong> — une technologie, un vestige des Bâtisseurs</li>
+          <li><strong class="text-text">Twist</strong> — un retournement, une révélation</li>
+          <li><strong class="text-text">Lore</strong> — un élément d'univers, d'histoire ou de contexte</li>
+        </ul>
+        <p>
+          Il suffit d'un compte GitHub pour participer. Vos propositions sont stockées comme commentaires sur une issue GitHub — tout est public et vérifiable.
+        </p>
+        <p class="text-sm text-text-muted">
+          La limite de 3 propositions est vérifiée côté serveur et par une GitHub Action. Si vous dépassez la limite, la proposition excédentaire est automatiquement masquée.
+        </p>
+      </div>
+    </section>
+
+    <!-- Phase 2 -->
+    <section class="mb-12">
+      <div class="flex items-center gap-3 mb-4">
+        <span class="text-xs font-bold text-white bg-phase-vote rounded w-6 h-6 flex items-center justify-center shrink-0">2</span>
+        <h2 class="text-xl font-bold text-text">Votes</h2>
+      </div>
+      <div class="pl-9 space-y-3 text-text-secondary leading-relaxed">
+        <p>
+          Une fois les propositions fermées, la phase de votes s'ouvre. Plus aucune nouvelle proposition ne peut être soumise.
+        </p>
+        <p>
+          Vous pouvez <strong class="text-text">voter pour ou contre</strong> chaque proposition. Le score d'une proposition = nombre de 👍 moins nombre de 👎. Les propositions sont classées par score dans chaque catégorie.
+        </p>
+        <p class="text-sm text-text-muted">
+          Techniquement, les votes sont des réactions GitHub (👍 / 👎) sur les commentaires de l'issue. Tout est transparent et vérifiable sur le repo.
+        </p>
+      </div>
+    </section>
+
+    <!-- Phase 3 -->
+    <section class="mb-12">
+      <div class="flex items-center gap-3 mb-4">
+        <span class="text-xs font-bold text-white bg-phase-write rounded w-6 h-6 flex items-center justify-center shrink-0">3</span>
+        <h2 class="text-xl font-bold text-text">Rédaction</h2>
+      </div>
+      <div class="pl-9 space-y-3 text-text-secondary leading-relaxed">
+        <p>
+          Les votes sont fermés. Voici comment le chapitre est écrit :
+        </p>
+        <ol class="space-y-2 text-sm list-decimal list-inside">
+          <li>Les propositions sont classées par score dans chaque catégorie</li>
+          <li><strong class="text-text">La proposition la mieux notée de chaque catégorie</strong> est intégrée comme contrainte obligatoire du chapitre</li>
+          <li>Les autres propositions bien notées peuvent être piochées librement comme inspiration</li>
+          <li>Le chapitre est rédigé par <strong class="text-text">Claude</strong> (IA d'Anthropic) via Claude Code, en respectant le ton littéraire de l'univers et la cohérence avec les chapitres précédents</li>
+          <li>Le mainteneur du repo relit, ajuste si nécessaire, et publie</li>
+        </ol>
+        <p>
+          À la publication, une <strong class="text-text">release GitHub</strong> est créée automatiquement avec un epub mis à jour contenant tous les chapitres et la liste des contributeur·ice·s.
+        </p>
+      </div>
+    </section>
+
+    <!-- Le rôle de l'IA -->
+    <section class="mb-12 bg-void-card border border-void-border rounded-xl p-5">
+      <h2 class="text-lg font-bold text-text mb-3">Le rôle de l'IA</h2>
+      <div class="space-y-3 text-text-secondary leading-relaxed">
+        <p>
+          Soyons clairs : <strong class="text-text">l'IA ne décide pas de l'histoire</strong>. C'est vous qui décidez, via vos propositions et vos votes. L'IA est un outil de rédaction qui transforme vos idées en prose.
+        </p>
+        <p>
+          Concrètement, l'IA reçoit comme instructions :
+        </p>
+        <ul class="text-sm space-y-1">
+          <li>— Le résumé de tous les chapitres précédents (pour la cohérence)</li>
+          <li>— L'état de l'univers (personnages, lieux, factions, événements)</li>
+          <li>— Les propositions gagnantes comme contraintes à intégrer</li>
+          <li>— Le ton et le style de l'univers</li>
+        </ul>
+        <p>
+          Le résultat est relu et peut être ajusté avant publication. C'est une collaboration entre la communauté, l'IA et le mainteneur du repo.
+        </p>
+      </div>
+    </section>
+
+    <!-- Transparence -->
+    <section class="mb-12">
+      <h2 class="text-lg font-bold text-text mb-3">Transparence totale</h2>
+      <div class="space-y-3 text-text-secondary leading-relaxed">
+        <p>
+          Tout le process est visible et vérifiable :
+        </p>
+        <ul class="text-sm space-y-1">
+          <li>— Le <strong class="text-text">code source</strong> du site est open source sur GitHub</li>
+          <li>— Les <strong class="text-text">propositions et votes</strong> sont des issues et réactions GitHub publiques</li>
+          <li>— Les <strong class="text-text">chapitres</strong> sont des fichiers markdown dans le repo</li>
+          <li>— L'<strong class="text-text">epub</strong> est généré automatiquement et attaché aux releases GitHub</li>
+          <li>— Tous·tes les <strong class="text-text">contributeur·ice·s</strong> sont crédité·e·s dans l'epub</li>
+        </ul>
+        <p>
+          Le projet est sous licence <strong class="text-text">CC BY-NC-SA 4.0</strong> — libre, non-commercial, partage aux mêmes conditions.
+        </p>
+      </div>
+    </section>
+
+    <!-- Note -->
+    <section class="border-t border-void-border pt-8">
+      <p class="text-sm text-text-muted leading-relaxed">
+        Résonance est une expérience créative et communautaire. Ce projet ne remplace en rien le travail des auteur·ice·s.
+        <a href="https://www.babelio.com/livres-/sciencefiction/42" target="_blank" rel="noopener" class="underline hover:text-text-secondary transition-colors">
+          Lisez et soutenez de vrais auteur·ice·s de science-fiction et de fantasy.
+        </a>
+      </p>
+    </section>
+  </div>
+</BaseLayout>

@@ -1,0 +1,212 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CategoryBadge from '../components/CategoryBadge.astro';
+import { getActiveChapterIssue, getProposals, getUserProposalCount } from '../lib/github';
+import { getActivePhase } from '../lib/phase';
+import { PROPOSAL_CATEGORIES } from '../lib/types';
+
+const user = Astro.locals.user;
+const phaseInfo = await getActivePhase().catch(() => ({ phase: null, chapterTitle: null, issueNumber: null }));
+
+let proposals: Awaited<ReturnType<typeof getProposals>> = [];
+let userCount = 0;
+
+if (phaseInfo.issueNumber) {
+  proposals = (await getProposals(phaseInfo.issueNumber, user?.login).catch(() => [])).filter(p => !p.isMinimized);
+  if (user && phaseInfo.phase === 'propositions') {
+    userCount = await getUserProposalCount(phaseInfo.issueNumber, user.login).catch(() => 0);
+  }
+}
+
+const grouped = PROPOSAL_CATEGORIES
+  .map(cat => ({ category: cat, items: proposals.filter(p => p.category === cat).sort((a, b) => b.score - a.score) }))
+  .filter(g => g.items.length > 0);
+---
+
+<BaseLayout title="Participer — Résonance">
+  <div class="max-w-2xl mx-auto px-5 py-16 md:py-24">
+
+    {/* Pas de phase active */}
+    {!phaseInfo.phase && (
+      <div class="text-center py-20">
+        <h1 class="text-3xl font-bold text-text mb-3 tracking-tight">Aucun chapitre en cours</h1>
+        <p class="text-text-secondary">Le prochain cycle n'a pas encore commencé. Revenez bientôt !</p>
+        <a href="/lecture" class="inline-block mt-6 text-sm font-semibold text-cyan hover:brightness-110 transition">
+          Lire les chapitres publiés →
+        </a>
+      </div>
+    )}
+
+    {/* Phase propositions */}
+    {phaseInfo.phase === 'propositions' && (
+      <>
+        <div class="bg-phase-propose/10 border border-phase-propose/20 rounded-xl px-5 py-4 mb-10">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="w-2 h-2 rounded-full bg-phase-propose animate-pulse"></span>
+            <p class="text-sm font-semibold text-phase-propose">Les propositions sont ouvertes</p>
+          </div>
+          <p class="text-sm text-text-secondary">
+            Soumettez vos idées pour <strong class="text-text">{phaseInfo.chapterTitle}</strong>. Personnages, lieux, événements, twists — tout est possible. 3 propositions max.
+          </p>
+        </div>
+
+        {!user ? (
+          <div class="bg-void-card border border-void-border rounded-xl p-8 text-center">
+            <p class="text-text-secondary mb-4">Connectez-vous pour soumettre vos idées.</p>
+            <a href="/api/auth/login?redirect_to=/participer" class="text-sm font-semibold text-cyan hover:brightness-110 transition">
+              Se connecter avec GitHub →
+            </a>
+          </div>
+        ) : (
+          <>
+            <div class="bg-void-card border border-void-border rounded-xl p-5 mb-10">
+              <div class="flex items-center justify-between mb-4">
+                <p class="font-semibold text-text">Nouvelle proposition</p>
+                <span class:list={['text-xs font-medium', userCount >= 3 ? 'text-red' : 'text-text-muted']}>
+                  {userCount}/3
+                </span>
+              </div>
+
+              {userCount >= 3 ? (
+                <p class="text-sm text-text-secondary">Limite de 3 propositions atteinte.</p>
+              ) : (
+                <form id="proposal-form" class="space-y-3">
+                  <input type="hidden" name="issueNumber" value={phaseInfo.issueNumber} />
+                  <select name="category" required class="w-full bg-void border border-void-border rounded-lg px-3 py-2 text-sm text-text focus:border-cyan/40 focus:outline-none">
+                    <option value="">Catégorie…</option>
+                    {PROPOSAL_CATEGORIES.map(cat => <option value={cat}>{cat}</option>)}
+                  </select>
+                  <textarea name="description" required rows={3} maxlength={1000} placeholder="Votre idée…" class="w-full bg-void border border-void-border rounded-lg px-3 py-2 text-sm text-text focus:border-cyan/40 focus:outline-none resize-y placeholder:text-text-muted"></textarea>
+                  <button type="submit" class="text-sm font-semibold px-4 py-2 bg-cyan text-void rounded-lg hover:brightness-110 transition disabled:opacity-30">
+                    Soumettre
+                  </button>
+                  <p id="form-message" class="text-sm hidden"></p>
+                </form>
+              )}
+            </div>
+
+            {proposals.length > 0 && (
+              <div>
+                <p class="text-xs font-semibold text-text-muted uppercase tracking-wider mb-4">{proposals.length} propositions soumises</p>
+                <div class="space-y-3">
+                  {proposals.map(p => (
+                    <div class="py-3 border-b border-void-border">
+                      <div class="flex items-center gap-2 mb-1.5">
+                        <img src={p.avatarUrl} alt={p.author} class="w-5 h-5 rounded-full" />
+                        <span class="text-xs text-text-muted">{p.author}</span>
+                        <CategoryBadge category={p.category} />
+                      </div>
+                      <p class="text-sm text-text-secondary">{p.description}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </>
+        )}
+      </>
+    )}
+
+    {/* Phase votes */}
+    {phaseInfo.phase === 'votes' && (
+      <>
+        <div class="bg-phase-vote/10 border border-phase-vote/20 rounded-xl px-5 py-4 mb-10">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="w-2 h-2 rounded-full bg-phase-vote animate-pulse"></span>
+            <p class="text-sm font-semibold text-phase-vote">Les votes sont ouverts</p>
+          </div>
+          <p class="text-sm text-text-secondary">
+            Votez pour vos propositions préférées pour <strong class="text-text">{phaseInfo.chapterTitle}</strong>. Les mieux notées guideront l'écriture du chapitre.
+          </p>
+        </div>
+
+        {!user ? (
+          <div class="bg-void-card border border-void-border rounded-xl p-8 text-center">
+            <p class="text-text-secondary mb-4">Connectez-vous pour voter.</p>
+            <a href="/api/auth/login?redirect_to=/participer" class="text-sm font-semibold text-cyan hover:brightness-110 transition">
+              Se connecter avec GitHub →
+            </a>
+          </div>
+        ) : grouped.length === 0 ? (
+          <p class="text-text-secondary py-12">Aucune proposition à voter.</p>
+        ) : (
+          <div class="space-y-10">
+            {grouped.map(group => (
+              <section>
+                <div class="flex items-center gap-2 mb-4">
+                  <CategoryBadge category={group.category} />
+                  <span class="text-xs text-text-muted">{group.items.length}</span>
+                </div>
+                <div class="space-y-1">
+                  {group.items.map(p => (
+                    <div class="flex gap-3 py-3 border-b border-void-border" data-proposal-id={p.id}>
+                      <div class="flex flex-col items-center gap-0 shrink-0 w-8 pt-0.5">
+                        <button class:list={['vote-btn text-sm leading-none py-0.5 transition-colors', p.userVote === '+1' ? 'text-cyan' : 'text-text-muted hover:text-cyan']} data-comment-id={p.id} data-vote="+1">▲</button>
+                        <span class="text-xs font-semibold text-text vote-score py-0.5">{p.score}</span>
+                        <button class:list={['vote-btn text-sm leading-none py-0.5 transition-colors', p.userVote === '-1' ? 'text-red' : 'text-text-muted hover:text-red']} data-comment-id={p.id} data-vote="-1">▼</button>
+                      </div>
+                      <div class="flex-1 min-w-0">
+                        <div class="flex items-center gap-2 mb-1">
+                          <img src={p.avatarUrl} alt={p.author} class="w-4 h-4 rounded-full" />
+                          <span class="text-xs text-text-muted">{p.author}</span>
+                        </div>
+                        <p class="text-sm text-text-secondary">{p.description}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </section>
+            ))}
+          </div>
+        )}
+      </>
+    )}
+
+    {/* Phase rédaction */}
+    {phaseInfo.phase === 'redaction' && (
+      <div class="text-center py-20">
+        <div class="bg-phase-write/10 border border-phase-write/20 rounded-xl px-5 py-4 mb-8 inline-block">
+          <div class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-phase-write animate-pulse"></span>
+            <p class="text-sm font-semibold text-phase-write">Rédaction en cours</p>
+          </div>
+        </div>
+        <h1 class="text-3xl font-bold text-text mb-3 tracking-tight">Le chapitre est en cours d'écriture</h1>
+        <p class="text-text-secondary max-w-md mx-auto">
+          Les votes sont terminés. Le prochain chapitre est en cours de rédaction à partir de vos propositions. Revenez bientôt pour le lire !
+        </p>
+        <a href="/lecture" class="inline-block mt-6 text-sm font-semibold text-cyan hover:brightness-110 transition">
+          Lire les chapitres publiés →
+        </a>
+      </div>
+    )}
+  </div>
+
+  <script>
+    // Soumission proposition
+    const form = document.getElementById('proposal-form') as HTMLFormElement | null;
+    const message = document.getElementById('form-message') as HTMLElement | null;
+    form?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const fd = new FormData(form);
+      const btn = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+      btn.disabled = true;
+      try {
+        const res = await fetch('/api/proposals/submit', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ issueNumber: Number(fd.get('issueNumber')), category: fd.get('category'), description: fd.get('description') }) });
+        if (res.ok) window.location.reload();
+        else { const d = await res.json(); if (message) { message.textContent = d.error || 'Erreur.'; message.className = 'text-sm text-red'; } btn.disabled = false; }
+      } catch { if (message) { message.textContent = 'Erreur.'; message.className = 'text-sm text-red'; } btn.disabled = false; }
+    });
+
+    // Votes
+    document.querySelectorAll('.vote-btn').forEach(btn => {
+      btn.addEventListener('click', async (e) => {
+        const t = e.currentTarget as HTMLButtonElement; t.disabled = true;
+        try {
+          const res = await fetch(t.dataset.vote === '+1' ? '/api/votes/upvote' : '/api/votes/downvote', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ commentId: Number(t.dataset.commentId) }) });
+          if (res.ok) window.location.reload();
+        } catch {} finally { t.disabled = false; }
+      });
+    });
+  </script>
+</BaseLayout>

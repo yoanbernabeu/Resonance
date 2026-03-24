@@ -1,116 +1,96 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getAllChapters } from '../lib/chapters';
+import { getActivePhase } from '../lib/phase';
 
 const chapters = await getAllChapters();
+const phaseInfo = await getActivePhase().catch(() => ({ phase: null, chapterTitle: null, issueNumber: null }));
 ---
 
 <BaseLayout title="Résonance — Écriture collective assistée par IA">
-  <!-- Hero -->
-  <section class="relative overflow-hidden">
-    <!-- Fond étoilé subtil -->
-    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--color-void-800)_0%,_var(--color-void-950)_70%)]"></div>
-    <div class="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,_rgba(99,102,241,0.08)_0%,_transparent_50%)]"></div>
-    <div class="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,_rgba(16,185,129,0.05)_0%,_transparent_50%)]"></div>
+  <!-- Fond atmosphérique -->
+  <div class="absolute top-0 left-0 right-0 h-[700px] bg-[radial-gradient(ellipse_at_50%_0%,_rgba(0,212,170,0.05)_0%,_transparent_70%)] pointer-events-none"></div>
 
-    <div class="relative max-w-4xl mx-auto px-4 py-24 md:py-36 text-center">
-      <p class="text-ether-400 text-sm font-medium tracking-widest uppercase mb-6">
-        Expérience d'écriture collective
-      </p>
-      <h1 class="font-display text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
+  <div class="relative max-w-2xl mx-auto px-5">
+    <!-- Hero : le titre et l'univers -->
+    <section class="pt-20 pb-12 md:pt-32 md:pb-16">
+      <p class="text-sm text-cyan font-medium mb-5 fade-up">Un roman de science-fiction écrit par la communauté</p>
+
+      <h1 class="text-5xl md:text-6xl font-bold text-text leading-[1.1] mb-8 tracking-tight fade-up fade-up-1">
         Résonance
       </h1>
-      <p class="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto mb-8 leading-relaxed">
-        Une histoire de science-fiction construite par la communauté, chapitre après chapitre.
-        Proposez des idées, votez, et façonnez un univers interstellaire.
-      </p>
 
-      <div class="flex flex-col sm:flex-row gap-4 justify-center mb-16">
-        <a href="/lecture" class="px-6 py-3 bg-ether-600 hover:bg-ether-500 text-white font-medium rounded-lg transition-colors">
-          Commencer la lecture
-        </a>
-        <a href="/propositions" class="px-6 py-3 bg-void-700 hover:bg-void-600 text-slate-200 font-medium rounded-lg transition-colors border border-void-600">
-          Participer
-        </a>
-      </div>
-
-      <!-- Citation du prologue -->
-      <blockquote class="text-slate-500 italic text-sm max-w-xl mx-auto border-l-2 border-ether-600/30 pl-4 text-left">
-        « Quelque chose dort dans les fondations de la galaxie.
-        Et l'humanité, occupée à panser ses propres blessures, a oublié de s'en inquiéter. »
-      </blockquote>
-    </div>
-  </section>
-
-  <!-- Comment ça marche -->
-  <section class="max-w-5xl mx-auto px-4 py-20">
-    <h2 class="font-display text-2xl font-semibold text-white text-center mb-12">
-      Comment ça fonctionne
-    </h2>
-    <div class="grid md:grid-cols-3 gap-8">
-      <div class="bg-void-800/50 border border-void-700 rounded-xl p-6">
-        <div class="text-ether-400 text-2xl mb-3">01</div>
-        <h3 class="font-display text-lg font-semibold text-white mb-2">Proposez</h3>
-        <p class="text-slate-400 text-sm leading-relaxed">
-          Soumettez vos idées : personnages, lieux, événements, twists…
-          Chaque proposition peut influencer le prochain chapitre.
+      <div class="space-y-4 text-text-secondary leading-relaxed fade-up fade-up-2">
+        <p>
+          Il fut un temps où l'humanité parlait d'une seule voix. L'Hégémonie Solaire — trente-sept systèmes, deux cents mondes habités — avait vaincu la distance. Puis tout s'est effondré.
         </p>
-      </div>
-      <div class="bg-void-800/50 border border-void-700 rounded-xl p-6">
-        <div class="text-ether-400 text-2xl mb-3">02</div>
-        <h3 class="font-display text-lg font-semibold text-white mb-2">Votez</h3>
-        <p class="text-slate-400 text-sm leading-relaxed">
-          La communauté vote pour les meilleures idées.
-          Les propositions les plus populaires guident l'écriture.
+        <p>
+          Cinquante-trois ans après la Fracture, dans la Lisière — ces systèmes périphériques oubliés de tous —, des contrebandier·ère·s, des prospecteur·ice·s de ruines et d'ancien·ne·s soldat·e·s survivent au jour le jour. Les vestiges d'une civilisation alien disparue, les <strong class="text-text">Bâtisseurs</strong>, parsèment les mondes de structures impossibles qui semblent encore <em class="text-cyan">résonner</em>.
         </p>
-      </div>
-      <div class="bg-void-800/50 border border-void-700 rounded-xl p-6">
-        <div class="text-ether-400 text-2xl mb-3">03</div>
-        <h3 class="font-display text-lg font-semibold text-white mb-2">Lisez</h3>
-        <p class="text-slate-400 text-sm leading-relaxed">
-          Le chapitre est rédigé avec l'aide de l'IA, à partir de vos idées.
-          L'epub se construit au fil de l'aventure.
+        <p>
+          Et parmi les humains, certain·e·s ont changé. Les <strong class="text-text">Éveillé·e·s</strong> — télépathes, télékinésistes, percepteur·ice·s de l'invisible — vivent cachés, traqués, craints. Personne ne sait si leur existence est un don des Bâtisseurs ou une menace pour ce qui reste de l'humanité.
         </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Chapitres publiés -->
-  {chapters.length > 0 && (
-    <section class="max-w-4xl mx-auto px-4 py-16">
-      <h2 class="font-display text-2xl font-semibold text-white text-center mb-10">
-        Chapitres publiés
-      </h2>
-      <div class="space-y-4">
-        {chapters.map((chapter) => (
-          <a
-            href={`/lecture/${chapter.slug}`}
-            class="block bg-void-800/30 border border-void-700 hover:border-ether-600/50 rounded-xl p-6 transition-colors group"
-          >
-            <div class="flex items-baseline justify-between mb-2">
-              <h3 class="font-display text-lg font-semibold text-white group-hover:text-ether-400 transition-colors">
-                {chapter.titre}
-              </h3>
-              <span class="text-xs text-slate-600">{chapter.datePublication}</span>
-            </div>
-            <p class="text-sm text-slate-400">{chapter.resume}</p>
-          </a>
-        ))}
+        <p class="text-text">
+          Quelque chose dort dans les fondations de la galaxie. Et l'humanité a oublié de s'en inquiéter.
+        </p>
       </div>
     </section>
-  )}
 
-  <!-- Note inclusive -->
-  <section class="max-w-3xl mx-auto px-4 py-16">
-    <div class="bg-void-800/30 border border-void-700 rounded-xl p-6 text-center">
-      <p class="text-sm text-slate-400 leading-relaxed">
-        Résonance est une <strong class="text-slate-300">expérience créative et communautaire</strong>.
-        Ce projet ne remplace en rien le travail des auteur·ice·s.
-        Nous encourageons vivement les contributeur·ice·s à
-        <a href="https://www.babelio.com/livres-/sciencefiction/42" target="_blank" rel="noopener" class="text-ether-400 hover:text-ether-300 underline">
-          lire et soutenir de vrais auteur·ice·s
-        </a> de science-fiction et de fantasy.
+    <!-- CTA -->
+    <section class="pb-12 fade-up fade-up-3">
+      <div class="flex flex-wrap gap-3">
+        {phaseInfo.phase === 'propositions' ? (
+          <a href="/participer" class="text-sm font-semibold px-5 py-2.5 bg-cyan text-void rounded-lg hover:brightness-110 transition">
+            Proposer une idée →
+          </a>
+        ) : phaseInfo.phase === 'votes' ? (
+          <a href="/participer" class="text-sm font-semibold px-5 py-2.5 bg-cyan text-void rounded-lg hover:brightness-110 transition">
+            Voter maintenant →
+          </a>
+        ) : (
+          <a href="/lecture" class="text-sm font-semibold px-5 py-2.5 bg-cyan text-void rounded-lg hover:brightness-110 transition">
+            Commencer la lecture →
+          </a>
+        )}
+        <a href="/comment-ca-marche" class="text-sm font-medium px-5 py-2.5 text-text-muted hover:text-text border border-void-border hover:border-void-border-hover rounded-lg transition-colors">
+          Comment participer ?
+        </a>
+      </div>
+    </section>
+
+    <!-- Chapitres -->
+    {chapters.length > 0 && (
+      <section class="py-12 border-t border-void-border">
+        <p class="text-xs font-semibold text-text-muted uppercase tracking-wider mb-6">Chapitres publiés</p>
+        <div>
+          {chapters.map((chapter) => (
+            <a
+              href={`/lecture/${chapter.slug}`}
+              class="flex items-baseline gap-4 py-3 border-b border-void-border hover:bg-void-card -mx-3 px-3 rounded-lg transition-colors group"
+            >
+              <span class="text-xs text-text-muted w-6 text-right tabular-nums shrink-0">
+                {chapter.numero === 0 ? '—' : chapter.numero}
+              </span>
+              <div>
+                <span class="text-text group-hover:text-cyan transition-colors font-medium">
+                  {chapter.titre}
+                </span>
+                <p class="text-sm text-text-secondary mt-0.5">{chapter.resume}</p>
+              </div>
+            </a>
+          ))}
+        </div>
+      </section>
+    )}
+
+    <!-- Note -->
+    <section class="py-12">
+      <p class="text-xs text-text-muted leading-relaxed">
+        Résonance est une expérience créative et communautaire assistée par IA. Ce projet ne remplace pas le travail des auteur·ice·s.
+        <a href="https://www.babelio.com/livres-/sciencefiction/42" target="_blank" rel="noopener" class="underline hover:text-text-secondary transition-colors">
+          Soutenez de vrais auteur·ice·s.
+        </a>
       </p>
-    </div>
-  </section>
+    </section>
+  </div>
 </BaseLayout>

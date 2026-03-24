@@ -1,0 +1,67 @@
+---
+import type { Phase } from '../lib/types';
+
+interface Props {
+  currentPhase: Phase | null;
+  chapterTitle: string | null;
+}
+
+const { currentPhase, chapterTitle } = Astro.props;
+
+const steps: Array<{ id: Phase; label: string; color: string; bg: string }> = [
+  { id: 'propositions', label: 'Propositions', color: 'text-phase-propose', bg: 'bg-phase-propose' },
+  { id: 'votes', label: 'Votes', color: 'text-phase-vote', bg: 'bg-phase-vote' },
+  { id: 'redaction', label: 'Rédaction', color: 'text-phase-write', bg: 'bg-phase-write' },
+];
+
+function stepState(stepId: Phase): 'active' | 'done' | 'upcoming' {
+  if (!currentPhase) return 'upcoming';
+  const order: Phase[] = ['propositions', 'votes', 'redaction'];
+  const ci = order.indexOf(currentPhase);
+  const si = order.indexOf(stepId);
+  if (si < ci) return 'done';
+  if (si === ci) return 'active';
+  return 'upcoming';
+}
+---
+
+{currentPhase && (
+  <div class="border-b border-void-border bg-void-light">
+    <div class="max-w-4xl mx-auto px-5 py-2.5 flex items-center justify-between gap-4">
+      <div class="flex items-center gap-2">
+        {steps.map((step, i) => {
+          const state = stepState(step.id);
+          return (
+            <>
+              {i > 0 && (
+                <div class:list={['w-6 h-px', state === 'upcoming' ? 'bg-text-muted/20' : 'bg-cyan/30']} />
+              )}
+              {state === 'active' ? (
+                <a
+                  href="/participer"
+                  class:list={[
+                    'flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 rounded-md transition-colors',
+                    step.color, `${step.bg}/10 hover:${step.bg}/20`,
+                  ]}
+                >
+                  <span class:list={['w-1.5 h-1.5 rounded-full animate-pulse', step.bg]} />
+                  {step.label}
+                </a>
+              ) : (
+                <span class:list={[
+                  'text-xs px-2.5 py-1',
+                  state === 'done' ? 'text-text-muted line-through' : 'text-text-muted/40',
+                ]}>
+                  {step.label}
+                </span>
+              )}
+            </>
+          );
+        })}
+      </div>
+      <span class="text-xs text-text-muted truncate hidden sm:block max-w-[200px]">
+        {chapterTitle}
+      </span>
+    </div>
+  </div>
+)}

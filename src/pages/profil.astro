@@ -4,62 +4,48 @@ import CategoryBadge from '../components/CategoryBadge.astro';
 import { getAllChapterIssues, getProposals } from '../lib/github';
 
 const user = Astro.locals.user;
-
-if (!user) {
-  return Astro.redirect('/api/auth/login?redirect_to=/profil');
-}
+if (!user) return Astro.redirect('/api/auth/login?redirect_to=/profil');
 
 const issues = await getAllChapterIssues().catch(() => []);
-
-const userProposals: Array<{
-  chapterTitle: string;
-  proposals: Awaited<ReturnType<typeof getProposals>>;
-}> = [];
-
+const userProposals: Array<{ chapterTitle: string; proposals: Awaited<ReturnType<typeof getProposals>> }> = [];
 for (const issue of issues) {
   const proposals = await getProposals(issue.number, user.login).catch(() => []);
   const mine = proposals.filter(p => p.author === user.login && !p.isMinimized);
-  if (mine.length > 0) {
-    userProposals.push({ chapterTitle: issue.title, proposals: mine });
-  }
+  if (mine.length > 0) userProposals.push({ chapterTitle: issue.title, proposals: mine });
 }
 ---
 
-<BaseLayout title="Mon profil — Résonance">
-  <div class="max-w-3xl mx-auto px-4 py-12 md:py-20">
-    <header class="flex items-center gap-4 mb-12">
-      <img src={user.avatarUrl} alt={user.login} class="w-16 h-16 rounded-full" />
+<BaseLayout title="Profil — Résonance">
+  <div class="max-w-2xl mx-auto px-5 py-16 md:py-24">
+    <div class="flex items-center gap-4 mb-10">
+      <img src={user.avatarUrl} alt={user.login} class="w-12 h-12 rounded-full ring-1 ring-void-border" />
       <div>
-        <h1 class="font-display text-2xl font-bold text-white">{user.login}</h1>
-        <p class="text-slate-500 text-sm">Contributeur·ice</p>
+        <h1 class="text-xl font-bold text-text">{user.login}</h1>
+        <p class="text-xs text-text-muted">Contributeur·ice</p>
       </div>
-    </header>
+    </div>
 
-    <section>
-      <h2 class="font-display text-xl font-semibold text-white mb-6">Mes propositions</h2>
+    <p class="text-xs font-semibold text-text-muted uppercase tracking-wider mb-4">Mes propositions</p>
 
-      {userProposals.length === 0 ? (
-        <p class="text-slate-500">Vous n'avez pas encore soumis de proposition.</p>
-      ) : (
-        <div class="space-y-8">
-          {userProposals.map(({ chapterTitle, proposals }) => (
-            <div>
-              <h3 class="text-sm text-slate-400 mb-3">{chapterTitle}</h3>
-              <div class="space-y-3">
-                {proposals.map(p => (
-                  <div class="bg-void-800/30 border border-void-700 rounded-xl p-4">
-                    <div class="flex items-center gap-3 mb-2">
-                      <CategoryBadge category={p.category} />
-                      <span class="text-xs text-slate-500">Score : {p.score}</span>
-                    </div>
-                    <p class="text-slate-200 text-sm">{p.description}</p>
-                  </div>
-                ))}
+    {userProposals.length === 0 ? (
+      <p class="text-text-secondary">Aucune proposition soumise.</p>
+    ) : (
+      <div class="space-y-8">
+        {userProposals.map(({ chapterTitle, proposals }) => (
+          <div>
+            <p class="text-xs text-text-muted mb-3">{chapterTitle}</p>
+            {proposals.map(p => (
+              <div class="py-3 border-b border-void-border">
+                <div class="flex items-center gap-2 mb-1">
+                  <CategoryBadge category={p.category} />
+                  <span class="text-xs text-text-muted">score {p.score}</span>
+                </div>
+                <p class="text-sm text-text-secondary">{p.description}</p>
               </div>
-            </div>
-          ))}
-        </div>
-      )}
-    </section>
+            ))}
+          </div>
+        ))}
+      </div>
+    )}
   </div>
 </BaseLayout>

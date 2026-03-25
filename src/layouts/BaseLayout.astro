@@ -8,9 +8,10 @@ import { getActivePhase } from '../lib/phase';
 interface Props {
   title: string;
   description?: string;
+  hidePhaseBar?: boolean;
 }
 
-const { title, description = 'Résonance — Une expérience d\'écriture collective assistée par IA' } = Astro.props;
+const { title, description = 'Résonance — Une expérience d\'écriture collective assistée par IA', hidePhaseBar = false } = Astro.props;
 
 const phaseInfo = await getActivePhase().catch(() => ({ phase: null, chapterTitle: null, issueNumber: null }));
 ---
@@ -31,7 +32,7 @@ const phaseInfo = await getActivePhase().catch(() => ({ phase: null, chapterTitl
   </head>
   <body class="min-h-screen flex flex-col bg-void text-text">
     <Header />
-    <PhaseBar currentPhase={phaseInfo.phase} chapterTitle={phaseInfo.chapterTitle} />
+    {!hidePhaseBar && <PhaseBar currentPhase={phaseInfo.phase} chapterTitle={phaseInfo.chapterTitle} />}
     <main class="flex-1">
       <slot />
     </main>

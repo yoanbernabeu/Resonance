@@ -9,7 +9,7 @@ const chapters = await getAllChapters();
 const phaseInfo = await getActivePhase().catch(() => ({ phase: null, chapterTitle: null, issueNumber: null }));
 ---
 
-<BaseLayout title="Résonance — Écriture collective assistée par IA">
+<BaseLayout title="Résonance — Écriture collective assistée par IA" hidePhaseBar>
 
   <!-- ═══════════════════════════════════════ -->
   <!-- HERO                                    -->

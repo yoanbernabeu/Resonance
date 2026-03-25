@@ -8,68 +8,212 @@ const phaseInfo = await getActivePhase().catch(() => ({ phase: null, chapterTitl
 ---
 
 <BaseLayout title="Résonance — Écriture collective assistée par IA">
-  <!-- Fond atmosphérique -->
-  <div class="absolute top-0 left-0 right-0 h-[700px] bg-[radial-gradient(ellipse_at_50%_0%,_rgba(0,212,170,0.05)_0%,_transparent_70%)] pointer-events-none"></div>
 
-  <div class="relative max-w-2xl mx-auto px-5">
-    <!-- Hero -->
-    <section class="pt-12 md:pt-24">
-      <p class="text-sm text-cyan font-medium mb-4 fade-up">Un roman de SF écrit par la communauté</p>
+  <!-- ═══════════════════════════════════════ -->
+  <!-- HERO                                    -->
+  <!-- ═══════════════════════════════════════ -->
+  <section class="relative min-h-[85vh] flex items-center justify-center overflow-hidden">
+    <!-- Background layers -->
+    <div class="absolute inset-0 hero-grid opacity-60"></div>
+    <div class="absolute inset-0 hero-glow"></div>
+    <div class="absolute inset-0 hero-glow-secondary"></div>
 
-      <h1 class="text-4xl md:text-6xl font-bold text-text leading-[1.1] mb-5 tracking-tight fade-up fade-up-1">
+    <!-- Vertical line decoration -->
+    <div class="absolute left-1/2 top-0 w-px h-24 bg-gradient-to-b from-transparent to-cyan/20"></div>
+
+    <div class="relative text-center px-5 max-w-3xl mx-auto">
+      <!-- Label -->
+      <p class="text-xs tracking-[0.35em] uppercase text-cyan/70 font-medium mb-8 fade-up">
+        Roman collaboratif de science-fiction
+      </p>
+
+      <!-- Title -->
+      <h1 class="font-[--font-display] text-6xl sm:text-7xl md:text-8xl lg:text-9xl text-text leading-[0.9] mb-8 title-glow fade-up fade-up-1">
         Résonance
       </h1>
 
-      <p class="text-text-secondary leading-relaxed mb-6 fade-up fade-up-2">
-        L'Hégémonie Solaire s'est effondrée. Dans la Lisière, les vestiges des <strong class="text-text">Bâtisseurs</strong> — une civilisation alien disparue — semblent encore <em class="text-cyan not-italic">résonner</em>. Les <strong class="text-text">Éveillé·e·s</strong>, des humains aux capacités extraordinaires, vivent cachés. Quelque chose dort dans les fondations de la galaxie.
+      <!-- Prose hook -->
+      <p class="font-[--font-reading] text-lg sm:text-xl text-text-secondary leading-relaxed max-w-xl mx-auto mb-10 italic fade-up fade-up-2">
+        L'Hégémonie Solaire s'est effondrée. Dans la Lisière, les vestiges des Bâtisseurs semblent encore <span class="text-cyan not-italic font-medium">résonner</span>. Quelque chose dort dans les fondations de la galaxie.
       </p>
 
       <!-- CTA -->
-      <div class="flex flex-col sm:flex-row gap-3 fade-up fade-up-3">
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-3 fade-up fade-up-3">
         {phaseInfo.phase === 'propositions' ? (
-          <a href="/participer" class="text-sm font-semibold px-5 py-2.5 bg-cyan text-void rounded-lg hover:brightness-110 transition text-center">
-            Proposer une idée →
+          <a href="/participer" class="group inline-flex items-center gap-2 text-sm font-semibold px-7 py-3 bg-cyan text-void rounded-full hover:brightness-110 transition-all hover:shadow-[0_0_30px_rgba(0,212,170,0.2)]">
+            Proposer une idée
+            <svg class="w-4 h-4 group-hover:translate-x-0.5 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
           </a>
         ) : phaseInfo.phase === 'votes' ? (
-          <a href="/participer" class="text-sm font-semibold px-5 py-2.5 bg-cyan text-void rounded-lg hover:brightness-110 transition text-center">
-            Voter maintenant →
+          <a href="/participer" class="group inline-flex items-center gap-2 text-sm font-semibold px-7 py-3 bg-cyan text-void rounded-full hover:brightness-110 transition-all hover:shadow-[0_0_30px_rgba(0,212,170,0.2)]">
+            Voter maintenant
+            <svg class="w-4 h-4 group-hover:translate-x-0.5 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
           </a>
         ) : (
-          <a href="/lecture" class="text-sm font-semibold px-5 py-2.5 bg-cyan text-void rounded-lg hover:brightness-110 transition text-center">
-            Commencer la lecture →
+          <a href="/lecture" class="group inline-flex items-center gap-2 text-sm font-semibold px-7 py-3 bg-cyan text-void rounded-full hover:brightness-110 transition-all hover:shadow-[0_0_30px_rgba(0,212,170,0.2)]">
+            Commencer la lecture
+            <svg class="w-4 h-4 group-hover:translate-x-0.5 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
           </a>
         )}
-        <a href="/comment-ca-marche" class="text-sm font-medium px-5 py-2.5 text-text-muted hover:text-text border border-void-border hover:border-void-border-hover rounded-lg transition-colors text-center">
-          Comment participer ?
+        <a href="/comment-ca-marche" class="text-sm font-medium px-7 py-3 text-text-muted hover:text-text rounded-full border border-void-border hover:border-void-border-hover transition-all">
+          Comment ça marche ?
         </a>
       </div>
-    </section>
+    </div>
 
-    <!-- Chapitres -->
-    {chapters.length > 0 && (
-      <section class="pt-16 pb-12 mt-4 border-t border-void-border">
-        <p class="text-xs font-semibold text-text-muted uppercase tracking-wider mb-6">Chapitres publiés</p>
-        <div>
+    <!-- Scroll indicator -->
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 fade-in fade-in-2">
+      <span class="text-[10px] tracking-[0.2em] uppercase text-text-muted/50">Explorer</span>
+      <div class="w-px h-8 bg-gradient-to-b from-text-muted/30 to-transparent"></div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- COMMENT ÇA MARCHE (mini)               -->
+  <!-- ═══════════════════════════════════════ -->
+  <section class="relative py-20 md:py-28">
+    <div class="max-w-3xl mx-auto px-5">
+
+      <div class="text-center mb-14">
+        <p class="text-xs tracking-[0.3em] uppercase text-text-muted mb-3">Le principe</p>
+        <p class="font-[--font-display] text-2xl sm:text-3xl text-text leading-snug">
+          Un roman écrit par <span class="text-cyan">vous</span>,<br class="hidden sm:block"> chapitre après chapitre.
+        </p>
+      </div>
+
+      <!-- 3 steps -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-4">
+        <!-- Step 1 -->
+        <div class="relative group">
+          <div class="bg-void-card/50 border border-void-border rounded-2xl p-6 hover:border-phase-propose/30 transition-colors h-full">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-10 h-10 rounded-xl bg-phase-propose/10 flex items-center justify-center">
+                <svg class="w-5 h-5 text-phase-propose" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 20h9"/><path d="M16.376 3.622a1 1 0 0 1 3.002 3.002L7.368 18.635a2 2 0 0 1-.855.506l-2.872.838a.5.5 0 0 1-.62-.62l.838-2.872a2 2 0 0 1 .506-.854z"/>
+                </svg>
+              </div>
+              <span class="text-xs font-bold text-phase-propose/80 tracking-wider uppercase">Étape 1</span>
+            </div>
+            <p class="text-base font-semibold text-text mb-1.5">Proposez</p>
+            <p class="text-sm text-text-secondary leading-relaxed">
+              Soumettez vos idées : personnages, lieux, événements, twists. 3 propositions max par personne.
+            </p>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="relative group">
+          <div class="bg-void-card/50 border border-void-border rounded-2xl p-6 hover:border-phase-vote/30 transition-colors h-full">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-10 h-10 rounded-xl bg-phase-vote/10 flex items-center justify-center">
+                <svg class="w-5 h-5 text-phase-vote" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M7 10v12"/><path d="M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2a3.13 3.13 0 0 1 3 3.88"/>
+                </svg>
+              </div>
+              <span class="text-xs font-bold text-phase-vote/80 tracking-wider uppercase">Étape 2</span>
+            </div>
+            <p class="text-base font-semibold text-text mb-1.5">Votez</p>
+            <p class="text-sm text-text-secondary leading-relaxed">
+              La communauté vote pour ses propositions préférées. Les mieux notées guident le chapitre.
+            </p>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="relative group">
+          <div class="bg-void-card/50 border border-void-border rounded-2xl p-6 hover:border-phase-write/30 transition-colors h-full">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-10 h-10 rounded-xl bg-phase-write/10 flex items-center justify-center">
+                <svg class="w-5 h-5 text-phase-write" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+                </svg>
+              </div>
+              <span class="text-xs font-bold text-phase-write/80 tracking-wider uppercase">Étape 3</span>
+            </div>
+            <p class="text-base font-semibold text-text mb-1.5">Lisez</p>
+            <p class="text-sm text-text-secondary leading-relaxed">
+              L'IA rédige le chapitre en intégrant vos idées. Le roman grandit, ensemble.
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- CHAPITRES                               -->
+  <!-- ═══════════════════════════════════════ -->
+  {chapters.length > 0 && (
+    <section class="relative py-16 md:py-24">
+      <!-- Subtle separator -->
+      <div class="absolute top-0 left-1/2 -translate-x-1/2 w-12 h-px bg-gradient-to-r from-transparent via-cyan/30 to-transparent"></div>
+
+      <div class="max-w-2xl mx-auto px-5">
+        <div class="text-center mb-10">
+          <p class="text-xs tracking-[0.3em] uppercase text-text-muted mb-3">Lecture</p>
+          <p class="font-[--font-display] text-2xl text-text">Chapitres publiés</p>
+        </div>
+
+        <div class="space-y-3">
           {chapters.map((chapter) => (
             <a
               href={`/lecture/${chapter.slug}`}
-              class="flex items-baseline gap-4 py-3 border-b border-void-border hover:bg-void-card -mx-3 px-3 rounded-lg transition-colors group"
+              class="group block bg-void-card/40 border border-void-border rounded-xl px-5 py-4 hover:border-cyan/20 hover:bg-void-card/70 transition-all"
             >
-              <span class="text-xs text-text-muted w-6 text-right tabular-nums shrink-0">
-                {chapter.numero === 0 ? '—' : chapter.numero}
-              </span>
-              <div>
-                <span class="text-text group-hover:text-cyan transition-colors font-medium">
-                  {chapter.titre}
+              <div class="flex items-start gap-4">
+                <span class="text-xs text-text-muted font-mono mt-1 w-8 text-right shrink-0 tabular-nums">
+                  {chapter.numero === 0 ? '00' : String(chapter.numero).padStart(2, '0')}
                 </span>
-                <p class="text-sm text-text-secondary mt-0.5">{chapter.resume}</p>
+                <div class="flex-1 min-w-0">
+                  <p class="font-[--font-reading] text-base font-medium text-text group-hover:text-cyan transition-colors leading-snug">
+                    {chapter.titre}
+                  </p>
+                  {chapter.resume && (
+                    <p class="text-sm text-text-secondary mt-1 leading-relaxed line-clamp-2">
+                      {chapter.resume}
+                    </p>
+                  )}
+                </div>
+                <svg class="w-4 h-4 text-text-muted group-hover:text-cyan group-hover:translate-x-0.5 transition-all mt-1 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="9 18 15 12 9 6"/>
+                </svg>
               </div>
             </a>
           ))}
         </div>
-      </section>
-    )}
 
+        <div class="text-center mt-8">
+          <a href="/lecture" class="text-sm text-text-muted hover:text-cyan transition-colors">
+            Voir tous les chapitres
+          </a>
+        </div>
+      </div>
+    </section>
+  )}
 
-  </div>
+  <!-- ═══════════════════════════════════════ -->
+  <!-- CTA FINAL                               -->
+  <!-- ═══════════════════════════════════════ -->
+  <section class="relative py-20 md:py-28">
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-12 h-px bg-gradient-to-r from-transparent via-cyan/30 to-transparent"></div>
+
+    <div class="max-w-lg mx-auto px-5 text-center">
+      <p class="font-[--font-display] italic text-xl sm:text-2xl text-text-secondary leading-relaxed mb-8">
+        "Chaque voix compte. Chaque vote façonne l'histoire. Chaque chapitre est le vôtre."
+      </p>
+      {phaseInfo.phase ? (
+        <a href="/participer" class="group inline-flex items-center gap-2 text-sm font-semibold px-7 py-3 bg-cyan text-void rounded-full hover:brightness-110 transition-all hover:shadow-[0_0_30px_rgba(0,212,170,0.2)]">
+          Rejoindre l'aventure
+          <svg class="w-4 h-4 group-hover:translate-x-0.5 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      ) : (
+        <a href="/lecture" class="group inline-flex items-center gap-2 text-sm font-semibold px-7 py-3 bg-cyan text-void rounded-full hover:brightness-110 transition-all hover:shadow-[0_0_30px_rgba(0,212,170,0.2)]">
+          Commencer la lecture
+          <svg class="w-4 h-4 group-hover:translate-x-0.5 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      )}
+    </div>
+  </section>
+
 </BaseLayout>

@@ -6,18 +6,34 @@ const chapters = await getAllChapters();
 
 <BaseLayout title="Lecture — Résonance">
   <div class="max-w-2xl mx-auto px-5 py-16 md:py-24">
-    <h1 class="text-3xl font-bold text-text mb-8 tracking-tight">Table des matières</h1>
-    <div>
-      {chapters.map(ch => (
-        <a href={`/lecture/${ch.slug}`} class="flex items-baseline gap-4 py-3 border-b border-void-border hover:bg-void-card -mx-3 px-3 rounded-lg transition-colors group">
-          <span class="text-xs text-text-muted w-6 text-right tabular-nums shrink-0">{ch.numero === 0 ? '—' : ch.numero}</span>
-          <div>
-            <span class="text-text group-hover:text-cyan transition-colors font-medium">{ch.titre}</span>
-            <p class="text-sm text-text-secondary mt-0.5">{ch.resume}</p>
-          </div>
-        </a>
-      ))}
+    <div class="text-center mb-12">
+      <p class="text-xs tracking-[0.3em] uppercase text-text-muted mb-3">Lecture</p>
+      <h1 class="font-[--font-display] text-3xl sm:text-4xl text-text">Table des matières</h1>
     </div>
-    {chapters.length === 0 && <p class="text-text-secondary py-12">Aucun chapitre publié.</p>}
+
+    {chapters.length === 0 ? (
+      <p class="text-text-secondary text-center py-12">Aucun chapitre publié.</p>
+    ) : (
+      <div class="space-y-3">
+        {chapters.map(ch => (
+          <a href={`/lecture/${ch.slug}`} class="group block bg-void-card/40 border border-void-border rounded-xl px-5 py-4 hover:border-cyan/20 hover:bg-void-card/70 transition-all">
+            <div class="flex items-start gap-4">
+              <span class="text-xs text-text-muted font-mono mt-1 w-8 text-right shrink-0 tabular-nums">
+                {ch.numero === 0 ? '00' : String(ch.numero).padStart(2, '0')}
+              </span>
+              <div class="flex-1 min-w-0">
+                <p class="font-[--font-reading] text-base font-medium text-text group-hover:text-cyan transition-colors leading-snug">
+                  {ch.titre}
+                </p>
+                {ch.resume && (
+                  <p class="text-sm text-text-secondary mt-1 leading-relaxed line-clamp-2">{ch.resume}</p>
+                )}
+              </div>
+              <svg class="w-4 h-4 text-text-muted group-hover:text-cyan group-hover:translate-x-0.5 transition-all mt-1 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
+            </div>
+          </a>
+        ))}
+      </div>
+    )}
   </div>
 </BaseLayout>

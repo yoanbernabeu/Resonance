@@ -11,11 +11,14 @@ const issues = await getAllChapterIssues().catch(() => []);
 
 <BaseLayout title="Admin — Résonance">
   <div class="max-w-2xl mx-auto px-5 py-16 md:py-24">
-    <h1 class="text-3xl font-bold text-text mb-8 tracking-tight">Administration</h1>
+    <div class="text-center mb-12">
+      <p class="text-xs tracking-[0.3em] uppercase text-text-muted mb-3">Interne</p>
+      <h1 class="font-[--font-display] text-3xl text-text">Administration</h1>
+    </div>
 
-    <div class="bg-void-card border border-void-border rounded-xl p-5 mb-10">
-      <p class="font-semibold text-text mb-3">Nouveau chapitre</p>
-      <button id="btn-new" class="text-sm font-semibold px-4 py-2 bg-cyan text-void rounded-lg hover:brightness-110 transition">
+    <div class="bg-void-card/40 border border-void-border rounded-2xl p-6 mb-10">
+      <p class="font-semibold text-text mb-4">Nouveau chapitre</p>
+      <button id="btn-new" class="text-sm font-semibold px-5 py-2 bg-cyan text-void rounded-full hover:brightness-110 transition-all hover:shadow-[0_0_20px_rgba(0,212,170,0.15)]">
         Créer l'issue
       </button>
       <p id="msg" class="text-sm mt-2 hidden"></p>
@@ -23,13 +26,13 @@ const issues = await getAllChapterIssues().catch(() => []);
 
     {issues.length > 0 && (
       <div>
-        <p class="text-xs font-semibold text-text-muted uppercase tracking-wider mb-4">Chapitres</p>
-        <div class="space-y-1">
+        <p class="text-xs tracking-[0.2em] uppercase text-text-muted mb-5">Chapitres</p>
+        <div class="space-y-2">
           {issues.map(issue => (
-            <div class="flex items-center justify-between py-3 border-b border-void-border">
-              <div class="flex items-center gap-3">
-                <span class="text-sm text-text">{issue.title}</span>
-                <span class:list={['text-xs font-medium px-2 py-0.5 rounded',
+            <div class="flex items-center justify-between bg-void-card/30 border border-void-border rounded-xl px-4 py-3">
+              <div class="flex items-center gap-3 min-w-0">
+                <span class="text-sm text-text truncate">{issue.title}</span>
+                <span class:list={['text-[10px] font-semibold px-2.5 py-0.5 rounded-full shrink-0',
                   issue.phase === 'propositions' && 'bg-phase-propose/15 text-phase-propose',
                   issue.phase === 'votes' && 'bg-phase-vote/15 text-phase-vote',
                   issue.phase === 'redaction' && 'bg-phase-write/15 text-phase-write',
@@ -39,10 +42,10 @@ const issues = await getAllChapterIssues().catch(() => []);
                 </span>
               </div>
               {issue.phase === 'propositions' && (
-                <button class="phase-btn text-xs font-semibold text-phase-vote hover:brightness-110 transition" data-issue-number={issue.number} data-new-phase="votes">→ Votes</button>
+                <button class="phase-btn text-xs font-semibold text-phase-vote hover:brightness-110 transition" data-issue-number={issue.number} data-new-phase="votes">Votes →</button>
               )}
               {issue.phase === 'votes' && (
-                <button class="phase-btn text-xs font-semibold text-phase-write hover:brightness-110 transition" data-issue-number={issue.number} data-new-phase="redaction">→ Rédaction</button>
+                <button class="phase-btn text-xs font-semibold text-phase-write hover:brightness-110 transition" data-issue-number={issue.number} data-new-phase="redaction">Rédaction →</button>
               )}
             </div>
           ))}

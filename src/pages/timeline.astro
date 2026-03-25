@@ -6,43 +6,47 @@ const lore = await getLore();
 
 <BaseLayout title="Univers — Résonance">
   <div class="max-w-2xl mx-auto px-5 py-16 md:py-24">
-    <h1 class="text-3xl font-bold text-text mb-2 tracking-tight">L'Univers</h1>
-    <p class="text-text-secondary mb-12">Encyclopédie vivante, enrichie à chaque chapitre.</p>
+    <div class="text-center mb-14">
+      <p class="text-xs tracking-[0.3em] uppercase text-text-muted mb-3">Encyclopédie</p>
+      <h1 class="font-[--font-display] text-3xl sm:text-4xl text-text mb-3">L'Univers</h1>
+      <p class="text-text-secondary">Encyclopédie vivante, enrichie à chaque chapitre.</p>
+    </div>
 
     <section class="mb-14">
-      <p class="text-xs font-semibold text-text-muted uppercase tracking-wider mb-5">Chronologie</p>
-      <div class="space-y-5 border-l-2 border-cyan/20 pl-5">
+      <p class="text-xs tracking-[0.2em] uppercase text-text-muted mb-5">Chronologie</p>
+      <div class="space-y-4 border-l border-cyan/20 pl-5 ml-1">
         {lore.evenementsCles.map(e => (
-          <div>
+          <div class="relative">
+            <div class="absolute -left-[calc(1.25rem+1px)] top-1.5 w-2 h-2 rounded-full bg-cyan/40 ring-4 ring-void"></div>
             <p class="text-sm font-semibold text-text">{e.nom}</p>
-            <p class="text-sm text-text-secondary mt-0.5">{e.description}</p>
+            <p class="text-sm text-text-secondary mt-0.5 leading-relaxed">{e.description}</p>
           </div>
         ))}
       </div>
     </section>
 
     <section class="mb-14">
-      <p class="text-xs font-semibold text-text-muted uppercase tracking-wider mb-5">Factions</p>
+      <p class="text-xs tracking-[0.2em] uppercase text-text-muted mb-5">Factions</p>
       <div class="grid md:grid-cols-2 gap-3">
         {lore.factions.map(f => (
-          <div class="bg-void-card border border-void-border rounded-xl p-4">
+          <div class="bg-void-card/40 border border-void-border rounded-xl p-4 hover:border-void-border-hover transition-colors">
             <div class="flex items-center justify-between mb-1">
               <p class="text-sm font-semibold text-text">{f.nom}</p>
-              <span class="text-xs text-text-muted">{f.statut}</span>
+              <span class="text-[10px] font-medium text-text-muted bg-void-card rounded-full px-2 py-0.5">{f.statut}</span>
             </div>
-            <p class="text-sm text-text-secondary">{f.description}</p>
+            <p class="text-sm text-text-secondary leading-relaxed">{f.description}</p>
           </div>
         ))}
       </div>
     </section>
 
     <section class="mb-14">
-      <p class="text-xs font-semibold text-text-muted uppercase tracking-wider mb-5">Lieux</p>
+      <p class="text-xs tracking-[0.2em] uppercase text-text-muted mb-5">Lieux</p>
       <div class="grid md:grid-cols-2 gap-3">
         {lore.lieux.map(l => (
-          <div class="bg-void-card border border-void-border rounded-xl p-4">
+          <div class="bg-void-card/40 border border-void-border rounded-xl p-4 hover:border-void-border-hover transition-colors">
             <p class="text-sm font-semibold text-text">{l.nom} <span class="text-text-muted font-normal">({l.type})</span></p>
-            <p class="text-sm text-text-secondary mt-0.5">{l.description}</p>
+            <p class="text-sm text-text-secondary mt-0.5 leading-relaxed">{l.description}</p>
           </div>
         ))}
       </div>
@@ -50,12 +54,12 @@ const lore = await getLore();
 
     {lore.artefacts.length > 0 && (
       <section class="mb-14">
-        <p class="text-xs font-semibold text-text-muted uppercase tracking-wider mb-5">Artefacts</p>
+        <p class="text-xs tracking-[0.2em] uppercase text-text-muted mb-5">Artefacts</p>
         <div class="grid md:grid-cols-2 gap-3">
           {lore.artefacts.map(a => (
-            <div class="bg-void-card border border-void-border rounded-xl p-4">
+            <div class="bg-void-card/40 border border-void-border rounded-xl p-4 hover:border-cyan/20 transition-colors">
               <p class="text-sm font-semibold text-cyan">{a.nom}</p>
-              <p class="text-sm text-text-secondary mt-0.5">{a.description}</p>
+              <p class="text-sm text-text-secondary mt-0.5 leading-relaxed">{a.description}</p>
             </div>
           ))}
         </div>
@@ -64,27 +68,29 @@ const lore = await getLore();
 
     {lore.technologies.length > 0 && (
       <section class="mb-14">
-        <p class="text-xs font-semibold text-text-muted uppercase tracking-wider mb-5">Technologies</p>
-        {lore.technologies.map(t => (
-          <div class="bg-void-card border border-void-border rounded-xl p-4">
-            <div class="flex items-center justify-between mb-1">
-              <p class="text-sm font-semibold text-text">{t.nom}</p>
-              <span class="text-xs text-text-muted">{t.statut}</span>
+        <p class="text-xs tracking-[0.2em] uppercase text-text-muted mb-5">Technologies</p>
+        <div class="grid md:grid-cols-2 gap-3">
+          {lore.technologies.map(t => (
+            <div class="bg-void-card/40 border border-void-border rounded-xl p-4 hover:border-void-border-hover transition-colors">
+              <div class="flex items-center justify-between mb-1">
+                <p class="text-sm font-semibold text-text">{t.nom}</p>
+                <span class="text-[10px] font-medium text-text-muted bg-void-card rounded-full px-2 py-0.5">{t.statut}</span>
+              </div>
+              <p class="text-sm text-text-secondary leading-relaxed">{t.description}</p>
             </div>
-            <p class="text-sm text-text-secondary">{t.description}</p>
-          </div>
-        ))}
+          ))}
+        </div>
       </section>
     )}
 
     {lore.personnages.length > 0 && (
       <section class="mb-14">
-        <p class="text-xs font-semibold text-text-muted uppercase tracking-wider mb-5">Personnages</p>
+        <p class="text-xs tracking-[0.2em] uppercase text-text-muted mb-5">Personnages</p>
         <div class="grid md:grid-cols-2 gap-3">
           {lore.personnages.map(p => (
-            <div class="bg-void-card border border-void-border rounded-xl p-4">
+            <div class="bg-void-card/40 border border-void-border rounded-xl p-4 hover:border-void-border-hover transition-colors">
               <p class="text-sm font-semibold text-text">{p.nom}</p>
-              <p class="text-sm text-text-secondary mt-0.5">{p.description}</p>
+              <p class="text-sm text-text-secondary mt-0.5 leading-relaxed">{p.description}</p>
             </div>
           ))}
         </div>

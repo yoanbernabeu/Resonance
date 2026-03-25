@@ -12,11 +12,16 @@ export async function getAllChapters(): Promise<ChapterMeta[]> {
 
   for (const dir of dirs) {
     const metaPath = path.join(CHAPTERS_DIR, dir.name, 'meta.json');
+    const contentPath = path.join(CHAPTERS_DIR, dir.name, 'content.md');
     try {
       const raw = await fs.readFile(metaPath, 'utf-8');
-      chapters.push(JSON.parse(raw) as ChapterMeta);
+      const meta = JSON.parse(raw) as ChapterMeta;
+      // Ne retourner que les chapitres publiés (avec titre et contenu)
+      if (!meta.titre) continue;
+      await fs.access(contentPath);
+      chapters.push(meta);
     } catch {
-      // skip directories without meta.json
+      // skip directories without meta.json or content.md
     }
   }
 

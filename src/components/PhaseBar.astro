@@ -8,10 +8,10 @@ interface Props {
 
 const { currentPhase, chapterTitle } = Astro.props;
 
-const steps: Array<{ id: Phase; label: string; color: string; bg: string }> = [
-  { id: 'propositions', label: 'Propositions', color: 'text-phase-propose', bg: 'bg-phase-propose' },
-  { id: 'votes', label: 'Votes', color: 'text-phase-vote', bg: 'bg-phase-vote' },
-  { id: 'redaction', label: 'Rédaction', color: 'text-phase-write', bg: 'bg-phase-write' },
+const steps: Array<{ id: Phase; label: string }> = [
+  { id: 'propositions', label: 'Propositions' },
+  { id: 'votes', label: 'Votes' },
+  { id: 'redaction', label: 'Écriture' },
 ];
 
 function stepState(stepId: Phase): 'active' | 'done' | 'upcoming' {
@@ -26,42 +26,46 @@ function stepState(stepId: Phase): 'active' | 'done' | 'upcoming' {
 ---
 
 {currentPhase && (
-  <div class="border-b border-void-border bg-void-light">
-    <div class="max-w-4xl mx-auto px-5 py-2.5 flex items-center justify-between gap-4">
-      <div class="flex items-center gap-2">
-        {steps.map((step, i) => {
-          const state = stepState(step.id);
-          return (
-            <>
-              {i > 0 && (
-                <div class:list={['w-6 h-px', state === 'upcoming' ? 'bg-text-muted/20' : 'bg-cyan/30']} />
-              )}
-              {state === 'active' ? (
-                <a
-                  href="/participer"
-                  class:list={[
-                    'flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 rounded-md transition-colors',
-                    step.color, `${step.bg}/10 hover:${step.bg}/20`,
-                  ]}
-                >
-                  <span class:list={['w-1.5 h-1.5 rounded-full animate-pulse', step.bg]} />
-                  {step.label}
-                </a>
-              ) : (
+  <div class="border-b border-void-border bg-void-light/50 backdrop-blur-sm">
+    <div class="max-w-md mx-auto px-5 py-2.5 flex items-center justify-center gap-1.5">
+      {steps.map((step, i) => {
+        const state = stepState(step.id);
+        return (
+          <>
+            {i > 0 && (
+              <svg class="w-3 h-3 text-text-muted/20 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                <polyline points="9 18 15 12 9 6"/>
+              </svg>
+            )}
+            {state === 'active' ? (
+              <a
+                href={step.id === 'redaction' ? '/lecture' : '/participer'}
+                class:list={[
+                  'inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1 rounded-full transition-all',
+                  step.id === 'propositions' && 'bg-phase-propose/15 text-phase-propose hover:bg-phase-propose/25',
+                  step.id === 'votes' && 'bg-phase-vote/15 text-phase-vote hover:bg-phase-vote/25',
+                  step.id === 'redaction' && 'bg-phase-write/15 text-phase-write hover:bg-phase-write/25',
+                ]}
+              >
                 <span class:list={[
-                  'text-xs px-2.5 py-1',
-                  state === 'done' ? 'text-text-muted line-through' : 'text-text-muted/40',
-                ]}>
-                  {step.label}
-                </span>
-              )}
-            </>
-          );
-        })}
-      </div>
-      <span class="text-xs text-text-muted truncate hidden sm:block max-w-[200px]">
-        {chapterTitle}
-      </span>
+                  'w-1.5 h-1.5 rounded-full animate-pulse',
+                  step.id === 'propositions' && 'bg-phase-propose',
+                  step.id === 'votes' && 'bg-phase-vote',
+                  step.id === 'redaction' && 'bg-phase-write',
+                ]} />
+                {step.label}
+              </a>
+            ) : (
+              <span class:list={[
+                'text-xs px-2 py-1',
+                state === 'done' ? 'text-text-muted' : 'text-text-muted/30',
+              ]}>
+                {step.label}
+              </span>
+            )}
+          </>
+        );
+      })}
     </div>
   </div>
 )}

@@ -19,28 +19,32 @@ try {
 
 <BaseLayout title="Epub — Résonance">
   <div class="max-w-2xl mx-auto px-5 py-16 md:py-24">
-    <h1 class="text-3xl font-bold text-text mb-2 tracking-tight">Téléchargement</h1>
-    <p class="text-text-secondary mb-8">L'epub s'enrichit à chaque nouveau chapitre.</p>
+    <div class="text-center mb-12">
+      <p class="text-xs tracking-[0.3em] uppercase text-text-muted mb-3">Epub</p>
+      <h1 class="font-[--font-display] text-3xl sm:text-4xl text-text mb-3">Téléchargement</h1>
+      <p class="text-text-secondary">L'epub s'enrichit à chaque nouveau chapitre.</p>
+    </div>
 
     {releases.length === 0 ? (
-      <div class="bg-void-card border border-void-border rounded-xl p-8 text-center">
+      <div class="bg-void-card/40 border border-void-border rounded-2xl p-10 text-center">
         <p class="text-text-secondary">Aucune version disponible.</p>
-        <p class="text-sm text-text-muted mt-1">Le premier epub sera généré après le premier chapitre.</p>
+        <p class="text-sm text-text-muted mt-2">Le premier epub sera généré après le premier chapitre.</p>
       </div>
     ) : (
       <div class="space-y-2">
         {releases.map((r, i) => (
-          <div class="flex items-center justify-between py-3 border-b border-void-border">
+          <div class:list={['flex items-center justify-between rounded-xl px-5 py-4 transition-colors', i === 0 ? 'bg-void-card/40 border border-cyan/20' : 'border border-void-border hover:border-void-border-hover']}>
             <div>
               <p class:list={['text-sm', i === 0 ? 'font-semibold text-text' : 'text-text-secondary']}>
                 {r.title}
-                {i === 0 && <span class="ml-2 text-xs text-cyan">dernière</span>}
+                {i === 0 && <span class="ml-2 text-[10px] font-semibold text-cyan bg-cyan/10 rounded-full px-2 py-0.5">dernière</span>}
               </p>
-              <p class="text-xs text-text-muted">{r.date} · {r.tag}</p>
+              <p class="text-xs text-text-muted mt-0.5">{r.date} · {r.tag}</p>
             </div>
             {r.epubUrl ? (
-              <a href={r.epubUrl} class="text-sm font-semibold text-cyan hover:brightness-110 transition">
+              <a href={r.epubUrl} class="group inline-flex items-center gap-1.5 text-sm font-semibold text-cyan hover:brightness-110 transition">
                 .epub {r.epubSize && `(${r.epubSize})`}
+                <svg class="w-4 h-4 group-hover:translate-y-0.5 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
               </a>
             ) : (
               <span class="text-xs text-text-muted">en cours…</span>

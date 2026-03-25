@@ -1,0 +1,63 @@
+/* --- Résonance — Feuille de style EPUB --- */
+
+/* Typographie générale */
+body {
+  font-family: Georgia, "Times New Roman", serif;
+  line-height: 1.7;
+  margin: 1em;
+}
+
+/* Titres de chapitres */
+h1 {
+  font-size: 1.5em;
+  text-align: center;
+  margin-top: 2em;
+  margin-bottom: 1.5em;
+  font-weight: normal;
+  letter-spacing: 0.05em;
+}
+
+/* Paragraphes */
+p {
+  text-align: justify;
+  text-indent: 1.5em;
+  margin: 0;
+  orphans: 2;
+  widows: 2;
+}
+
+/* Pas d'indentation après un titre */
+h1 + p,
+h2 + p,
+h3 + p {
+  text-indent: 0;
+}
+
+/* Italique et gras */
+em { font-style: italic; }
+strong { font-weight: bold; }
+
+/* Citations */
+blockquote {
+  margin: 1em 2em;
+  font-style: italic;
+}
+
+/* Listes (remerciements) */
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 1em 0;
+}
+
+li {
+  margin: 0.3em 0;
+  text-align: center;
+}
+
+/* Séparateurs résiduels — masquer la ligne, garder l'espace */
+hr {
+  border: none;
+  height: 0;
+  margin: 2em 0;
+}

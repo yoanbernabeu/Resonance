@@ -25,7 +25,7 @@ jobs:
             const fs = require('fs');
             const path = require('path');
 
-            // Lire les chapitres dans l'ordre
+            // ── Lire les chapitres dans l'ordre ──
             const chaptersDir = 'chapitres';
             const dirs = fs.readdirSync(chaptersDir, { withFileTypes: true })
               .filter(d => d.isDirectory())
@@ -37,13 +37,16 @@ jobs:
               const contentPath = path.join(chaptersDir, dir, 'content.md');
               if (fs.existsSync(metaPath) && fs.existsSync(contentPath)) {
                 const meta = JSON.parse(fs.readFileSync(metaPath, 'utf-8'));
-                const content = fs.readFileSync(contentPath, 'utf-8');
+                let content = fs.readFileSync(contentPath, 'utf-8');
+                // Nettoyer les séparateurs markdown résiduels
+                content = content.replace(/\n\n---\n\n/g, '\n\n');
+                content = content.replace(/\n---\n/g, '\n\n');
                 chapters.push({ meta, content });
               }
             }
             chapters.sort((a, b) => a.meta.numero - b.meta.numero);
 
-            // Récupérer les contributeur·ice·s via les issues
+            // ── Récupérer les contributeur·ice·s (propositions + votes) ──
             const contributors = new Set();
             const proposalPattern = /^\*\*\[.+?\]\*\*/;
 
@@ -60,56 +63,117 @@ jobs:
                   }
                 );
                 for (const c of comments) {
-                  if (c.user && !c.user.login.includes('[bot]') && !c.minimized && proposalPattern.test(c.body || '')) {
-                    contributors.add(c.user.login);
+                  // Auteurs de propositions
+                  if (c.user && !c.user.login.includes('[bot]') && !c.minimized) {
+                    if (proposalPattern.test(c.body || '')) {
+                      contributors.add(c.user.login);
+                    }
+                  }
+                  // Votants (réactions sur les commentaires de propositions)
+                  if (proposalPattern.test(c.body || '')) {
+                    try {
+                      const reactions = await github.paginate(
+                        github.rest.reactions.listForIssueComment,
+                        {
+                          owner: context.repo.owner,
+                          repo: context.repo.repo,
+                          comment_id: c.id,
+                          per_page: 100
+                        }
+                      );
+                      for (const r of reactions) {
+                        if (r.user && !r.user.login.includes('[bot]')) {
+                          contributors.add(r.user.login);
+                        }
+                      }
+                    } catch (e) {
+                      console.log(`Réactions du commentaire ${c.id}: ${e.message}`);
+                    }
                   }
                 }
               } catch (e) {
-                console.log(`Impossible de lire l'issue ${ch.meta.issueNumber}: ${e.message}`);
+                console.log(`Issue ${ch.meta.issueNumber}: ${e.message}`);
               }
             }
 
-            // Construire le markdown complet
+            // ── Construire le markdown complet ──
             let markdown = '';
 
+            // — Avertissement —
+            markdown += '# Avertissement {.unnumbered}\n\n';
+            markdown += 'Ce livre est le fruit d\'une expérience collective : ';
+            markdown += 'une communauté de passionnés a imaginé ensemble un univers de science-fiction, ';
+            markdown += 'et une intelligence artificielle a rédigé le texte à partir de leurs idées.\n\n';
+            markdown += 'Résonance n\'a pas vocation à remplacer les œuvres littéraires écrites par ';
+            markdown += 'des auteurs et autrices de métier. C\'est une exploration, un terrain de jeu, une curiosité.\n\n';
+            markdown += 'Si cette histoire éveille en vous le goût de la science-fiction, nous vous invitons ';
+            markdown += 'chaleureusement à découvrir et soutenir les auteurs et autrices qui font vivre ce genre ';
+            markdown += 'extraordinaire. Offrez-vous un vrai livre. Poussez la porte d\'une librairie. ';
+            markdown += 'Laissez-vous surprendre par une plume humaine.\n\n';
+            markdown += 'La littérature a besoin de lecteurs et lectrices. Les auteurs et autrices ont besoin de vous.\n\n';
+            markdown += '\\newpage\n\n';
+
+            // — Introduction —
+            markdown += '# À propos de ce livre {.unnumbered}\n\n';
+            markdown += 'Résonance est né d\'une question simple : que se passe-t-il quand une communauté entière écrit un roman ensemble, assistée par une intelligence artificielle ?\n\n';
+            markdown += 'Le principe est le suivant. À chaque chapitre, l\'histoire s\'écrit en trois temps.\n\n';
+            markdown += '**Proposer.** Chacun peut soumettre une idée pour la suite : un nouveau personnage, ';
+            markdown += 'un lieu, un événement, un rebondissement. Tout le monde est libre d\'imaginer ce qui ';
+            markdown += 'pourrait arriver dans le prochain chapitre.\n\n';
+            markdown += '**Voter.** La communauté vote pour les propositions qui l\'inspirent le plus. ';
+            markdown += 'Les idées les mieux accueillies deviennent la matière première du chapitre à venir.\n\n';
+            markdown += '**Écrire.** Une intelligence artificielle rédige le chapitre à partir des propositions retenues. ';
+            markdown += 'Elle ne décide de rien : elle est guidée et orientée par les choix de la communauté, ';
+            markdown += 's\'appuie sur l\'univers construit au fil des pages et veille à la cohérence narrative de l\'ensemble.\n\n';
+            markdown += 'Puis le cycle recommence.\n\n';
+            markdown += 'L\'IA est ici un outil de rédaction au service d\'une vision collective. ';
+            markdown += 'Elle met en forme, elle tisse les idées entre elles, elle donne corps au texte — ';
+            markdown += 'mais la direction, l\'imagination et les décisions narratives appartiennent entièrement à la communauté.\n\n';
+            markdown += 'Bienvenue dans Résonance. L\'histoire vous appartient.\n\n';
+            markdown += '\\newpage\n\n';
+
+            // — Chapitres —
             for (const ch of chapters) {
-              const label = ch.meta.numero === 0 ? 'Prologue' : `Chapitre ${ch.meta.numero}`;
               markdown += `# ${ch.meta.titre}\n\n`;
-              markdown += ch.content + '\n\n';
+              markdown += ch.content.trim() + '\n\n';
               markdown += '\\newpage\n\n';
             }
 
-            // Page contributeur·ice·s à la fin
-            const sortedContributors = [...contributors].sort((a, b) => a.localeCompare(b));
+            // — Remerciements —
+            const sortedContributors = [...contributors].sort((a, b) =>
+              a.localeCompare(b, 'fr', { sensitivity: 'base' })
+            );
 
-            markdown += '# Contributeur·ice·s\n\n';
-            markdown += 'Résonance est une expérience d\'écriture collective assistée par IA.\n';
-            markdown += 'Ce livre n\'existerait pas sans les idées de :\n\n';
+            markdown += '# Remerciements {.unnumbered}\n\n';
+            markdown += 'Résonance est un projet initié et coordonné par **Yoan Bernabeu**.\n\n';
+            markdown += 'Ce livre n\'existerait pas sans l\'imagination et la participation de :\n\n';
 
             if (sortedContributors.length > 0) {
               for (const c of sortedContributors) {
-                markdown += `- @${c}\n`;
+                markdown += `- ${c}\n`;
               }
             } else {
-              markdown += '- *(les contributeur·ice·s apparaîtront ici à partir du chapitre 1)*\n';
+              markdown += '*(les contributeur·ice·s apparaîtront ici à partir du chapitre 1)*\n';
             }
 
             markdown += '\n';
+            markdown += 'Que votre proposition ait été retenue ou non, que vous ayez proposé ou voté, ';
+            markdown += 'votre participation a contribué à façonner cette histoire. Merci.\n\n';
             markdown += 'Rédaction assistée par Claude (Anthropic).\n\n';
-            markdown += 'Un projet de la communauté YoanDev.\n\n';
-            markdown += '---\n\n';
-            markdown += 'Ce projet ne remplace en rien le travail des auteur·ice·s.\n';
-            markdown += 'Lisez et soutenez de vrais auteur·ice·s de science-fiction et de fantasy.\n\n';
-            markdown += 'Licence : CC BY-NC-SA 4.0\n';
+            markdown += '**Licence :** Creative Commons BY-NC-SA 4.0\n\n';
+            markdown += 'Vous êtes libre de partager et adapter ce texte, à condition de créditer ';
+            markdown += 'les auteur·ice·s, de ne pas en faire un usage commercial, et de partager ';
+            markdown += 'vos adaptations sous la même licence.\n';
 
             fs.writeFileSync('epub-input.md', markdown);
 
-            // Métadonnées Pandoc
+            // ── Métadonnées Pandoc ──
             const metadata = [
               'title: "Résonance"',
+              'subtitle: "Roman collaboratif de science-fiction"',
               'creator: "Communauté YoanDev & Claude"',
               'language: fr',
-              'rights: "CC BY-NC-SA 4.0"',
+              'rights: "Creative Commons BY-NC-SA 4.0"',
             ].join('\n');
             fs.writeFileSync('epub-metadata.yaml', metadata);
 
@@ -117,7 +181,12 @@ jobs:
             core.setOutput('contributor_count', sortedContributors.length);
 
       - name: Générer l'epub
-        run: pandoc epub-input.md -o resonance.epub --metadata-file=epub-metadata.yaml
+        run: |
+          PANDOC_ARGS="epub-input.md -o resonance.epub --metadata-file=epub-metadata.yaml --css=assets/epub.css --toc --toc-depth=1"
+          if [ -f assets/cover.jpg ]; then
+            PANDOC_ARGS="$PANDOC_ARGS --epub-cover-image=assets/cover.jpg"
+          fi
+          pandoc $PANDOC_ARGS
 
       - name: Uploader l'epub sur la Release
         uses: actions/github-script@v7

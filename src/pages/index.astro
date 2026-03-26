@@ -25,6 +25,7 @@ const phaseInfo = await getActivePhase().catch(() => ({ phase: null, chapterTitl
         sizes="100vw"
         class="w-full h-[120%] object-cover opacity-50"
         loading="eager"
+        fetchpriority="high"
         quality={80}
       />
     </div>
@@ -45,7 +46,7 @@ const phaseInfo = await getActivePhase().catch(() => ({ phase: null, chapterTitl
           <Image
             src={coverImage}
             alt="Couverture de Résonance"
-            widths={[208, 416]}
+            widths={[288, 416]}
             sizes="(max-width: 640px) 144px, (max-width: 768px) 176px, 208px"
             class="relative w-full h-auto rounded-lg shadow-[0_0_0_1px_rgba(0,212,170,0.15),0_20px_50px_rgba(0,0,0,0.5)]"
             quality={80}
@@ -127,7 +128,7 @@ const phaseInfo = await getActivePhase().catch(() => ({ phase: null, chapterTitl
                   <path d="M12 20h9"/><path d="M16.376 3.622a1 1 0 0 1 3.002 3.002L7.368 18.635a2 2 0 0 1-.855.506l-2.872.838a.5.5 0 0 1-.62-.62l.838-2.872a2 2 0 0 1 .506-.854z"/>
                 </svg>
               </div>
-              <span class="text-xs font-bold text-phase-propose/80 tracking-wider uppercase">Étape 1</span>
+              <span class="text-xs font-bold text-phase-propose tracking-wider uppercase">Étape 1</span>
             </div>
             <p class="text-base font-semibold text-text mb-1.5">Proposez</p>
             <p class="text-sm text-text-secondary leading-relaxed">
@@ -145,7 +146,7 @@ const phaseInfo = await getActivePhase().catch(() => ({ phase: null, chapterTitl
                   <path d="M7 10v12"/><path d="M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2a3.13 3.13 0 0 1 3 3.88"/>
                 </svg>
               </div>
-              <span class="text-xs font-bold text-phase-vote/80 tracking-wider uppercase">Étape 2</span>
+              <span class="text-xs font-bold text-phase-vote tracking-wider uppercase">Étape 2</span>
             </div>
             <p class="text-base font-semibold text-text mb-1.5">Votez</p>
             <p class="text-sm text-text-secondary leading-relaxed">
@@ -163,7 +164,7 @@ const phaseInfo = await getActivePhase().catch(() => ({ phase: null, chapterTitl
                   <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
                 </svg>
               </div>
-              <span class="text-xs font-bold text-phase-write/80 tracking-wider uppercase">Étape 3</span>
+              <span class="text-xs font-bold text-phase-write tracking-wider uppercase">Étape 3</span>
             </div>
             <p class="text-base font-semibold text-text mb-1.5">L'IA écrit</p>
             <p class="text-sm text-text-secondary leading-relaxed">

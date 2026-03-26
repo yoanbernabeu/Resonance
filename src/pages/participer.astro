@@ -50,6 +50,13 @@ const grouped = PROPOSAL_CATEGORIES
           </p>
         </div>
 
+        <div class="bg-void-card/30 border border-cyan/10 rounded-xl px-5 py-4 mb-10 flex items-start gap-4">
+          <svg class="w-5 h-5 text-cyan shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+          <p class="text-sm text-text-secondary">
+            Avant de proposer, prenez le temps de <a href="/lecture" class="text-cyan font-semibold hover:underline">lire l'intégralité du roman</a> pour que vos idées s'inscrivent dans la continuité de l'histoire.
+          </p>
+        </div>
+
         {!user ? (
           <div class="bg-void-card/40 border border-void-border rounded-2xl p-10 text-center">
             <p class="text-text-secondary mb-5">Connectez-vous pour soumettre vos idées.</p>
@@ -116,6 +123,13 @@ const grouped = PROPOSAL_CATEGORIES
           <h1 class="font-[--font-display] text-3xl sm:text-4xl text-text mb-3">{phaseInfo.chapterTitle}</h1>
           <p class="text-text-secondary max-w-md mx-auto">
             Votez pour vos propositions préférées. Les mieux notées guideront l'écriture du chapitre.
+          </p>
+        </div>
+
+        <div class="bg-void-card/30 border border-cyan/10 rounded-xl px-5 py-4 mb-10 flex items-start gap-4">
+          <svg class="w-5 h-5 text-cyan shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+          <p class="text-sm text-text-secondary">
+            Avant de voter, assurez-vous d'avoir <a href="/lecture" class="text-cyan font-semibold hover:underline">lu tous les chapitres</a> pour juger au mieux de la cohérence des propositions.
           </p>
         </div>
 

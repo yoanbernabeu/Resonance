@@ -96,7 +96,7 @@ export async function getProposals(
     proposals.push({
       id: comment.id,
       nodeId: comment.node_id,
-      author: comment.user.login,
+      author: parsed.authorLogin || comment.user.login,
       avatarUrl: comment.user.avatar_url,
       category: parsed.category,
       description: parsed.description,
@@ -125,9 +125,13 @@ export async function getUserProposalCount(
     per_page: 100,
   });
 
-  return comments.filter(
-    c => c.user?.login === username && !(c as any).minimized && parseProposalComment(c.body || ''),
-  ).length;
+  return comments.filter(c => {
+    if ((c as any).minimized) return false;
+    const parsed = parseProposalComment(c.body || '');
+    if (!parsed) return false;
+    const author = parsed.authorLogin || c.user?.login;
+    return author === username;
+  }).length;
 }
 
 export async function getAllChapterIssues(): Promise<
@@ -308,12 +312,20 @@ export async function createChapterIssue(
 
 // --- Helpers ---
 
-function parseProposalComment(body: string): { category: ProposalCategory; description: string } | null {
+function parseProposalComment(body: string): { category: ProposalCategory; description: string; authorLogin: string | null } | null {
   const match = body.match(/^\*\*\[(.+?)\]\*\*\s*(.+)/s);
   if (!match) return null;
 
   const categoryRaw = match[1].trim();
-  const description = match[2].trim();
+  let description = match[2].trim();
+
+  // Extraire l'auteur depuis la ligne "— proposé par @username"
+  let authorLogin: string | null = null;
+  const authorMatch = description.match(/\n\n— proposé par @(\S+)\s*$/);
+  if (authorMatch) {
+    authorLogin = authorMatch[1];
+    description = description.replace(/\n\n— proposé par @\S+\s*$/, '').trim();
+  }
 
   const validCategories: ProposalCategory[] = [
     'Personnage', 'Lieu', 'Événement', 'Objet/Artefact', 'Twist', 'Lore',
@@ -325,5 +337,5 @@ function parseProposalComment(body: string): { category: ProposalCategory; descr
 
   if (!category) return null;
 
-  return { category, description };
+  return { category, description, authorLogin };
 }

@@ -42,7 +42,7 @@ html {
   color: var(--color-text);
 }
 
-.prose p { margin-bottom: 1.4em; }
+.prose p { margin-bottom: 1.4em; text-align: justify; hyphens: auto; -webkit-hyphens: auto; }
 
 .prose hr {
   border: none;

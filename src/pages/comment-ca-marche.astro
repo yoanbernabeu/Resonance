@@ -4,135 +4,108 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 <BaseLayout title="Comment ça marche — Résonance">
   <div class="max-w-2xl mx-auto px-5 py-16 md:py-24">
-    <div class="text-center mb-14">
-      <p class="text-xs tracking-[0.3em] uppercase text-text-muted mb-3">Le process</p>
+    <div class="text-center mb-16">
       <h1 class="font-[--font-display] text-3xl sm:text-4xl text-text mb-4">Comment ça marche</h1>
-      <p class="text-text-secondary max-w-lg mx-auto">
-        Résonance est un roman de science-fiction écrit collectivement. Chaque chapitre passe par trois phases, en toute transparence.
+      <p class="text-text-secondary max-w-md mx-auto leading-relaxed">
+        Résonance est une expérience d'écriture collaborative. La communauté décide de l'histoire, l'IA la rédige. Trois étapes, c'est tout.
       </p>
     </div>
 
-    <!-- Phase 1 -->
-    <section class="mb-10">
-      <div class="flex items-center gap-3 mb-4">
-        <div class="w-8 h-8 rounded-xl bg-phase-propose/15 flex items-center justify-center shrink-0">
-          <span class="text-xs font-bold text-phase-propose">1</span>
-        </div>
-        <h2 class="font-[--font-display] text-xl text-text">Propositions</h2>
-      </div>
-      <div class="pl-11 space-y-3 text-text-secondary leading-relaxed">
-        <p>
-          Quand un nouveau chapitre est lancé, la phase de propositions s'ouvre. Vous pouvez soumettre jusqu'à <strong class="text-text">3 idées</strong> par chapitre, chacune dans une catégorie :
-        </p>
-        <div class="grid grid-cols-2 gap-2 text-sm">
-          <div class="bg-void-card/40 border border-void-border rounded-xl px-3 py-2"><strong class="text-text">Personnage</strong> — un nouveau personnage, un trait</div>
-          <div class="bg-void-card/40 border border-void-border rounded-xl px-3 py-2"><strong class="text-text">Lieu</strong> — un monde, une station</div>
-          <div class="bg-void-card/40 border border-void-border rounded-xl px-3 py-2"><strong class="text-text">Événement</strong> — quelque chose qui se passe</div>
-          <div class="bg-void-card/40 border border-void-border rounded-xl px-3 py-2"><strong class="text-text">Objet / Artefact</strong> — une technologie</div>
-          <div class="bg-void-card/40 border border-void-border rounded-xl px-3 py-2"><strong class="text-text">Twist</strong> — un retournement</div>
-          <div class="bg-void-card/40 border border-void-border rounded-xl px-3 py-2"><strong class="text-text">Lore</strong> — un élément d'univers</div>
-        </div>
-        <p>
-          Il suffit d'un compte GitHub pour participer. Vos propositions sont stockées comme commentaires sur une issue GitHub — tout est public et vérifiable.
-        </p>
-      </div>
-    </section>
+    <!-- Étapes -->
+    <div class="space-y-12 mb-16">
 
-    <!-- Phase 2 -->
-    <section class="mb-10">
-      <div class="flex items-center gap-3 mb-4">
-        <div class="w-8 h-8 rounded-xl bg-phase-vote/15 flex items-center justify-center shrink-0">
-          <span class="text-xs font-bold text-phase-vote">2</span>
+      <!-- Étape 1 -->
+      <section>
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-10 h-10 rounded-xl bg-phase-propose/15 flex items-center justify-center shrink-0">
+            <span class="text-sm font-bold text-phase-propose">1</span>
+          </div>
+          <div>
+            <h2 class="font-[--font-display] text-xl text-text">Proposez vos idées</h2>
+            <p class="text-xs text-text-muted">Quand un nouveau chapitre est lancé</p>
+          </div>
         </div>
-        <h2 class="font-[--font-display] text-xl text-text">Votes</h2>
-      </div>
-      <div class="pl-11 space-y-3 text-text-secondary leading-relaxed">
-        <p>
-          Une fois les propositions fermées, la phase de votes s'ouvre. Plus aucune nouvelle proposition ne peut être soumise.
-        </p>
-        <p>
-          Vous pouvez <strong class="text-text">voter pour ou contre</strong> chaque proposition. Le score = 👍 moins 👎. Les propositions sont classées par score dans chaque catégorie.
-        </p>
-        <p class="text-sm text-text-muted">
-          Techniquement, les votes sont des réactions GitHub sur les commentaires de l'issue. Tout est transparent et vérifiable.
-        </p>
-      </div>
-    </section>
-
-    <!-- Phase 3 -->
-    <section class="mb-10">
-      <div class="flex items-center gap-3 mb-4">
-        <div class="w-8 h-8 rounded-xl bg-phase-write/15 flex items-center justify-center shrink-0">
-          <span class="text-xs font-bold text-phase-write">3</span>
-        </div>
-        <h2 class="font-[--font-display] text-xl text-text">Rédaction</h2>
-      </div>
-      <div class="pl-11 space-y-3 text-text-secondary leading-relaxed">
-        <p>Les votes sont fermés. Voici comment le chapitre est écrit :</p>
-        <ol class="space-y-2 text-sm list-decimal list-inside">
-          <li>Les propositions sont classées par score dans chaque catégorie</li>
-          <li><strong class="text-text">La proposition la mieux notée de chaque catégorie</strong> est intégrée comme contrainte obligatoire</li>
-          <li>Les autres propositions bien notées peuvent être piochées librement</li>
-          <li>Le chapitre est rédigé par <strong class="text-text">Claude</strong> (IA d'Anthropic), en respectant le ton littéraire et la cohérence narrative</li>
-          <li>Le mainteneur du repo relit, ajuste si nécessaire, et publie</li>
-        </ol>
-        <p>
-          À la publication, une <strong class="text-text">release GitHub</strong> est créée avec un epub mis à jour contenant tous les chapitres et la liste des contributeur·ice·s.
-        </p>
-      </div>
-    </section>
-
-    <!-- Séparateur -->
-    <div class="w-12 h-px bg-gradient-to-r from-transparent via-cyan/30 to-transparent mx-auto my-12"></div>
-
-    <!-- Le rôle de l'IA -->
-    <section class="mb-10">
-      <div class="bg-void-card/40 border border-void-border rounded-2xl p-6">
-        <h2 class="font-[--font-display] text-lg text-text mb-3">Le rôle de l'IA</h2>
-        <div class="space-y-3 text-text-secondary leading-relaxed">
+        <div class="pl-[52px] space-y-4 text-text-secondary leading-relaxed">
           <p>
-            Soyons clairs : <strong class="text-text">l'IA ne décide pas de l'histoire</strong>. C'est vous qui décidez, via vos propositions et vos votes. L'IA est un outil de rédaction qui transforme vos idées en prose.
+            Vous avez <strong class="text-text">3 idées maximum</strong> à soumettre pour influencer le prochain chapitre. Inventez un personnage, un lieu, un événement, un objet, un retournement de situation ou un élément d'univers.
           </p>
-          <p>Concrètement, l'IA reçoit comme instructions :</p>
-          <ul class="text-sm space-y-1">
-            <li>— Le résumé de tous les chapitres précédents</li>
-            <li>— L'état de l'univers (personnages, lieux, factions, événements)</li>
-            <li>— Les propositions gagnantes comme contraintes à intégrer</li>
-            <li>— Le ton et le style de l'univers</li>
-          </ul>
+          <div class="grid grid-cols-3 gap-2 text-xs text-center">
+            <div class="bg-void-card/40 border border-void-border rounded-lg py-2">Personnage</div>
+            <div class="bg-void-card/40 border border-void-border rounded-lg py-2">Lieu</div>
+            <div class="bg-void-card/40 border border-void-border rounded-lg py-2">Événement</div>
+            <div class="bg-void-card/40 border border-void-border rounded-lg py-2">Objet</div>
+            <div class="bg-void-card/40 border border-void-border rounded-lg py-2">Twist</div>
+            <div class="bg-void-card/40 border border-void-border rounded-lg py-2">Lore</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Étape 2 -->
+      <section>
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-10 h-10 rounded-xl bg-phase-vote/15 flex items-center justify-center shrink-0">
+            <span class="text-sm font-bold text-phase-vote">2</span>
+          </div>
+          <div>
+            <h2 class="font-[--font-display] text-xl text-text">Votez</h2>
+            <p class="text-xs text-text-muted">Les propositions sont fermées, place au choix</p>
+          </div>
+        </div>
+        <div class="pl-[52px] text-text-secondary leading-relaxed">
           <p>
-            Le résultat est relu et peut être ajusté avant publication. C'est une collaboration entre la communauté, l'IA et le mainteneur.
+            Un simple clic pour voter <strong class="text-text">pour</strong> (👍) ou <strong class="text-text">contre</strong> (👎) chaque idée. Les mieux notées guideront le prochain chapitre.
           </p>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- Transparence -->
-    <section class="mb-10">
-      <h2 class="font-[--font-display] text-lg text-text mb-3">Transparence totale</h2>
-      <div class="space-y-3 text-text-secondary leading-relaxed">
-        <p>Tout le process est visible et vérifiable :</p>
-        <ul class="text-sm space-y-1">
-          <li>— Le <strong class="text-text">code source</strong> du site est open source sur GitHub</li>
-          <li>— Les <strong class="text-text">propositions et votes</strong> sont des issues et réactions GitHub publiques</li>
-          <li>— Les <strong class="text-text">chapitres</strong> sont des fichiers markdown dans le repo</li>
-          <li>— L'<strong class="text-text">epub</strong> est généré automatiquement et attaché aux releases</li>
-          <li>— Tous·tes les <strong class="text-text">contributeur·ice·s</strong> sont crédité·e·s dans l'epub</li>
-        </ul>
-        <p>
-          Le projet est sous licence <strong class="text-text">CC BY-NC-SA 4.0</strong> — libre, non-commercial, partage aux mêmes conditions.
-        </p>
-      </div>
-    </section>
+      <!-- Étape 3 -->
+      <section>
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-10 h-10 rounded-xl bg-phase-write/15 flex items-center justify-center shrink-0">
+            <span class="text-sm font-bold text-phase-write">3</span>
+          </div>
+          <div>
+            <h2 class="font-[--font-display] text-xl text-text">L'IA écrit le chapitre</h2>
+            <p class="text-xs text-text-muted">Vos idées deviennent un récit</p>
+          </div>
+        </div>
+        <div class="pl-[52px] space-y-3 text-text-secondary leading-relaxed">
+          <p>
+            L'idée <strong class="text-text">la mieux notée de chaque catégorie</strong> doit obligatoirement apparaître dans le chapitre. L'IA rédige le texte en respectant le style et la cohérence de l'histoire.
+          </p>
+          <p>
+            <strong class="text-text">L'IA ne décide de rien</strong> — c'est vous qui choisissez la direction via vos propositions et vos votes. Elle transforme vos idées en prose, c'est tout. L'auteur du projet relit et publie.
+          </p>
+          <p>
+            À chaque publication, le <strong class="text-text">livre numérique (epub)</strong> est mis à jour avec tous les chapitres et la liste des participant·e·s.
+          </p>
+        </div>
+      </section>
 
-    <!-- Note -->
-    <section class="border-t border-void-border pt-8">
-      <p class="text-sm text-text-muted leading-relaxed">
+    </div>
+
+    <!-- Connexion -->
+    <div class="bg-void-card/40 border border-void-border rounded-2xl p-6 text-center mb-16">
+      <p class="text-text leading-relaxed mb-1">
+        Pour participer, il suffit d'un <strong>compte gratuit</strong>.
+      </p>
+      <p class="text-sm text-text-muted">
+        La connexion se fait via <a href="https://github.com" target="_blank" rel="noopener" class="underline hover:text-text-secondary transition-colors">GitHub</a>, la plateforme qui héberge le projet. C'est rapide et c'est la seule étape technique.
+      </p>
+    </div>
+
+    <!-- Pied de page -->
+    <footer class="text-center space-y-3 text-sm text-text-muted">
+      <p>
+        Tout est transparent : propositions, votes, code source — tout est public et vérifiable.
+        Licence <strong class="text-text-secondary">CC BY-NC-SA 4.0</strong>.
+      </p>
+      <p>
         Résonance est une expérience créative et communautaire. Ce projet ne remplace en rien le travail des auteur·ice·s.
         <a href="https://www.babelio.com/livres-/sciencefiction/42" target="_blank" rel="noopener" class="underline hover:text-text-secondary transition-colors">
-          Lisez et soutenez de vrais auteur·ice·s de science-fiction et de fantasy.
+          Lisez et soutenez de vrais auteur·ice·s.
         </a>
       </p>
-    </section>
+    </footer>
   </div>
 </BaseLayout>

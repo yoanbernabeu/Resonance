@@ -4,6 +4,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import { getAllChapters } from '../lib/chapters';
 import { getActivePhase } from '../lib/phase';
 import bgImage from '../assets/bg.webp';
+import coverImage from '../assets/cover.jpg';
 
 const chapters = await getAllChapters();
 const phaseInfo = await getActivePhase().catch(() => ({ phase: null, chapterTitle: null, issueNumber: null }));
@@ -35,27 +36,48 @@ const phaseInfo = await getActivePhase().catch(() => ({ phase: null, chapterTitl
     <div class="absolute inset-0 hero-glow"></div>
     <div class="absolute inset-0 hero-glow-secondary"></div>
 
-    <!-- Vertical line decoration -->
-    <div class="absolute left-1/2 top-0 w-px h-24 bg-gradient-to-b from-transparent to-cyan/20"></div>
 
-    <div class="relative text-center px-5 max-w-3xl mx-auto hero-text-content">
-      <!-- Label -->
-      <p class="text-xs tracking-[0.35em] uppercase text-cyan/70 font-medium mb-8 fade-up">
-        Roman collaboratif de science-fiction
-      </p>
+    <div class="relative px-5 max-w-4xl mx-auto hero-text-content flex flex-col md:flex-row items-center gap-8 md:gap-12">
+      <!-- Couverture -->
+      <div class="w-36 sm:w-44 md:w-52 shrink-0 fade-up">
+        <div class="relative">
+          <div class="absolute -inset-3 rounded-2xl bg-cyan/8 blur-2xl"></div>
+          <Image
+            src={coverImage}
+            alt="Couverture de Résonance"
+            widths={[208, 416]}
+            sizes="(max-width: 640px) 144px, (max-width: 768px) 176px, 208px"
+            class="relative w-full h-auto rounded-lg shadow-[0_0_0_1px_rgba(0,212,170,0.15),0_20px_50px_rgba(0,0,0,0.5)]"
+            quality={80}
+            loading="eager"
+          />
+        </div>
+      </div>
 
-      <!-- Title -->
-      <h1 class="font-[--font-display] text-6xl sm:text-7xl md:text-8xl lg:text-9xl text-text leading-[0.9] mb-8 title-glow fade-up fade-up-1">
-        Résonance
-      </h1>
+      <!-- Texte -->
+      <div class="text-center md:text-left">
+        <!-- Label -->
+        <p class="text-xs tracking-[0.35em] uppercase text-cyan/70 font-medium mb-4 fade-up">
+          Expérience d'écriture collaborative
+        </p>
 
-      <!-- Prose hook -->
-      <p class="font-[--font-reading] text-lg sm:text-xl text-text leading-relaxed max-w-xl mx-auto mb-10 italic fade-up fade-up-2">
-        L'Hégémonie Solaire s'est effondrée. Dans la Lisière, les vestiges des Bâtisseurs semblent encore <span class="text-cyan not-italic font-medium">résonner</span>. Quelque chose dort dans les fondations de la galaxie.
-      </p>
+        <!-- Title -->
+        <h1 class="font-[--font-display] text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-text leading-[0.9] mb-5 title-glow fade-up fade-up-1">
+          Résonance
+        </h1>
 
-      <!-- CTA -->
-      <div class="flex flex-col sm:flex-row items-center justify-center gap-3 fade-up fade-up-3">
+        <!-- Value proposition -->
+        <p class="text-base sm:text-lg text-text/85 leading-relaxed max-w-xl mb-6 fade-up fade-up-2">
+          Un roman de science-fiction écrit <span class="text-cyan font-semibold">par la communauté</span>. Vous proposez des idées, vous votez, et l'<span class="text-cyan font-semibold">IA rédige</span> le chapitre.
+        </p>
+
+        <!-- Prose hook -->
+        <p class="font-[--font-reading] text-sm text-text/80 leading-relaxed max-w-lg mb-8 italic fade-up fade-up-2">
+          L'Hégémonie Solaire s'est effondrée. Dans la Lisière, les vestiges des Bâtisseurs semblent encore <span class="text-cyan not-italic font-medium">résonner</span>…
+        </p>
+
+        <!-- CTA -->
+        <div class="flex flex-col sm:flex-row items-center md:items-start gap-3 fade-up fade-up-3">
         {phaseInfo.phase === 'propositions' ? (
           <a href="/participer" class="group inline-flex items-center gap-2 text-sm font-semibold px-7 py-3 bg-cyan text-void rounded-full hover:brightness-110 transition-all hover:shadow-[0_0_30px_rgba(0,212,170,0.2)]">
             Proposer une idée
@@ -76,6 +98,7 @@ const phaseInfo = await getActivePhase().catch(() => ({ phase: null, chapterTitl
           Comment ça marche ?
         </a>
       </div>
+      </div>
     </div>
 
   </section>
@@ -87,9 +110,9 @@ const phaseInfo = await getActivePhase().catch(() => ({ phase: null, chapterTitl
     <div class="max-w-3xl mx-auto px-5">
 
       <div class="text-center mb-14">
-        <p class="text-xs tracking-[0.3em] uppercase text-text-muted mb-3">Le principe</p>
+        <p class="text-xs tracking-[0.3em] uppercase text-text-muted mb-3">Comment ça fonctionne</p>
         <p class="font-[--font-display] text-2xl sm:text-3xl text-text leading-snug">
-          Un roman écrit par <span class="text-cyan">vous</span>,<br class="hidden sm:block"> chapitre après chapitre.
+          Vos idées + l'IA = <span class="text-cyan">un roman</span><br class="hidden sm:block"> qui grandit chapitre après chapitre.
         </p>
       </div>
 
@@ -142,9 +165,9 @@ const phaseInfo = await getActivePhase().catch(() => ({ phase: null, chapterTitl
               </div>
               <span class="text-xs font-bold text-phase-write/80 tracking-wider uppercase">Étape 3</span>
             </div>
-            <p class="text-base font-semibold text-text mb-1.5">Lisez</p>
+            <p class="text-base font-semibold text-text mb-1.5">L'IA écrit</p>
             <p class="text-sm text-text-secondary leading-relaxed">
-              L'IA rédige le chapitre en intégrant vos idées. Le roman grandit, ensemble.
+              L'IA rédige le chapitre en intégrant les idées gagnantes. Vous lisez le résultat, ensemble.
             </p>
           </div>
         </div>
@@ -212,7 +235,7 @@ const phaseInfo = await getActivePhase().catch(() => ({ phase: null, chapterTitl
 
     <div class="max-w-lg mx-auto px-5 text-center">
       <p class="font-[--font-display] italic text-xl sm:text-2xl text-text-secondary leading-relaxed mb-8">
-        "Chaque voix compte. Chaque vote façonne l'histoire. Chaque chapitre est le vôtre."
+        "Vous imaginez. Vous votez. L'IA écrit. Le roman est le vôtre."
       </p>
       {phaseInfo.phase ? (
         <a href="/participer" class="group inline-flex items-center gap-2 text-sm font-semibold px-7 py-3 bg-cyan text-void rounded-full hover:brightness-110 transition-all hover:shadow-[0_0_30px_rgba(0,212,170,0.2)]">

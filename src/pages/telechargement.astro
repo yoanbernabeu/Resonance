@@ -1,6 +1,8 @@
 ---
+import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getServerOctokit } from '../lib/github';
+import coverImage from '../assets/cover.jpg';
 
 const OWNER = import.meta.env.GITHUB_REPO_OWNER;
 const REPO = import.meta.env.GITHUB_REPO_NAME;
@@ -15,43 +17,71 @@ try {
     return { tag: r.tag_name, title: r.name || r.tag_name, date: new Date(r.published_at || r.created_at).toLocaleDateString('fr-FR'), epubUrl: epub?.browser_download_url || null, epubSize: epub ? `${(epub.size / (1024 * 1024)).toFixed(1)} Mo` : null };
   });
 } catch {}
+
+const latest = releases.length > 0 ? releases[0] : null;
+const older = releases.slice(1);
 ---
 
 <BaseLayout title="Epub — Résonance">
   <div class="max-w-2xl mx-auto px-5 py-16 md:py-24">
-    <div class="text-center mb-12">
-      <p class="text-xs tracking-[0.3em] uppercase text-text-muted mb-3">Epub</p>
-      <h1 class="font-[--font-display] text-3xl sm:text-4xl text-text mb-3">Téléchargement</h1>
-      <p class="text-text-secondary">L'epub s'enrichit à chaque nouveau chapitre.</p>
-    </div>
 
-    {releases.length === 0 ? (
+    {!latest ? (
       <div class="bg-void-card/40 border border-void-border rounded-2xl p-10 text-center">
         <p class="text-text-secondary">Aucune version disponible.</p>
         <p class="text-sm text-text-muted mt-2">Le premier epub sera généré après le premier chapitre.</p>
       </div>
     ) : (
-      <div class="space-y-2">
-        {releases.map((r, i) => (
-          <div class:list={['flex items-center justify-between rounded-xl px-5 py-4 transition-colors', i === 0 ? 'bg-void-card/40 border border-cyan/20' : 'border border-void-border hover:border-void-border-hover']}>
-            <div>
-              <p class:list={['text-sm', i === 0 ? 'font-semibold text-text' : 'text-text-secondary']}>
-                {r.title}
-                {i === 0 && <span class="ml-2 text-[10px] font-semibold text-cyan bg-cyan/10 rounded-full px-2 py-0.5">dernière</span>}
-              </p>
-              <p class="text-xs text-text-muted mt-0.5">{r.date} · {r.tag}</p>
-            </div>
-            {r.epubUrl ? (
-              <a href={r.epubUrl} class="group inline-flex items-center gap-1.5 text-sm font-semibold text-cyan hover:brightness-110 transition">
-                .epub {r.epubSize && `(${r.epubSize})`}
-                <svg class="w-4 h-4 group-hover:translate-y-0.5 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      <>
+        <!-- Dernière version : couverture + CTA -->
+        <div class="flex flex-col sm:flex-row items-center gap-8 sm:gap-10 mb-16">
+          <div class="w-44 sm:w-52 shrink-0">
+            <Image
+              src={coverImage}
+              alt="Couverture de Résonance"
+              widths={[208, 416]}
+              sizes="(max-width: 640px) 176px, 208px"
+              class="w-full h-auto rounded-lg shadow-[0_4px_40px_rgba(0,212,170,0.12)] border border-void-border"
+              quality={80}
+            />
+          </div>
+          <div class="text-center sm:text-left">
+            <p class="text-xs tracking-[0.3em] uppercase text-text-muted mb-2">Dernière version</p>
+            <h1 class="font-[--font-display] text-2xl sm:text-3xl text-text mb-1">{latest.title}</h1>
+            <p class="text-sm text-text-muted mb-6">{latest.date}{latest.epubSize && ` · ${latest.epubSize}`}</p>
+            {latest.epubUrl ? (
+              <a href={latest.epubUrl} class="group inline-flex items-center gap-2 text-sm font-semibold px-7 py-3 bg-cyan text-void rounded-full hover:brightness-110 transition-all hover:shadow-[0_0_30px_rgba(0,212,170,0.2)]">
+                Télécharger l'epub
+                <svg class="w-4 h-4 group-hover:translate-y-0.5 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
               </a>
             ) : (
-              <span class="text-xs text-text-muted">en cours…</span>
+              <span class="text-sm text-text-muted">Génération en cours…</span>
             )}
+            <p class="text-xs text-text-muted mt-4">L'epub s'enrichit à chaque nouveau chapitre.</p>
           </div>
-        ))}
-      </div>
+        </div>
+
+        <!-- Versions précédentes -->
+        {older.length > 0 && (
+          <div>
+            <p class="text-xs tracking-[0.3em] uppercase text-text-muted mb-4">Versions précédentes</p>
+            <div class="space-y-1.5">
+              {older.map((r) => (
+                <div class="flex items-center justify-between rounded-lg px-4 py-3 border border-void-border hover:border-void-border-hover transition-colors">
+                  <div>
+                    <p class="text-sm text-text-secondary">{r.title}</p>
+                    <p class="text-xs text-text-muted mt-0.5">{r.date}</p>
+                  </div>
+                  {r.epubUrl ? (
+                    <a href={r.epubUrl} class="text-xs text-text-muted hover:text-cyan transition-colors shrink-0">.epub</a>
+                  ) : (
+                    <span class="text-xs text-text-muted">—</span>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </>
     )}
   </div>
 </BaseLayout>

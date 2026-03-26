@@ -34,6 +34,19 @@ const navLinks = [
     </div>
 
     <div class="flex items-center gap-3">
+      <a
+        href="/telechargement"
+        class:list={[
+          'hidden sm:inline-flex items-center gap-1.5 text-[13px] font-semibold px-3.5 py-1.5 rounded-full border transition-all',
+          currentPath.startsWith('/telechargement')
+            ? 'bg-cyan text-void border-cyan'
+            : 'border-cyan/40 text-cyan hover:bg-cyan hover:text-void hover:shadow-[0_0_20px_rgba(0,212,170,0.15)]',
+        ]}
+      >
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Epub
+      </a>
+
       {user ? (
         <div class="flex items-center gap-2">
           <a href="/profil" class="flex items-center text-text-muted hover:text-text transition-colors" title={user.login}>
@@ -48,19 +61,6 @@ const navLinks = [
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M20 21a8 8 0 0 0-16 0"/></svg>
         </a>
       )}
-
-      <a
-        href="/telechargement"
-        class:list={[
-          'hidden sm:inline-flex items-center gap-1.5 text-[13px] font-semibold px-3.5 py-1.5 rounded-full border transition-all',
-          currentPath.startsWith('/telechargement')
-            ? 'bg-cyan text-void border-cyan'
-            : 'border-cyan/40 text-cyan hover:bg-cyan hover:text-void hover:shadow-[0_0_20px_rgba(0,212,170,0.15)]',
-        ]}
-      >
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-        Epub
-      </a>
 
       <!-- Bouton hamburger mobile -->
       <button id="menu-toggle" class="md:hidden ml-2 p-1 text-text-muted hover:text-text transition-colors" aria-label="Menu">

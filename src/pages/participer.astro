@@ -216,7 +216,8 @@ const grouped = PROPOSAL_CATEGORIES
       btn.addEventListener('click', async (e) => {
         const t = e.currentTarget as HTMLButtonElement; t.disabled = true;
         try {
-          const res = await fetch(t.dataset.vote === '+1' ? '/api/votes/upvote' : '/api/votes/downvote', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ commentId: Number(t.dataset.commentId) }) });
+          const issueInput = document.querySelector('input[name="issueNumber"]') as HTMLInputElement;
+          const res = await fetch(t.dataset.vote === '+1' ? '/api/votes/upvote' : '/api/votes/downvote', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ commentId: Number(t.dataset.commentId), issueNumber: Number(issueInput?.value) }) });
           if (res.ok) window.location.reload();
         } catch {} finally { t.disabled = false; }
       });

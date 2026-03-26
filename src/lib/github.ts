@@ -69,27 +69,27 @@ export async function getProposals(
 
   const proposals: Proposal[] = [];
 
+  // Charger tous les votes du chapitre en une seule passe
+  const allVotes = await getAllVotes(issueNumber);
+
   for (const comment of comments) {
     if (!comment.user || comment.performed_via_github_app) continue;
 
     const parsed = parseProposalComment(comment.body || '');
     if (!parsed) continue;
 
-    const reactions = await octokit.reactions.listForIssueComment({
-      owner: OWNER,
-      repo: REPO,
-      comment_id: comment.id,
-      per_page: 100,
-    });
+    const commentKey = String(comment.id);
 
-    const upvotes = reactions.data.filter(r => r.content === '+1').length;
-    const downvotes = reactions.data.filter(r => r.content === '-1').length;
-
+    // Calculer les scores depuis les fichiers JSON
+    let upvotes = 0;
+    let downvotes = 0;
     let userVote: '+1' | '-1' | null = null;
-    if (currentUserLogin) {
-      const userReaction = reactions.data.find(r => r.user?.login === currentUserLogin);
-      if (userReaction) {
-        userVote = userReaction.content === '+1' ? '+1' : userReaction.content === '-1' ? '-1' : null;
+
+    for (const [voter, votes] of Object.entries(allVotes)) {
+      if (votes[commentKey] === '+1') upvotes++;
+      if (votes[commentKey] === '-1') downvotes++;
+      if (voter === currentUserLogin && votes[commentKey]) {
+        userVote = votes[commentKey];
       }
     }
 
@@ -186,46 +186,118 @@ export async function submitProposal(
   });
 }
 
-export async function addReaction(
+// --- Votes (stockage JSON dans le repo) ---
+
+type VoteMap = Record<string, '+1' | '-1'>;
+
+async function getUserVoteFile(
+  issueNumber: number,
+  username: string,
+): Promise<{ votes: VoteMap; sha: string | null }> {
+  const octokit = getServerOctokit();
+  const path = `votes/${issueNumber}/${username}.json`;
+
+  try {
+    const { data } = await octokit.repos.getContent({
+      owner: OWNER,
+      repo: REPO,
+      path,
+    });
+
+    if ('content' in data) {
+      const content = JSON.parse(Buffer.from(data.content, 'base64').toString('utf-8'));
+      return { votes: content.votes || {}, sha: data.sha };
+    }
+  } catch (e: any) {
+    if (e.status === 404) {
+      return { votes: {}, sha: null };
+    }
+    throw e;
+  }
+
+  return { votes: {}, sha: null };
+}
+
+async function saveUserVoteFile(
+  issueNumber: number,
+  username: string,
+  votes: VoteMap,
+  sha: string | null,
+): Promise<void> {
+  const octokit = getServerOctokit();
+  const path = `votes/${issueNumber}/${username}.json`;
+  const content = Buffer.from(JSON.stringify({ votes }, null, 2)).toString('base64');
+
+  await octokit.repos.createOrUpdateFileContents({
+    owner: OWNER,
+    repo: REPO,
+    path,
+    message: `Vote de ${username} sur l'issue #${issueNumber}`,
+    content,
+    ...(sha ? { sha } : {}),
+  });
+}
+
+export async function setVote(
+  issueNumber: number,
+  username: string,
   commentId: number,
   reaction: '+1' | '-1',
 ): Promise<void> {
-  const octokit = getServerOctokit();
-  await octokit.reactions.createForIssueComment({
-    owner: OWNER,
-    repo: REPO,
-    comment_id: commentId,
-    content: reaction,
-  });
+  const { votes, sha } = await getUserVoteFile(issueNumber, username);
+  const commentKey = String(commentId);
+
+  if (votes[commentKey] === reaction) {
+    // Toggle off
+    delete votes[commentKey];
+  } else {
+    votes[commentKey] = reaction;
+  }
+
+  await saveUserVoteFile(issueNumber, username, votes, sha);
 }
 
-export async function removeReaction(
-  commentId: number,
-  reactionId: number,
-): Promise<void> {
+export async function getAllVotes(
+  issueNumber: number,
+): Promise<Record<string, VoteMap>> {
   const octokit = getServerOctokit();
-  await octokit.reactions.deleteForIssueComment({
-    owner: OWNER,
-    repo: REPO,
-    comment_id: commentId,
-    reaction_id: reactionId,
-  });
-}
+  const path = `votes/${issueNumber}`;
+  const allVotes: Record<string, VoteMap> = {};
 
-export async function getUserReactionOnComment(
-  commentId: number,
-  username: string,
-): Promise<{ id: number; content: string } | null> {
-  const octokit = getServerOctokit();
-  const { data: reactions } = await octokit.reactions.listForIssueComment({
-    owner: OWNER,
-    repo: REPO,
-    comment_id: commentId,
-    per_page: 100,
-  });
+  try {
+    const { data } = await octokit.repos.getContent({
+      owner: OWNER,
+      repo: REPO,
+      path,
+    });
 
-  const userReaction = reactions.find(r => r.user?.login === username);
-  return userReaction ? { id: userReaction.id, content: userReaction.content } : null;
+    if (!Array.isArray(data)) return allVotes;
+
+    for (const file of data) {
+      if (!file.name.endsWith('.json')) continue;
+      const username = file.name.replace('.json', '');
+
+      try {
+        const { data: fileData } = await octokit.repos.getContent({
+          owner: OWNER,
+          repo: REPO,
+          path: file.path,
+        });
+
+        if ('content' in fileData) {
+          const content = JSON.parse(Buffer.from(fileData.content, 'base64').toString('utf-8'));
+          allVotes[username] = content.votes || {};
+        }
+      } catch {
+        // Fichier corrompu, on skip
+      }
+    }
+  } catch (e: any) {
+    if (e.status === 404) return allVotes;
+    throw e;
+  }
+
+  return allVotes;
 }
 
 // --- Admin ---

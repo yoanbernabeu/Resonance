@@ -10,7 +10,7 @@ export function getGitHubAuthUrl(state: string): string {
   const params = new URLSearchParams({
     client_id: clientId,
     redirect_uri: `${siteUrl}/api/auth/callback`,
-    scope: 'public_repo',
+    scope: '',
     state,
   });
   return `https://github.com/login/oauth/authorize?${params}`;

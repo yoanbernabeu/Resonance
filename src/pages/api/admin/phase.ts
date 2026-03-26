@@ -19,7 +19,7 @@ export const POST: APIRoute = async ({ locals, request }) => {
   if (action === 'create') {
     const issues = await getAllChapterIssues();
     const nextNumber = issues.length + 1;
-    const issueNumber = await createChapterIssue(nextNumber, user.accessToken);
+    const issueNumber = await createChapterIssue(nextNumber);
 
     return new Response(JSON.stringify({ ok: true, issueNumber }), {
       status: 200,
@@ -40,7 +40,7 @@ export const POST: APIRoute = async ({ locals, request }) => {
       });
     }
 
-    await setPhaseLabel(issueNumber, newPhase, user.accessToken);
+    await setPhaseLabel(issueNumber, newPhase);
 
     return new Response(JSON.stringify({ ok: true }), {
       status: 200,

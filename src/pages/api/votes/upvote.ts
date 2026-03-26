@@ -22,13 +22,13 @@ export const POST: APIRoute = async ({ locals, request }) => {
 
   if (existing?.content === '+1') {
     // Toggle off
-    await removeReaction(commentId, existing.id, user.accessToken);
+    await removeReaction(commentId, existing.id);
   } else {
     if (existing) {
       // Remove opposite reaction first
-      await removeReaction(commentId, existing.id, user.accessToken);
+      await removeReaction(commentId, existing.id);
     }
-    await addReaction(commentId, '+1', user.accessToken);
+    await addReaction(commentId, '+1');
   }
 
   // Re-fetch to get updated score

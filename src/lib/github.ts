@@ -8,10 +8,6 @@ export function getServerOctokit(): Octokit {
   return new Octokit({ auth: import.meta.env.GITHUB_PAT });
 }
 
-export function getUserOctokit(accessToken: string): Octokit {
-  return new Octokit({ auth: accessToken });
-}
-
 // --- Lecture ---
 
 export async function getActiveChapterIssue(phase: Phase): Promise<{
@@ -175,23 +171,22 @@ export async function submitProposal(
   issueNumber: number,
   category: ProposalCategory,
   description: string,
-  accessToken: string,
+  userLogin: string,
 ): Promise<void> {
-  const octokit = getUserOctokit(accessToken);
+  const octokit = getServerOctokit();
   await octokit.issues.createComment({
     owner: OWNER,
     repo: REPO,
     issue_number: issueNumber,
-    body: `**[${category}]** ${description}`,
+    body: `**[${category}]** ${description}\n\n— proposé par @${userLogin}`,
   });
 }
 
 export async function addReaction(
   commentId: number,
   reaction: '+1' | '-1',
-  accessToken: string,
 ): Promise<void> {
-  const octokit = getUserOctokit(accessToken);
+  const octokit = getServerOctokit();
   await octokit.reactions.createForIssueComment({
     owner: OWNER,
     repo: REPO,
@@ -203,9 +198,8 @@ export async function addReaction(
 export async function removeReaction(
   commentId: number,
   reactionId: number,
-  accessToken: string,
 ): Promise<void> {
-  const octokit = getUserOctokit(accessToken);
+  const octokit = getServerOctokit();
   await octokit.reactions.deleteForIssueComment({
     owner: OWNER,
     repo: REPO,
@@ -235,9 +229,8 @@ export async function getUserReactionOnComment(
 export async function setPhaseLabel(
   issueNumber: number,
   newPhase: Phase,
-  accessToken: string,
 ): Promise<void> {
-  const octokit = getUserOctokit(accessToken);
+  const octokit = getServerOctokit();
 
   const { data: issue } = await octokit.issues.get({
     owner: OWNER,
@@ -271,9 +264,8 @@ export async function setPhaseLabel(
 
 export async function createChapterIssue(
   chapterNumber: number,
-  accessToken: string,
 ): Promise<number> {
-  const octokit = getUserOctokit(accessToken);
+  const octokit = getServerOctokit();
 
   // Créer les labels si nécessaires
   const phaseLabels = ['phase:propositions', 'phase:votes', 'phase:redaction'];

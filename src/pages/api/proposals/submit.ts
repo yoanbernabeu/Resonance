@@ -40,7 +40,7 @@ export const POST: APIRoute = async ({ locals, request }) => {
     });
   }
 
-  await submitProposal(issueNumber, category as ProposalCategory, description.trim(), user.accessToken);
+  await submitProposal(issueNumber, category as ProposalCategory, description.trim(), user.login);
 
   return new Response(JSON.stringify({ ok: true }), {
     status: 200,

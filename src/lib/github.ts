@@ -93,11 +93,14 @@ export async function getProposals(
       }
     }
 
+    const realAuthor = parsed.authorLogin || comment.user.login;
     proposals.push({
       id: comment.id,
       nodeId: comment.node_id,
-      author: parsed.authorLogin || comment.user.login,
-      avatarUrl: comment.user.avatar_url,
+      author: realAuthor,
+      avatarUrl: parsed.authorLogin
+        ? `https://github.com/${parsed.authorLogin}.png?size=40`
+        : comment.user.avatar_url,
       category: parsed.category,
       description: parsed.description,
       score: upvotes - downvotes,

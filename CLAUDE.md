@@ -88,6 +88,6 @@ Voir `.env.example`. Configurer dans `.env.local` (dev) et Netlify (prod) :
 
 ## Garde-fous
 
-- 3 propositions max par utilisateur par chapitre (serveur + GitHub Action `.github/workflows/limit-proposals.yml`)
+- 3 propositions max par utilisateur par chapitre (vérification côté serveur dans `/api/proposals/submit`)
 - Le repo GitHub source doit être public (interactions issues via API)
 - L'admin (`/admin`) est restreint au propriétaire du repo (`GITHUB_REPO_OWNER`)

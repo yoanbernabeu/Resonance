@@ -49,9 +49,12 @@ jobs:
             // ── Récupérer les contributeur·ice·s (propositions + votes) ──
             const contributors = new Set();
             const proposalPattern = /^\*\*\[.+?\]\*\*/;
+            const authorPattern = /— proposé par @(\w+)/;
 
             for (const ch of chapters) {
               if (!ch.meta.issueNumber) continue;
+
+              // — Auteurs de propositions (via commentaires GitHub) —
               try {
                 const comments = await github.paginate(
                   github.rest.issues.listComments,
@@ -63,36 +66,28 @@ jobs:
                   }
                 );
                 for (const c of comments) {
-                  // Auteurs de propositions
-                  if (c.user && !c.user.login.includes('[bot]') && !c.minimized) {
-                    if (proposalPattern.test(c.body || '')) {
-                      contributors.add(c.user.login);
-                    }
-                  }
-                  // Votants (réactions sur les commentaires de propositions)
-                  if (proposalPattern.test(c.body || '')) {
-                    try {
-                      const reactions = await github.paginate(
-                        github.rest.reactions.listForIssueComment,
-                        {
-                          owner: context.repo.owner,
-                          repo: context.repo.repo,
-                          comment_id: c.id,
-                          per_page: 100
-                        }
-                      );
-                      for (const r of reactions) {
-                        if (r.user && !r.user.login.includes('[bot]')) {
-                          contributors.add(r.user.login);
-                        }
-                      }
-                    } catch (e) {
-                      console.log(`Réactions du commentaire ${c.id}: ${e.message}`);
-                    }
+                  if (c.minimized || !proposalPattern.test(c.body || '')) continue;
+                  // Extraire l'auteur réel depuis "— proposé par @username"
+                  const match = (c.body || '').match(authorPattern);
+                  if (match) {
+                    contributors.add(match[1]);
+                  } else if (c.user && !c.user.login.includes('[bot]')) {
+                    // Fallback : auteur du commentaire (anciennes propositions sans tag)
+                    contributors.add(c.user.login);
                   }
                 }
               } catch (e) {
                 console.log(`Issue ${ch.meta.issueNumber}: ${e.message}`);
+              }
+
+              // — Votants (via fichiers JSON dans votes/) —
+              const votesDir = path.join('votes', String(ch.meta.issueNumber));
+              if (fs.existsSync(votesDir)) {
+                const voteFiles = fs.readdirSync(votesDir).filter(f => f.endsWith('.json'));
+                for (const vf of voteFiles) {
+                  const username = vf.replace('.json', '');
+                  contributors.add(username);
+                }
               }
             }
 

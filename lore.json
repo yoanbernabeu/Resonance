@@ -1,6 +1,6 @@
 {
-  "version": 1,
-  "derniereMiseAJour": "2026-03-24",
+  "version": 2,
+  "derniereMiseAJour": "2026-03-29",
   "epoques": [
     {
       "nom": "L'Hégémonie Solaire",
@@ -45,6 +45,30 @@
       "statut": "actives",
       "description": "Maintiennent les Veines encore fonctionnelles, dernier rempart contre la dissolution complète des échanges interstellaires.",
       "chapitre": "prologue"
+    },
+    {
+      "nom": "Les Anciens de Komarov",
+      "statut": "actifs",
+      "description": "Résident·e·s de longue date de Komarov-III, hostiles à la présence d'un·e Éveillé·e sur la station. Menés informellement par Luka Dren, iels prônent un dépistage et l'isolement de l'Éveillé·e.",
+      "chapitre": "chapitre-01"
+    },
+    {
+      "nom": "Les Réfugiés de Priam",
+      "statut": "actifs",
+      "description": "Trois cents personnes ayant fui le système de Priam, ravagé par un conflit entre seigneurs de guerre. Arrivé·e·s sur Komarov-III trois ans avant les événements du chapitre 1, iels sont vu·e·s comme un poids par les anciens résident·e·s.",
+      "chapitre": "chapitre-01"
+    },
+    {
+      "nom": "Fils du Retour",
+      "statut": "actifs",
+      "description": "Faction rivale de la Lisière, mentionnée comme potentiel responsable du blocus de la Veine de Komarov.",
+      "chapitre": "chapitre-01"
+    },
+    {
+      "nom": "Confédérés de Tau Ceti",
+      "statut": "actifs",
+      "description": "Faction rivale de la Lisière, mentionnée comme potentiel responsable du blocus de la Veine de Komarov.",
+      "chapitre": "chapitre-01"
     }
   ],
   "lieux": [
@@ -95,17 +119,73 @@
       "type": "planète",
       "description": "Monde originel de l'humanité, dont plus personne ne sait situer l'emplacement exact sur les cartes stellaires.",
       "chapitre": "prologue"
+    },
+    {
+      "nom": "Komarov-III",
+      "type": "station-relais / colonie",
+      "description": "Ancienne station-relais hégémonique greffée sur un astéroïde de nickel-fer, reconvertie en colonie de fortune abritant 3 200 âmes sous des dômes pressurisés. Serres hydroponiques, galeries minières, modules interconnectés. Coupée du ravitaillement par l'instabilité de sa Veine. Abrite des filaments des Bâtisseurs enfouis dans la roche de l'astéroïde.",
+      "chapitre": "chapitre-01"
+    },
+    {
+      "nom": "Priam",
+      "type": "système stellaire",
+      "description": "Système voisin de Komarov, ravagé par un conflit entre seigneurs de guerre locaux. Trois cents réfugié·e·s ont fui vers Komarov-III.",
+      "chapitre": "chapitre-01"
     }
   ],
   "technologies": [
     {
       "nom": "Les Veines",
-      "description": "Réseau de transit supraluminique tissé entre les systèmes. Partiellement détruit ou instable depuis la Fracture, maintenu par des guildes de technicien·ne·s.",
+      "description": "Réseau de transit supraluminique tissé entre les systèmes. Partiellement détruit ou instable depuis la Fracture, maintenu par des guildes de technicien·ne·s. Kael Seren les perçoit comme les nervures d'un réseau bien plus vaste construit par les Bâtisseurs.",
       "statut": "partiellement détruit",
-      "chapitre": "prologue"
+      "chapitre": "chapitre-01"
     }
   ],
-  "personnages": [],
+  "personnages": [
+    {
+      "nom": "Kael Seren",
+      "age": 40,
+      "role": "protagoniste",
+      "description": "Technicienne de maintenance sur Komarov-III, marquée par les années de labeur sur les stations-relais de la Lisière. Hantée par des cauchemars où elle traverse les Veines, elle découvre qu'elle est une Éveillée capable de réparer les machines et de communiquer avec les filaments des Bâtisseurs enfouis dans l'astéroïde.",
+      "statut": "Éveillée, cachée",
+      "chapitre": "chapitre-01"
+    },
+    {
+      "nom": "Yelen Vosk",
+      "role": "présidente du conseil de Komarov-III",
+      "description": "Dirige le conseil de station depuis onze ans. Tente de maintenir le calme face à la crise de ravitaillement et à la psychose anti-Éveillé·e·s.",
+      "statut": "active",
+      "chapitre": "chapitre-01"
+    },
+    {
+      "nom": "Luka Dren",
+      "role": "meneur informel des anciens résidents",
+      "description": "Ancien contremaître de la mine, reconverti en figure d'autorité chez les anciens de Komarov. Mène la faction hostile aux Éveillé·e·s et organise la chasse.",
+      "statut": "actif",
+      "chapitre": "chapitre-01"
+    },
+    {
+      "nom": "Nara Osei",
+      "role": "porte-parole des réfugiés de Priam",
+      "description": "Femme déterminée, s'impose comme voix des réfugié·e·s par la force de sa parole et son refus de baisser les yeux. S'oppose aux mesures anti-Éveillé·e·s qui rappellent les Décrets de Containment.",
+      "statut": "active",
+      "chapitre": "chapitre-01"
+    },
+    {
+      "nom": "Asha Mwenye",
+      "role": "technicienne de maintenance",
+      "description": "Première personne à formuler publiquement l'hypothèse qu'un·e Éveillé·e est responsable des phénomènes inexpliqués sur Komarov-III.",
+      "statut": "active",
+      "chapitre": "chapitre-01"
+    },
+    {
+      "nom": "L'inconnu",
+      "role": "mystérieux observateur",
+      "description": "Homme portant les vêtements d'un travailleur de maintenance, mais dont la posture et le calme trahissent une autre nature. N'émet aucun champ émotionnel perceptible par Kael. Sait ce qu'elle devient et affirme qu'elle n'est pas la seule.",
+      "statut": "identité inconnue",
+      "chapitre": "chapitre-01"
+    }
+  ],
   "artefacts": [
     {
       "nom": "Cathédrales d'Achéron",
@@ -126,6 +206,11 @@
       "nom": "Filaments de Thessaly",
       "description": "Réseau souterrain de filaments bio-mécaniques pulsant encore, alimentés par une source d'énergie inconnue.",
       "chapitre": "prologue"
+    },
+    {
+      "nom": "Filaments de Komarov-III",
+      "description": "Réseau de filaments des Bâtisseurs enfoui dans la roche de l'astéroïde de Komarov-III. Pulsent à un rythme ancien et lent. Kael Seren entre en contact avec eux et perçoit une carte du réseau galactique des Bâtisseurs, révélant que les Veines sont les nervures d'une structure immense et que les vestiges sont des organes fonctionnels.",
+      "chapitre": "chapitre-01"
     }
   ],
   "evenementsCles": [
@@ -158,6 +243,26 @@
       "nom": "La Fracture",
       "description": "Sept ans de guerre civile. Sécessions, purges, sabotage des Veines. L'Hégémonie s'effondre.",
       "chapitre": "prologue"
+    },
+    {
+      "nom": "Coupure de la Veine de Komarov",
+      "description": "La Veine reliant Komarov-III au reste de la Lisière devient instable. Les convois de ravitaillement cessent, plongeant la station dans une crise alimentaire et sociale.",
+      "chapitre": "chapitre-01"
+    },
+    {
+      "nom": "Phénomènes inexpliqués sur Komarov-III",
+      "description": "Serres qui repoussent sans lumière ni nutriments, générateur qui se répare seul, recycleur d'eau qui dépasse ses spécifications d'origine. Causés inconsciemment par l'Éveil de Kael Seren.",
+      "chapitre": "chapitre-01"
+    },
+    {
+      "nom": "Chasse à l'Éveillé·e sur Komarov-III",
+      "description": "Luka Dren organise un mouvement pour identifier et isoler l'Éveillé·e présumé·e. Distribution de tracts, appel au dépistage obligatoire. La station se divise entre partisans de la chasse et opposant·e·s.",
+      "chapitre": "chapitre-01"
+    },
+    {
+      "nom": "Premier contact de Kael avec les filaments",
+      "description": "Kael Seren touche la roche de l'astéroïde et entre en résonance avec les filaments des Bâtisseurs. Elle perçoit une carte du réseau galactique et un point d'appel quelque part dans la Lisière.",
+      "chapitre": "chapitre-01"
     }
   ]
 }

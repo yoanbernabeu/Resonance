@@ -118,6 +118,7 @@ const grouped = PROPOSAL_CATEGORIES
     {/* Phase votes */}
     {phaseInfo.phase === 'votes' && (
       <>
+        <input type="hidden" name="issueNumber" value={phaseInfo.issueNumber} />
         <div class="text-center mb-12">
           <p class="text-xs tracking-[0.3em] uppercase text-phase-vote mb-4">Votes ouverts</p>
           <h1 class="font-[--font-display] text-3xl sm:text-4xl text-text mb-3">{phaseInfo.chapterTitle}</h1>

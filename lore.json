@@ -1,6 +1,6 @@
 {
-  "version": 2,
-  "derniereMiseAJour": "2026-03-29",
+  "version": 3,
+  "derniereMiseAJour": "2026-04-04",
   "epoques": [
     {
       "nom": "L'Hégémonie Solaire",
@@ -69,6 +69,12 @@
       "statut": "actifs",
       "description": "Faction rivale de la Lisière, mentionnée comme potentiel responsable du blocus de la Veine de Komarov.",
       "chapitre": "chapitre-01"
+    },
+    {
+      "nom": "Les Gardiens des Veines",
+      "statut": "quasi-éteints",
+      "description": "Branche secrète de la Guilde des technicien·ne·s des Veines, fondée avant les Décrets de Containment. Iels avaient découvert que les Veines et les Éveillé·e·s étaient liés, et que les Bâtisseurs avaient peut-être prévu l'apparition des Éveillé·e·s. Dispersé·e·s pendant la Fracture, les survivant·e·s parcourent la Lisière en solitaire pour trouver et guider les Éveillé·e·s naissant·e·s avant que les foules ne les trouvent. Theron Voss est l'un·e des dernier·ère·s.",
+      "chapitre": "chapitre-02"
     }
   ],
   "lieux": [
@@ -131,14 +137,32 @@
       "type": "système stellaire",
       "description": "Système voisin de Komarov, ravagé par un conflit entre seigneurs de guerre locaux. Trois cents réfugié·e·s ont fui vers Komarov-III.",
       "chapitre": "chapitre-01"
+    },
+    {
+      "nom": "Erebus",
+      "type": "système stellaire",
+      "description": "Système de la Lisière situé à deux sauts de Veine de Komarov. Abrite un vestige majeur des Bâtisseurs : un nœud central du réseau, plus grand et plus complet que tout ce qui a été découvert jusqu'ici. Source de l'appel perçu par Kael à travers les filaments. Destination vers laquelle le réseau la guide.",
+      "chapitre": "chapitre-02"
+    },
+    {
+      "nom": "Selene-6",
+      "type": "nœud de transit",
+      "description": "Nœud de transit relié à Komarov-III par une Veine supraluminique. Point de passage entre Komarov et le reste de la Lisière.",
+      "chapitre": "chapitre-02"
     }
   ],
   "technologies": [
     {
       "nom": "Les Veines",
-      "description": "Réseau de transit supraluminique tissé entre les systèmes. Partiellement détruit ou instable depuis la Fracture, maintenu par des guildes de technicien·ne·s. Kael Seren les perçoit comme les nervures d'un réseau bien plus vaste construit par les Bâtisseurs.",
+      "description": "Réseau de transit supraluminique tissé entre les systèmes. Partiellement détruit ou instable depuis la Fracture, maintenu par des guildes de technicien·ne·s. Kael Seren les perçoit comme les nervures d'un réseau bien plus vaste construit par les Bâtisseurs. Les Éveillé·e·s peuvent influencer leur stabilité — la Veine de Komarov s'est ouverte pour laisser passer Aran Kellis.",
       "statut": "partiellement détruit",
-      "chapitre": "chapitre-01"
+      "chapitre": "chapitre-02"
+    },
+    {
+      "nom": "Terminal de classification neurale",
+      "description": "Prototype hégémonique de détection des Éveillé·e·s, antérieur aux Décrets de Containment. Mesure la résonance neuromorphique, un marqueur biologique des Éveillé·e·s. Trouvé par Luka Dren dans l'ancien poste médical de Komarov-III. Processeur original irréparable, remplacé par un processeur de bord standard. Lors de sa première activation, les capteurs ont été saturés par la résonance des filaments des Bâtisseurs amplifiée par l'Éveil de Kael, provoquant une surcharge.",
+      "statut": "endommagé / en cours de réparation",
+      "chapitre": "chapitre-02"
     }
   ],
   "personnages": [
@@ -146,30 +170,30 @@
       "nom": "Kael Seren",
       "age": 40,
       "role": "protagoniste",
-      "description": "Technicienne de maintenance sur Komarov-III, marquée par les années de labeur sur les stations-relais de la Lisière. Hantée par des cauchemars où elle traverse les Veines, elle découvre qu'elle est une Éveillée capable de réparer les machines et de communiquer avec les filaments des Bâtisseurs enfouis dans l'astéroïde.",
-      "statut": "Éveillée, cachée",
-      "chapitre": "chapitre-01"
+      "description": "Technicienne de maintenance sur Komarov-III. Éveillée dont les pouvoirs se renforcent : elle perçoit désormais les champs émotionnels des gens, sent les machines et les systèmes de la station, et peut cartographier le réseau des Bâtisseurs à travers les filaments. Son Éveil a envoyé un signal à travers toute la Lisière. Elle a décidé de quitter Komarov-III pour Erebus, guidée par l'appel des filaments.",
+      "statut": "Éveillée, décidée à partir vers Erebus",
+      "chapitre": "chapitre-02"
     },
     {
       "nom": "Yelen Vosk",
       "role": "présidente du conseil de Komarov-III",
-      "description": "Dirige le conseil de station depuis onze ans. Tente de maintenir le calme face à la crise de ravitaillement et à la psychose anti-Éveillé·e·s.",
+      "description": "Dirige le conseil de station depuis onze ans. Tente de maintenir le calme face à la crise. Refuse de rendre le scan du terminal obligatoire, défendant le volontariat.",
       "statut": "active",
-      "chapitre": "chapitre-01"
+      "chapitre": "chapitre-02"
     },
     {
       "nom": "Luka Dren",
       "role": "meneur informel des anciens résidents",
-      "description": "Ancien contremaître de la mine, reconverti en figure d'autorité chez les anciens de Komarov. Mène la faction hostile aux Éveillé·e·s et organise la chasse.",
+      "description": "Ancien contremaître de la mine. A déterré le terminal de classification neurale dans l'ancien poste médical et coordonne sa réparation. Obsédé par l'identification de l'Éveillé·e, il organise des assemblées pour imposer un scan de tou·te·s les habitant·e·s.",
       "statut": "actif",
-      "chapitre": "chapitre-01"
+      "chapitre": "chapitre-02"
     },
     {
       "nom": "Nara Osei",
       "role": "porte-parole des réfugiés de Priam",
-      "description": "Femme déterminée, s'impose comme voix des réfugié·e·s par la force de sa parole et son refus de baisser les yeux. S'oppose aux mesures anti-Éveillé·e·s qui rappellent les Décrets de Containment.",
+      "description": "Femme déterminée, voix des réfugié·e·s. S'oppose frontalement au terminal et au dépistage, organise des veillées pour rappeler les leçons de la Fracture. Établit un parallèle entre les méthodes de Dren et les Décrets de Containment.",
       "statut": "active",
-      "chapitre": "chapitre-01"
+      "chapitre": "chapitre-02"
     },
     {
       "nom": "Asha Mwenye",
@@ -179,11 +203,32 @@
       "chapitre": "chapitre-01"
     },
     {
-      "nom": "L'inconnu",
-      "role": "mystérieux observateur",
-      "description": "Homme portant les vêtements d'un travailleur de maintenance, mais dont la posture et le calme trahissent une autre nature. N'émet aucun champ émotionnel perceptible par Kael. Sait ce qu'elle devient et affirme qu'elle n'est pas la seule.",
-      "statut": "identité inconnue",
-      "chapitre": "chapitre-01"
+      "nom": "Theron Voss",
+      "role": "ancien Gardien des Veines",
+      "description": "Dernier membre connu d'une branche secrète de la Guilde des Veines qui guidait les Éveillé·e·s naissant·e·s. Porte une cicatrice de brûlure de la tempe à la mâchoire, vestige d'un monde détruit pendant la Fracture. N'est pas un·e Éveillé·e, mais sait détecter les perturbations dans le réseau des Bâtisseurs. A été guidé jusqu'à Komarov-III par les filaments. Identité de « l'inconnu » du chapitre 1.",
+      "statut": "actif, guide de Kael",
+      "chapitre": "chapitre-02"
+    },
+    {
+      "nom": "Aran Kellis",
+      "role": "visiteur mystérieux",
+      "description": "Passager unique arrivé sur Komarov-III par la Veine temporairement stabilisée. Grand, mince, yeux clairs translucides. Porte le glyphe du Seuil (symbole des Bâtisseurs) brodé sur son col. Refuse de révéler ses origines. Dit porter un message pour « celle qui entend les filaments ». Affirme ne pas être un·e Éveillé·e. Semble lié·e à un groupe qui cartographie activement le réseau des Bâtisseurs.",
+      "statut": "sous surveillance dans le module de transit de Komarov-III",
+      "chapitre": "chapitre-02"
+    },
+    {
+      "nom": "Petrov",
+      "role": "technicien en systèmes de navigation",
+      "description": "Spécialiste des protocoles hégémoniques, recruté par Dren pour réparer le terminal de classification neurale. A réussi à porter les tables de référence sur un processeur de bord standard.",
+      "statut": "actif",
+      "chapitre": "chapitre-02"
+    },
+    {
+      "nom": "Suki Tan",
+      "role": "électronicienne de bord",
+      "description": "Technicienne aux mains habiles, recruté·e par Dren pour réparer le terminal. A participé au démontage et à la remise en état des capteurs.",
+      "statut": "active",
+      "chapitre": "chapitre-02"
     }
   ],
   "artefacts": [
@@ -209,8 +254,18 @@
     },
     {
       "nom": "Filaments de Komarov-III",
-      "description": "Réseau de filaments des Bâtisseurs enfoui dans la roche de l'astéroïde de Komarov-III. Pulsent à un rythme ancien et lent. Kael Seren entre en contact avec eux et perçoit une carte du réseau galactique des Bâtisseurs, révélant que les Veines sont les nervures d'une structure immense et que les vestiges sont des organes fonctionnels.",
-      "chapitre": "chapitre-01"
+      "description": "Réseau de filaments des Bâtisseurs enfoui dans la roche de l'astéroïde de Komarov-III. Ont réagi à l'Éveil de Kael en s'activant et en transmettant un signal à travers la Lisière. Lors de la tentative de scan du terminal, ils ont saturé les capteurs hégémoniques. À la fin du chapitre 2, ils ont brillé assez fort pour être perçus même par les non-Éveillé·e·s.",
+      "chapitre": "chapitre-02"
+    },
+    {
+      "nom": "Glyphe du Seuil",
+      "description": "Symbole des Bâtisseurs désignant un point de convergence dans le réseau. Gravé sur les parois de la salle des filaments de Komarov-III et brodé sur le col d'Aran Kellis. Selon les archives des Gardiens, il marque un nœud où les filaments se rejoignent.",
+      "chapitre": "chapitre-02"
+    },
+    {
+      "nom": "Vestige d'Erebus",
+      "description": "Nœud central du réseau des Bâtisseurs situé dans le système d'Erebus. D'une ampleur sans précédent parmi les vestiges connus — non pas une cathédrale ou des cristaux, mais un organe vital complet de l'architecture des Bâtisseurs. Pulse avec une intensité détectable même par des instruments humains. Source de l'appel perçu par Kael.",
+      "chapitre": "chapitre-02"
     }
   ],
   "evenementsCles": [
@@ -226,8 +281,8 @@
     },
     {
       "nom": "Incident de Caelum-VII",
-      "description": "Un Éveillé désintègre accidentellement une cloison pressurisée. Trente-sept morts.",
-      "chapitre": "prologue"
+      "description": "Un Éveillé désintègre accidentellement une cloison pressurisée. Trente-sept morts. Selon Theron Voss, il s'agissait d'un Éveil non accompagné, pas d'un accident.",
+      "chapitre": "chapitre-02"
     },
     {
       "nom": "Incident de Véga-II",
@@ -263,6 +318,41 @@
       "nom": "Premier contact de Kael avec les filaments",
       "description": "Kael Seren touche la roche de l'astéroïde et entre en résonance avec les filaments des Bâtisseurs. Elle perçoit une carte du réseau galactique et un point d'appel quelque part dans la Lisière.",
       "chapitre": "chapitre-01"
+    },
+    {
+      "nom": "Découverte du terminal de classification neurale",
+      "description": "Luka Dren déterre un prototype hégémonique de détection des Éveillé·e·s dans l'ancien poste médical de Komarov-III. Il recrute Petrov et Suki Tan pour le remettre en état.",
+      "chapitre": "chapitre-02"
+    },
+    {
+      "nom": "Stabilisation temporaire de la Veine de Komarov",
+      "description": "Après 26 jours d'instabilité, la Veine reliant Komarov-III à Selene-6 se stabilise spontanément pendant quelques heures, permettant le passage d'une navette unique. La Veine se referme ensuite. Le réseau des Bâtisseurs semble avoir provoqué cette ouverture.",
+      "chapitre": "chapitre-02"
+    },
+    {
+      "nom": "Arrivée d'Aran Kellis sur Komarov-III",
+      "description": "Un visiteur solitaire traverse la Veine stabilisée dans une navette sans identification. Porte le glyphe du Seuil des Bâtisseurs. Dit porter un message pour « celle qui entend les filaments ». Refuse de révéler ses origines. Assigné au module de transit sous surveillance.",
+      "chapitre": "chapitre-02"
+    },
+    {
+      "nom": "Révélation de Theron Voss",
+      "description": "L'inconnu du chapitre 1 révèle son identité : Theron Voss, ancien Gardien des Veines. Il explique à Kael le lien entre Éveillé·e·s et Veines, l'existence de la branche secrète de la Guilde, et le fait que son Éveil a envoyé un signal détectable à travers toute la Lisière.",
+      "chapitre": "chapitre-02"
+    },
+    {
+      "nom": "Surcharge du terminal par les filaments",
+      "description": "Lors de la première activation publique du terminal de classification neurale, les capteurs détectent non pas un·e Éveillé·e mais la résonance des filaments des Bâtisseurs, amplifiée par la peur de Kael. Le signal sature les capteurs et provoque une surcharge qui éteint l'appareil.",
+      "chapitre": "chapitre-02"
+    },
+    {
+      "nom": "Décision de Kael de partir vers Erebus",
+      "description": "Kael accepte de suivre l'appel des filaments vers le système d'Erebus, un nœud central du réseau des Bâtisseurs. Theron lui révèle qu'en tant qu'Éveillée, elle peut ouvrir la Veine pour partir.",
+      "chapitre": "chapitre-02"
+    },
+    {
+      "nom": "Première manifestation visible des filaments",
+      "description": "Les filaments de Komarov-III brillent assez fort pour être perçus par tou·te·s les habitant·e·s de la station — tremblement de la roche, vacillement des lumières. Premier signe visible des Bâtisseurs en quatre cent mille ans.",
+      "chapitre": "chapitre-02"
     }
   ]
 }

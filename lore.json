@@ -1,6 +1,6 @@
 {
-  "version": 3,
-  "derniereMiseAJour": "2026-04-04",
+  "version": 4,
+  "derniereMiseAJour": "2026-04-13",
   "epoques": [
     {
       "nom": "L'Hégémonie Solaire",
@@ -31,14 +31,14 @@
     {
       "nom": "Les Éveillés",
       "statut": "clandestins",
-      "description": "Humains dotés de capacités extraordinaires (perception électromagnétique, télékinésie, télépathie). Leur apparition est liée aux vestiges des Bâtisseurs. Craints, persécutés, ils vivent cachés depuis la Fracture.",
-      "chapitre": "prologue"
+      "description": "Humains dotés de capacités extraordinaires (perception électromagnétique, télékinésie, télépathie). Leur apparition est liée aux vestiges des Bâtisseurs. Craints, persécutés, ils vivent cachés depuis la Fracture. Révélation du chapitre 3 : les Éveillé·e·s ne sont pas une mutation aléatoire mais un *mécanisme de contact* intégré par les Bâtisseurs dans le réseau — l'interface entre leur forme d'existence et celle de l'humanité.",
+      "chapitre": "chapitre-03"
     },
     {
       "nom": "Les Bâtisseurs",
-      "statut": "disparus",
-      "description": "Civilisation alien disparue depuis des centaines de millénaires. Aucune trace de leur apparence physique. Leurs structures monumentales et artefacts semblent encore actifs par résonance.",
-      "chapitre": "prologue"
+      "statut": "transférés dans le réseau",
+      "description": "Civilisation alien qui ne s'est pas éteinte mais s'est *transférée* dans le réseau de filaments il y a environ quatre cent mille ans. Leur mémoire, leur intelligence et leur intention existent sous forme de conscience distribuée dans l'architecture galactique. Le réseau fonctionne en mode autonome depuis lors, mais l'Éveil de Kael a commencé à les réveiller. Erebus est le nœud où leur conscience est la plus dense — un « tombeau habité ».",
+      "chapitre": "chapitre-03"
     },
     {
       "nom": "Guildes de technicien·ne·s des Veines",
@@ -49,14 +49,14 @@
     {
       "nom": "Les Anciens de Komarov",
       "statut": "actifs",
-      "description": "Résident·e·s de longue date de Komarov-III, hostiles à la présence d'un·e Éveillé·e sur la station. Menés informellement par Luka Dren, iels prônent un dépistage et l'isolement de l'Éveillé·e.",
-      "chapitre": "chapitre-01"
+      "description": "Résident·e·s de longue date de Komarov-III, hostiles à la présence d'un·e Éveillé·e sur la station. Menés informellement par Luka Dren, iels prônent un dépistage et l'isolement de l'Éveillé·e. Ont tenté d'empêcher le départ de Kael au chapitre 3, mais ont échoué face à la chaîne humaine formée par les réfugié·e·s.",
+      "chapitre": "chapitre-03"
     },
     {
       "nom": "Les Réfugiés de Priam",
       "statut": "actifs",
-      "description": "Trois cents personnes ayant fui le système de Priam, ravagé par un conflit entre seigneurs de guerre. Arrivé·e·s sur Komarov-III trois ans avant les événements du chapitre 1, iels sont vu·e·s comme un poids par les anciens résident·e·s.",
-      "chapitre": "chapitre-01"
+      "description": "Trois cents personnes ayant fui le système de Priam. Sous l'impulsion de Nara Osei, iels ont formé une chaîne humaine pour protéger le départ de Kael au chapitre 3, rejoints par certain·e·s ancien·ne·s résident·e·s dont Asha Mwenye.",
+      "chapitre": "chapitre-03"
     },
     {
       "nom": "Fils du Retour",
@@ -75,6 +75,12 @@
       "statut": "quasi-éteints",
       "description": "Branche secrète de la Guilde des technicien·ne·s des Veines, fondée avant les Décrets de Containment. Iels avaient découvert que les Veines et les Éveillé·e·s étaient liés, et que les Bâtisseurs avaient peut-être prévu l'apparition des Éveillé·e·s. Dispersé·e·s pendant la Fracture, les survivant·e·s parcourent la Lisière en solitaire pour trouver et guider les Éveillé·e·s naissant·e·s avant que les foules ne les trouvent. Theron Voss est l'un·e des dernier·ère·s.",
       "chapitre": "chapitre-02"
+    },
+    {
+      "nom": "Les Cartographes",
+      "statut": "actifs",
+      "description": "Ordre ancien, antérieur à la Fracture et même à la découverte officielle des vestiges d'Achéron-IV. Des humains (pas des Éveillé·e·s) qui ont compris avant les autres la nature des Bâtisseurs et du réseau. Iels lisent les couches profondes du réseau, là où la conscience des Bâtisseurs dort encore. Leur objectif est de *contrôler* le contact entre l'humanité et les Bâtisseurs quand ceux-ci se réveilleront. Aran Kellis est l'un de leurs envoyé·e·s.",
+      "chapitre": "chapitre-03"
     }
   ],
   "lieux": [
@@ -129,8 +135,8 @@
     {
       "nom": "Komarov-III",
       "type": "station-relais / colonie",
-      "description": "Ancienne station-relais hégémonique greffée sur un astéroïde de nickel-fer, reconvertie en colonie de fortune abritant 3 200 âmes sous des dômes pressurisés. Serres hydroponiques, galeries minières, modules interconnectés. Coupée du ravitaillement par l'instabilité de sa Veine. Abrite des filaments des Bâtisseurs enfouis dans la roche de l'astéroïde.",
-      "chapitre": "chapitre-01"
+      "description": "Ancienne station-relais hégémonique greffée sur un astéroïde de nickel-fer, reconvertie en colonie de fortune abritant 3 200 âmes sous des dômes pressurisés. Serres hydroponiques, galeries minières, modules interconnectés. Abrite des filaments des Bâtisseurs enfouis dans la roche de l'astéroïde. À la fin du chapitre 3, la station est profondément divisée après la révélation de l'identité de Kael et son départ spectaculaire.",
+      "chapitre": "chapitre-03"
     },
     {
       "nom": "Priam",
@@ -141,26 +147,26 @@
     {
       "nom": "Erebus",
       "type": "système stellaire",
-      "description": "Système de la Lisière situé à deux sauts de Veine de Komarov. Abrite un vestige majeur des Bâtisseurs : un nœud central du réseau, plus grand et plus complet que tout ce qui a été découvert jusqu'ici. Source de l'appel perçu par Kael à travers les filaments. Destination vers laquelle le réseau la guide.",
-      "chapitre": "chapitre-02"
+      "description": "Système de la Lisière situé à deux sauts de Veine de Komarov. Abrite un vestige majeur des Bâtisseurs : un nœud central du réseau, équivalent d'un cortex dans un cerveau planétaire. Là où la conscience des Bâtisseurs est la plus dense, la plus cohérente. Qualifié de « tombeau habité » — non pas une ruine mais un lieu où les Bâtisseurs existent encore sous forme transférée. Un Éveillé (Soren Kael) y est entré quinze ans avant les événements et n'en est jamais ressorti. Destination de Kael Seren à la fin du chapitre 3.",
+      "chapitre": "chapitre-03"
     },
     {
       "nom": "Selene-6",
       "type": "nœud de transit",
-      "description": "Nœud de transit relié à Komarov-III par une Veine supraluminique. Point de passage entre Komarov et le reste de la Lisière.",
+      "description": "Nœud de transit relié à Komarov-III par une Veine supraluminique. Point de passage entre Komarov et le reste de la Lisière. Première étape du voyage vers Erebus.",
       "chapitre": "chapitre-02"
     }
   ],
   "technologies": [
     {
       "nom": "Les Veines",
-      "description": "Réseau de transit supraluminique tissé entre les systèmes. Partiellement détruit ou instable depuis la Fracture, maintenu par des guildes de technicien·ne·s. Kael Seren les perçoit comme les nervures d'un réseau bien plus vaste construit par les Bâtisseurs. Les Éveillé·e·s peuvent influencer leur stabilité — la Veine de Komarov s'est ouverte pour laisser passer Aran Kellis.",
+      "description": "Réseau de transit supraluminique tissé entre les systèmes. Partiellement détruit ou instable depuis la Fracture, maintenu par des guildes de technicien·ne·s. Les Éveillé·e·s peuvent influencer leur stabilité — Kael a ouvert la Veine de Komarov par résonance avec les filaments au chapitre 3, la stabilisant parfaitement pour la première fois en des années.",
       "statut": "partiellement détruit",
-      "chapitre": "chapitre-02"
+      "chapitre": "chapitre-03"
     },
     {
       "nom": "Terminal de classification neurale",
-      "description": "Prototype hégémonique de détection des Éveillé·e·s, antérieur aux Décrets de Containment. Mesure la résonance neuromorphique, un marqueur biologique des Éveillé·e·s. Trouvé par Luka Dren dans l'ancien poste médical de Komarov-III. Processeur original irréparable, remplacé par un processeur de bord standard. Lors de sa première activation, les capteurs ont été saturés par la résonance des filaments des Bâtisseurs amplifiée par l'Éveil de Kael, provoquant une surcharge.",
+      "description": "Prototype hégémonique de détection des Éveillé·e·s, antérieur aux Décrets de Containment. Mesure la résonance neuromorphique, un marqueur biologique des Éveillé·e·s. Trouvé par Luka Dren dans l'ancien poste médical de Komarov-III. Lors de sa première activation, les capteurs ont été saturés par la résonance des filaments. Non utilisé lors du départ de Kael au chapitre 3 — la révélation de son identité s'est faite par les filaments eux-mêmes.",
       "statut": "endommagé / en cours de réparation",
       "chapitre": "chapitre-02"
     }
@@ -170,51 +176,51 @@
       "nom": "Kael Seren",
       "age": 40,
       "role": "protagoniste",
-      "description": "Technicienne de maintenance sur Komarov-III. Éveillée dont les pouvoirs se renforcent : elle perçoit désormais les champs émotionnels des gens, sent les machines et les systèmes de la station, et peut cartographier le réseau des Bâtisseurs à travers les filaments. Son Éveil a envoyé un signal à travers toute la Lisière. Elle a décidé de quitter Komarov-III pour Erebus, guidée par l'appel des filaments.",
-      "statut": "Éveillée, décidée à partir vers Erebus",
-      "chapitre": "chapitre-02"
+      "description": "Technicienne de maintenance sur Komarov-III. Éveillée dont les pouvoirs se renforcent : elle peut désormais contrôler les filaments consciemment, ouvrir les Veines par résonance, et percevoir des souvenirs stockés dans le réseau des Bâtisseurs. A révélé publiquement son identité au chapitre 3 devant toute la station. A quitté Komarov-III à bord de la navette de Kellis, accompagnée de Theron Voss, en route pour Erebus.",
+      "statut": "en route vers Erebus",
+      "chapitre": "chapitre-03"
     },
     {
       "nom": "Yelen Vosk",
       "role": "présidente du conseil de Komarov-III",
-      "description": "Dirige le conseil de station depuis onze ans. Tente de maintenir le calme face à la crise. Refuse de rendre le scan du terminal obligatoire, défendant le volontariat.",
+      "description": "Dirige le conseil de station depuis onze ans. A observé le départ de Kael depuis le poste de commandement, confirmant la stabilisation de la Veine.",
       "statut": "active",
-      "chapitre": "chapitre-02"
+      "chapitre": "chapitre-03"
     },
     {
       "nom": "Luka Dren",
       "role": "meneur informel des anciens résidents",
-      "description": "Ancien contremaître de la mine. A déterré le terminal de classification neurale dans l'ancien poste médical et coordonne sa réparation. Obsédé par l'identification de l'Éveillé·e, il organise des assemblées pour imposer un scan de tou·te·s les habitant·e·s.",
-      "statut": "actif",
-      "chapitre": "chapitre-02"
+      "description": "Ancien contremaître de la mine. A tenté d'empêcher le départ de Kael au chapitre 3, entouré d'une douzaine d'ancien·ne·s résident·e·s armé·e·s de fortune. A échoué face à la chaîne humaine formée par les réfugié·e·s et certain·e·s ancien·ne·s.",
+      "statut": "actif, sur Komarov-III",
+      "chapitre": "chapitre-03"
     },
     {
       "nom": "Nara Osei",
       "role": "porte-parole des réfugiés de Priam",
-      "description": "Femme déterminée, voix des réfugié·e·s. S'oppose frontalement au terminal et au dépistage, organise des veillées pour rappeler les leçons de la Fracture. Établit un parallèle entre les méthodes de Dren et les Décrets de Containment.",
-      "statut": "active",
-      "chapitre": "chapitre-02"
+      "description": "Femme déterminée, voix des réfugié·e·s. A mené la chaîne humaine qui a protégé le départ de Kael au chapitre 3, rappelant que Kael avait nourri un enfant de Priam et maintenu les systèmes de la station. Rejoint·e par des ancien·ne·s résident·e·s, a imposé le droit de Kael à partir.",
+      "statut": "active, sur Komarov-III",
+      "chapitre": "chapitre-03"
     },
     {
       "nom": "Asha Mwenye",
       "role": "technicienne de maintenance",
-      "description": "Première personne à formuler publiquement l'hypothèse qu'un·e Éveillé·e est responsable des phénomènes inexpliqués sur Komarov-III.",
-      "statut": "active",
-      "chapitre": "chapitre-01"
+      "description": "Première personne à formuler publiquement l'hypothèse qu'un·e Éveillé·e est responsable des phénomènes. Au chapitre 3, a rejoint la chaîne humaine et est descendue dans les galeries profondes pour assister au départ de Kael.",
+      "statut": "active, sur Komarov-III",
+      "chapitre": "chapitre-03"
     },
     {
       "nom": "Theron Voss",
-      "role": "ancien Gardien des Veines",
-      "description": "Dernier membre connu d'une branche secrète de la Guilde des Veines qui guidait les Éveillé·e·s naissant·e·s. Porte une cicatrice de brûlure de la tempe à la mâchoire, vestige d'un monde détruit pendant la Fracture. N'est pas un·e Éveillé·e, mais sait détecter les perturbations dans le réseau des Bâtisseurs. A été guidé jusqu'à Komarov-III par les filaments. Identité de « l'inconnu » du chapitre 1.",
-      "statut": "actif, guide de Kael",
-      "chapitre": "chapitre-02"
+      "role": "ancien Gardien des Veines, guide de Kael",
+      "description": "Dernier membre connu des Gardiens des Veines. Sa cicatrice de brûlure ne vient pas de la Fracture — elle vient d'Erebus, où il a guidé un Éveillé nommé Soren Kael quinze ans plus tôt. Le passage s'est ouvert, Soren est entré et n'est jamais ressorti, et la lumière du vestige a brûlé le visage de Theron. A caché cette vérité à Kael, qui l'a découverte via un souvenir transmis par les filaments. Accompagne Kael vers Erebus malgré le risque de la perdre comme il a perdu Soren.",
+      "statut": "en route vers Erebus avec Kael",
+      "chapitre": "chapitre-03"
     },
     {
       "nom": "Aran Kellis",
-      "role": "visiteur mystérieux",
-      "description": "Passager unique arrivé sur Komarov-III par la Veine temporairement stabilisée. Grand, mince, yeux clairs translucides. Porte le glyphe du Seuil (symbole des Bâtisseurs) brodé sur son col. Refuse de révéler ses origines. Dit porter un message pour « celle qui entend les filaments ». Affirme ne pas être un·e Éveillé·e. Semble lié·e à un groupe qui cartographie activement le réseau des Bâtisseurs.",
-      "statut": "sous surveillance dans le module de transit de Komarov-III",
-      "chapitre": "chapitre-02"
+      "role": "envoyé des Cartographes",
+      "description": "Membre des Cartographes, un ordre ancien qui lit les couches profondes du réseau des Bâtisseurs. A révélé à Kael la vérité sur les Bâtisseurs (transférés dans le réseau) et sur Erebus (tombeau habité). Ses motivations ne sont pas désintéressées : les Cartographes veulent *contrôler* le contact entre l'humanité et les Bâtisseurs. Pilote la navette qui emmène Kael et Theron vers Erebus.",
+      "statut": "en route vers Erebus, pilote de la navette",
+      "chapitre": "chapitre-03"
     },
     {
       "nom": "Petrov",
@@ -229,6 +235,13 @@
       "description": "Technicienne aux mains habiles, recruté·e par Dren pour réparer le terminal. A participé au démontage et à la remise en état des capteurs.",
       "statut": "active",
       "chapitre": "chapitre-02"
+    },
+    {
+      "nom": "Soren Kael",
+      "role": "Éveillé disparu",
+      "description": "Éveillé guidé par Theron Voss il y a quinze ans. Partage le même nom de famille que Kael Seren et Kael Prime — un schéma observé par les Gardiens chez les Éveillé·e·s lié·e·s aux sites des Bâtisseurs, sans explication connue. Après trois ans de voyage à travers la Lisière, il est entré dans le vestige d'Erebus en disant « Je comprends maintenant ». Le passage s'est refermé derrière lui et il n'est jamais ressorti. Son sort est inconnu — absorbé par le réseau ou transformé.",
+      "statut": "disparu dans le vestige d'Erebus",
+      "chapitre": "chapitre-03"
     }
   ],
   "artefacts": [
@@ -254,18 +267,18 @@
     },
     {
       "nom": "Filaments de Komarov-III",
-      "description": "Réseau de filaments des Bâtisseurs enfoui dans la roche de l'astéroïde de Komarov-III. Ont réagi à l'Éveil de Kael en s'activant et en transmettant un signal à travers la Lisière. Lors de la tentative de scan du terminal, ils ont saturé les capteurs hégémoniques. À la fin du chapitre 2, ils ont brillé assez fort pour être perçus même par les non-Éveillé·e·s.",
-      "chapitre": "chapitre-02"
+      "description": "Réseau de filaments des Bâtisseurs enfoui dans la roche de l'astéroïde de Komarov-III. Ont réagi à l'Éveil de Kael en s'activant. Au chapitre 3, ils sont devenus visibles pour tou·te·s les habitant·e·s lors du départ de Kael — un réseau de lumière (bleu pâle, or, blanc) traçant des géométries impossibles dans la roche. Convergent vers un nœud central dans les galeries profondes. Ont permis à Kael d'ouvrir la Veine de Komarov par résonance.",
+      "chapitre": "chapitre-03"
     },
     {
       "nom": "Glyphe du Seuil",
-      "description": "Symbole des Bâtisseurs désignant un point de convergence dans le réseau. Gravé sur les parois de la salle des filaments de Komarov-III et brodé sur le col d'Aran Kellis. Selon les archives des Gardiens, il marque un nœud où les filaments se rejoignent.",
-      "chapitre": "chapitre-02"
+      "description": "Symbole des Bâtisseurs désignant un point de convergence dans le réseau. Brodé sur le col d'Aran Kellis — semble vivant, brillant faiblement au rythme des filaments en présence de Kael, avec un éclat organique plutôt que réfléchissant.",
+      "chapitre": "chapitre-03"
     },
     {
       "nom": "Vestige d'Erebus",
-      "description": "Nœud central du réseau des Bâtisseurs situé dans le système d'Erebus. D'une ampleur sans précédent parmi les vestiges connus — non pas une cathédrale ou des cristaux, mais un organe vital complet de l'architecture des Bâtisseurs. Pulse avec une intensité détectable même par des instruments humains. Source de l'appel perçu par Kael.",
-      "chapitre": "chapitre-02"
+      "description": "Nœud central du réseau des Bâtisseurs situé dans le système d'Erebus. Équivalent d'un cortex dans un cerveau planétaire — là où la conscience transférée des Bâtisseurs est la plus dense et la plus cohérente. Un « tombeau habité ». Contient un passage qui s'ouvre pour les Éveillé·e·s — Soren Kael y est entré il y a quinze ans et n'en est jamais ressorti. Quelque chose a remué dans ses profondeurs en réponse au signal annonçant le départ de Kael.",
+      "chapitre": "chapitre-03"
     }
   ],
   "evenementsCles": [
@@ -353,6 +366,36 @@
       "nom": "Première manifestation visible des filaments",
       "description": "Les filaments de Komarov-III brillent assez fort pour être perçus par tou·te·s les habitant·e·s de la station — tremblement de la roche, vacillement des lumières. Premier signe visible des Bâtisseurs en quatre cent mille ans.",
       "chapitre": "chapitre-02"
+    },
+    {
+      "nom": "Révélation de Kellis sur les Bâtisseurs",
+      "description": "Aran Kellis révèle à Kael que les Bâtisseurs ne se sont pas éteints : ils se sont *transférés* dans le réseau de filaments il y a quatre cent mille ans. Erebus est un « tombeau habité » — le nœud central où leur conscience est la plus dense. Les Éveillé·e·s sont le mécanisme de contact intégré par les Bâtisseurs pour interfacer leur existence avec celle de l'humanité. Kellis se révèle membre des Cartographes, un ordre qui veut contrôler ce contact.",
+      "chapitre": "chapitre-03"
+    },
+    {
+      "nom": "Révélation du secret de Theron — Soren Kael",
+      "description": "Les filaments transmettent à Kael un souvenir : Theron a guidé un Éveillé nommé Soren Kael vers Erebus quinze ans plus tôt. Soren est entré dans le vestige en disant « Je comprends maintenant » et n'est jamais ressorti. La cicatrice de Theron vient de la lumière du passage qui s'est refermé. Theron guide Kael malgré le risque de la perdre aussi.",
+      "chapitre": "chapitre-03"
+    },
+    {
+      "nom": "Révélation publique de l'identité de Kael",
+      "description": "Le séisme provoqué par l'activation des filaments rend le réseau visible pour tou·te·s — un maillage de lumière qui converge vers Kael. Devant toute la station assemblée, Kael révèle son identité d'Éveillée, revendiquant les « miracles » (serres, générateur, recycleur) et annonçant son départ vers Erebus.",
+      "chapitre": "chapitre-03"
+    },
+    {
+      "nom": "Chaîne humaine de Nara Osei",
+      "description": "Face à la tentative de Luka Dren d'arrêter Kael, Nara Osei et les réfugié·e·s de Priam forment une chaîne humaine pour protéger son passage. Iels sont rejoint·e·s par certain·e·s ancien·ne·s résident·e·s, dont Asha Mwenye. La station se fracture définitivement en deux camps.",
+      "chapitre": "chapitre-03"
+    },
+    {
+      "nom": "Ouverture de la Veine par Kael",
+      "description": "Kael entre en résonance avec les filaments dans le nœud central de Komarov-III et ouvre la Veine vers Selene-6, première étape du voyage vers Erebus. L'ouverture provoque un séisme et une manifestation lumineuse massive des filaments, mais Kael parvient à contrôler la résonance pour ne pas endommager la station. La Veine se stabilise parfaitement pour la première fois en des années.",
+      "chapitre": "chapitre-03"
+    },
+    {
+      "nom": "Départ de Kael de Komarov-III",
+      "description": "Kael, Theron Voss et Aran Kellis quittent Komarov-III à bord de la navette de Kellis, traversant la Veine stabilisée vers Selene-6, en route pour Erebus. Un signal se propage dans le réseau : « Elle vient ». Quelque chose remue dans les profondeurs d'Erebus.",
+      "chapitre": "chapitre-03"
     }
   ]
 }

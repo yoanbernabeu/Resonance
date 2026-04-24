@@ -60,7 +60,7 @@ const grouped = PROPOSAL_CATEGORIES
         {!user ? (
           <div class="bg-void-card/40 border border-void-border rounded-2xl p-10 text-center">
             <p class="text-text-secondary mb-5">Connectez-vous pour soumettre vos idées.</p>
-            <a href="/api/auth/login?redirect_to=/participer" data-astro-reload class="group inline-flex items-center gap-2 text-sm font-semibold px-6 py-2.5 bg-cyan text-void rounded-full hover:brightness-110 transition-all hover:shadow-[0_0_30px_rgba(0,212,170,0.2)]">
+            <a href="/api/auth/login?redirect_to=/participer" class="group inline-flex items-center gap-2 text-sm font-semibold px-6 py-2.5 bg-cyan text-void rounded-full hover:brightness-110 transition-all hover:shadow-[0_0_30px_rgba(0,212,170,0.2)]">
               Se connecter avec GitHub
               <svg class="w-4 h-4 group-hover:translate-x-0.5 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
             </a>
@@ -137,7 +137,7 @@ const grouped = PROPOSAL_CATEGORIES
         {!user ? (
           <div class="bg-void-card/40 border border-void-border rounded-2xl p-10 text-center">
             <p class="text-text-secondary mb-5">Connectez-vous pour voter.</p>
-            <a href="/api/auth/login?redirect_to=/participer" data-astro-reload class="group inline-flex items-center gap-2 text-sm font-semibold px-6 py-2.5 bg-cyan text-void rounded-full hover:brightness-110 transition-all hover:shadow-[0_0_30px_rgba(0,212,170,0.2)]">
+            <a href="/api/auth/login?redirect_to=/participer" class="group inline-flex items-center gap-2 text-sm font-semibold px-6 py-2.5 bg-cyan text-void rounded-full hover:brightness-110 transition-all hover:shadow-[0_0_30px_rgba(0,212,170,0.2)]">
               Se connecter avec GitHub
               <svg class="w-4 h-4 group-hover:translate-x-0.5 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
             </a>
@@ -197,38 +197,31 @@ const grouped = PROPOSAL_CATEGORIES
   </div>
 
   <script>
-    function initParticiper() {
-      const form = document.getElementById('proposal-form') as HTMLFormElement | null;
-      const message = document.getElementById('form-message') as HTMLElement | null;
-      if (form && !(form as any).__bound) {
-        (form as any).__bound = true;
-        form.addEventListener('submit', async (e) => {
-          e.preventDefault();
-          const fd = new FormData(form);
-          const btn = form.querySelector('button[type="submit"]') as HTMLButtonElement;
-          btn.disabled = true;
-          try {
-            const res = await fetch('/api/proposals/submit', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ issueNumber: Number(fd.get('issueNumber')), category: fd.get('category'), description: fd.get('description') }) });
-            if (res.ok) window.location.reload();
-            else { const d = await res.json(); if (message) { message.textContent = d.error || 'Erreur.'; message.className = 'text-sm text-red'; } btn.disabled = false; }
-          } catch { if (message) { message.textContent = 'Erreur.'; message.className = 'text-sm text-red'; } btn.disabled = false; }
-        });
-      }
+    // Soumission proposition
+    const form = document.getElementById('proposal-form') as HTMLFormElement | null;
+    const message = document.getElementById('form-message') as HTMLElement | null;
+    form?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const fd = new FormData(form);
+      const btn = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+      btn.disabled = true;
+      try {
+        const res = await fetch('/api/proposals/submit', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ issueNumber: Number(fd.get('issueNumber')), category: fd.get('category'), description: fd.get('description') }) });
+        if (res.ok) window.location.reload();
+        else { const d = await res.json(); if (message) { message.textContent = d.error || 'Erreur.'; message.className = 'text-sm text-red'; } btn.disabled = false; }
+      } catch { if (message) { message.textContent = 'Erreur.'; message.className = 'text-sm text-red'; } btn.disabled = false; }
+    });
 
-      document.querySelectorAll('.vote-btn').forEach(btn => {
-        if ((btn as any).__bound) return;
-        (btn as any).__bound = true;
-        btn.addEventListener('click', async (e) => {
-          const t = e.currentTarget as HTMLButtonElement; t.disabled = true;
-          try {
-            const issueInput = document.querySelector('input[name="issueNumber"]') as HTMLInputElement;
-            const res = await fetch(t.dataset.vote === '+1' ? '/api/votes/upvote' : '/api/votes/downvote', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ commentId: Number(t.dataset.commentId), issueNumber: Number(issueInput?.value) }) });
-            if (res.ok) window.location.reload();
-          } catch {} finally { t.disabled = false; }
-        });
+    // Votes
+    document.querySelectorAll('.vote-btn').forEach(btn => {
+      btn.addEventListener('click', async (e) => {
+        const t = e.currentTarget as HTMLButtonElement; t.disabled = true;
+        try {
+          const issueInput = document.querySelector('input[name="issueNumber"]') as HTMLInputElement;
+          const res = await fetch(t.dataset.vote === '+1' ? '/api/votes/upvote' : '/api/votes/downvote', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ commentId: Number(t.dataset.commentId), issueNumber: Number(issueInput?.value) }) });
+          if (res.ok) window.location.reload();
+        } catch {} finally { t.disabled = false; }
       });
-    }
-    initParticiper();
-    document.addEventListener('astro:page-load', initParticiper);
+    });
   </script>
 </BaseLayout>

@@ -55,28 +55,18 @@ const issues = await getAllChapterIssues().catch(() => []);
   </div>
 
   <script>
-    function initAdmin() {
-      const newBtn = document.getElementById('btn-new');
-      if (newBtn && !(newBtn as any).__bound) {
-        (newBtn as any).__bound = true;
-        newBtn.addEventListener('click', async (e) => {
-          const btn = e.currentTarget as HTMLButtonElement; const msg = document.getElementById('msg')!; btn.disabled = true;
-          try { const res = await fetch('/api/admin/phase', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ action: 'create' }) });
-            if (res.ok) { msg.textContent = 'Créé.'; msg.className = 'text-sm mt-2 text-cyan'; setTimeout(() => location.reload(), 800); }
-            else { const d = await res.json(); msg.textContent = d.error; msg.className = 'text-sm mt-2 text-red'; btn.disabled = false; }
-          } catch { msg.textContent = 'Erreur.'; msg.className = 'text-sm mt-2 text-red'; btn.disabled = false; }
-        });
-      }
-      document.querySelectorAll('.phase-btn').forEach(btn => {
-        if ((btn as any).__bound) return;
-        (btn as any).__bound = true;
-        btn.addEventListener('click', async (e) => { const t = e.currentTarget as HTMLButtonElement; t.disabled = true;
-          try { const res = await fetch('/api/admin/phase', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ action: 'transition', issueNumber: Number(t.dataset.issueNumber), newPhase: t.dataset.newPhase }) });
-            if (res.ok) location.reload(); else t.disabled = false; } catch { t.disabled = false; }
-        });
+    document.getElementById('btn-new')?.addEventListener('click', async (e) => {
+      const btn = e.currentTarget as HTMLButtonElement; const msg = document.getElementById('msg')!; btn.disabled = true;
+      try { const res = await fetch('/api/admin/phase', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ action: 'create' }) });
+        if (res.ok) { msg.textContent = 'Créé.'; msg.className = 'text-sm mt-2 text-cyan'; setTimeout(() => location.reload(), 800); }
+        else { const d = await res.json(); msg.textContent = d.error; msg.className = 'text-sm mt-2 text-red'; btn.disabled = false; }
+      } catch { msg.textContent = 'Erreur.'; msg.className = 'text-sm mt-2 text-red'; btn.disabled = false; }
+    });
+    document.querySelectorAll('.phase-btn').forEach(btn => {
+      btn.addEventListener('click', async (e) => { const t = e.currentTarget as HTMLButtonElement; t.disabled = true;
+        try { const res = await fetch('/api/admin/phase', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ action: 'transition', issueNumber: Number(t.dataset.issueNumber), newPhase: t.dataset.newPhase }) });
+          if (res.ok) location.reload(); else t.disabled = false; } catch { t.disabled = false; }
       });
-    }
-    initAdmin();
-    document.addEventListener('astro:page-load', initAdmin);
+    });
   </script>
 </BaseLayout>

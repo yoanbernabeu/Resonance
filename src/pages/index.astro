@@ -1,4 +1,6 @@
 ---
+export const prerender = true;
+
 import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getAllChapters } from '../lib/chapters';
@@ -253,23 +255,14 @@ const phaseInfo = await getActivePhase().catch(() => ({ phase: null, chapterTitl
   </section>
 
 <script>
-  function initParallax() {
-    const parallax = document.querySelector('.hero-parallax') as HTMLElement | null;
-    if (!parallax) return;
-    if (!window.matchMedia('(prefers-reduced-motion: no-preference)').matches) return;
-    const handler = () => {
-      if (!document.body.contains(parallax)) {
-        window.removeEventListener('scroll', handler);
-        return;
-      }
+  const parallax = document.querySelector('.hero-parallax') as HTMLElement | null;
+  if (parallax && window.matchMedia('(prefers-reduced-motion: no-preference)').matches) {
+    window.addEventListener('scroll', () => {
       requestAnimationFrame(() => {
         parallax.style.transform = `translateY(${window.scrollY * 0.4}px)`;
       });
-    };
-    window.addEventListener('scroll', handler, { passive: true });
+    }, { passive: true });
   }
-  initParallax();
-  document.addEventListener('astro:page-load', initParallax);
 </script>
 
 </BaseLayout>

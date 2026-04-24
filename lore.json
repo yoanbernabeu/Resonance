@@ -1,7 +1,13 @@
 {
-  "version": 4,
-  "derniereMiseAJour": "2026-04-13",
+  "version": 5,
+  "derniereMiseAJour": "2026-04-24",
   "epoques": [
+    {
+      "nom": "Le Transfert des Bâtisseurs",
+      "description": "Il y a environ quatre cent mille ans, la civilisation des Bâtisseurs, confrontée à la dégradation de son monde d'origine, choisit collectivement de se transférer dans le réseau de filaments tissé à travers la galaxie. Le choix a pris quatre générations à être validé — des siècles de débats, de scissions, de peurs. Au moment du transfert, chacun·e renonçait à son corps, à sa mort, à la texture charnelle des relations. Un ancien refusa et resta seul sur son monde ; sa mort solitaire, des décennies plus tard, traversa le réseau comme un frisson. Les consciences transférées ont fini par former, avec le temps, une *texture collective* — une personnalité composite qui n'est plus réductible à ses composantes.",
+      "dureeApproximative": "plusieurs siècles de délibération, quatre générations",
+      "chapitre": "chapitre-04"
+    },
     {
       "nom": "L'Hégémonie Solaire",
       "description": "Empire unifié de l'humanité. Trente-sept systèmes, deux cents mondes habités, onze cents stations orbitales. Reliés par les Veines, un réseau de transit supraluminique.",
@@ -75,6 +81,12 @@
       "statut": "quasi-éteints",
       "description": "Branche secrète de la Guilde des technicien·ne·s des Veines, fondée avant les Décrets de Containment. Iels avaient découvert que les Veines et les Éveillé·e·s étaient liés, et que les Bâtisseurs avaient peut-être prévu l'apparition des Éveillé·e·s. Dispersé·e·s pendant la Fracture, les survivant·e·s parcourent la Lisière en solitaire pour trouver et guider les Éveillé·e·s naissant·e·s avant que les foules ne les trouvent. Theron Voss est l'un·e des dernier·ère·s.",
       "chapitre": "chapitre-02"
+    },
+    {
+      "nom": "Les Dissident·e·s Éveillé·e·s",
+      "statut": "actifs, clandestins",
+      "description": "Groupe minoritaire d'Éveillé·e·s formé ces dernières années. Refusent à la fois l'entrée dans le réseau des Bâtisseurs et le contrôle du contact par les Cartographes. Leurs objectifs exacts sont flous — destruction des vestiges, sabotage, brouillage des signaux. Peu nombreux·ses mais déterminé·e·s. Des traces de leur passage ont été relevées à Selene-6 il y a huit mois par les Cartographes. Au chapitre 4, Kael perçoit une présence invisible sur la station fantôme et voit une silhouette regarder partir la navette — probablement l'un·e d'eux.",
+      "chapitre": "chapitre-04"
     },
     {
       "nom": "Les Cartographes",
@@ -152,9 +164,15 @@
     },
     {
       "nom": "Selene-6",
-      "type": "nœud de transit",
-      "description": "Nœud de transit relié à Komarov-III par une Veine supraluminique. Point de passage entre Komarov et le reste de la Lisière. Première étape du voyage vers Erebus.",
-      "chapitre": "chapitre-02"
+      "type": "station de correspondance / tombe orbitale",
+      "description": "Couronne de métal noir en orbite autour d'une géante gazeuse aux rubans d'ambre et d'ocre. Ancienne station de correspondance hégémonique (trente mille âmes de transit avant la Fracture), aujourd'hui carcasse abandonnée. Au moment de la chute des Veines, tout ce qui était en transit s'est retrouvé bloqué ; les équipages ont attendu, puis sont morts de faim ou ont tenté des sauts sabotés. Trente à quarante épaves flottent encore dans son orbite. Signalée pour épidémie respiratoire (fièvre contenue ou non, jamais vérifiée) au moment de la chute — personne n'est revenu. Les cellules d'énergie de secours tiennent encore (sas, paliers, certains couloirs pressurisés). Les Bâtisseurs y ont tissé des filaments secondaires, bleu pâle et pulsation lente presque agonique, le long de la spine — ils dorment mais sont vivants. Les Cartographes y font des relevés intermittents. Au chapitre 4, Kael y perçoit les traces d'une présence récente (empreintes de bottes, moins de deux ans) et aperçoit une silhouette furtive au moment du départ.",
+      "chapitre": "chapitre-04"
+    },
+    {
+      "nom": "Erebus-IV",
+      "type": "lune glacée",
+      "description": "Lune glacée de la ceinture externe du système d'Erebus, en orbite autour d'une naine ocre vieillissante. Sous la glace et la rocaille dort le nœud central des Bâtisseurs — le cortex du réseau galactique. Les filaments du système entier convergent vers elle comme les nerfs d'un corps. À l'approche de la navette de Kellis au chapitre 4, une zone de la glace en bordure d'un ancien cratère se met à luire d'un bleu pâle pulsant, signalant l'ouverture d'un passage pour Kael. Destination finale du voyage.",
+      "chapitre": "chapitre-04"
     }
   ],
   "technologies": [
@@ -163,6 +181,18 @@
       "description": "Réseau de transit supraluminique tissé entre les systèmes. Partiellement détruit ou instable depuis la Fracture, maintenu par des guildes de technicien·ne·s. Les Éveillé·e·s peuvent influencer leur stabilité — Kael a ouvert la Veine de Komarov par résonance avec les filaments au chapitre 3, la stabilisant parfaitement pour la première fois en des années.",
       "statut": "partiellement détruit",
       "chapitre": "chapitre-03"
+    },
+    {
+      "nom": "Immersion (ou *Dérive*)",
+      "description": "Phénomène vécu par les Éveillé·e·s dans les Veines. Pour la plupart des voyageur·se·s, une Veine est un trajet uniforme ; pour une Éveillée, le pli de l'espace-temps peut se *déployer* et lui faire vivre subjectivement des heures ou des jours de mémoire en quelques secondes physiques. Les Gardiens des Veines parlaient de *dérive*, les Cartographes d'*immersion*. La première immersion est la plus violente — c'est celle où le réseau reconnaît la voyageuse ; ensuite il apprend sa forme et la laisse entrer plus doucement. Une Éveillée peut en ressortir un peu moins séparée du réseau, un peu moins humaine. Protocole de survie observé au chapitre 4 : un mot-ancre (nom, lieu aimé) pour se ramener au corps.",
+      "statut": "documenté",
+      "chapitre": "chapitre-04"
+    },
+    {
+      "nom": "Protocole Cartographe d'ouverture",
+      "description": "Protocole ancien maîtrisé par les Cartographes qui permet d'ouvrir une Veine sans Éveillé·e, en utilisant la résonance des filaments locaux comme amplificateur. Plus violent et moins précis qu'une ouverture par résonance Éveillée, mais permet de pallier l'absence d'une Éveillée ou de ne pas épuiser ses forces. Utilisé par Kellis au départ de Selene-6 vers Erebus.",
+      "statut": "opérationnel, connu des seul·e·s Cartographes",
+      "chapitre": "chapitre-04"
     },
     {
       "nom": "Terminal de classification neurale",
@@ -176,9 +206,9 @@
       "nom": "Kael Seren",
       "age": 40,
       "role": "protagoniste",
-      "description": "Technicienne de maintenance sur Komarov-III. Éveillée dont les pouvoirs se renforcent : elle peut désormais contrôler les filaments consciemment, ouvrir les Veines par résonance, et percevoir des souvenirs stockés dans le réseau des Bâtisseurs. A révélé publiquement son identité au chapitre 3 devant toute la station. A quitté Komarov-III à bord de la navette de Kellis, accompagnée de Theron Voss, en route pour Erebus.",
-      "statut": "en route vers Erebus",
-      "chapitre": "chapitre-03"
+      "description": "Technicienne de maintenance sur Komarov-III. Éveillée dont les pouvoirs se renforcent : elle peut désormais contrôler les filaments consciemment, ouvrir les Veines par résonance, et percevoir des souvenirs stockés dans le réseau des Bâtisseurs. A traversé la première Veine vers Selene-6 en vivant des dizaines d'immersions — dont celle, massive et violente, du transfert des Bâtisseurs eux-mêmes il y a quatre cent mille ans. Le réseau la *cherche* : il lui déverse ses archives profondes plutôt que des bribes. Elle perçoit maintenant une trame collective attentive à son approche. A choisi *Komarov* comme mot-ancre pour traverser la seconde Veine. Lors de la seconde immersion, a aperçu Soren Kael toujours présent dans le nœud d'Erebus et a reçu directement son message : « Ne viens pas pour comprendre. Viens pour choisir. » Entame la descente vers Erebus-IV.",
+      "statut": "en approche finale d'Erebus-IV",
+      "chapitre": "chapitre-04"
     },
     {
       "nom": "Yelen Vosk",
@@ -211,16 +241,16 @@
     {
       "nom": "Theron Voss",
       "role": "ancien Gardien des Veines, guide de Kael",
-      "description": "Dernier membre connu des Gardiens des Veines. Sa cicatrice de brûlure ne vient pas de la Fracture — elle vient d'Erebus, où il a guidé un Éveillé nommé Soren Kael quinze ans plus tôt. Le passage s'est ouvert, Soren est entré et n'est jamais ressorti, et la lumière du vestige a brûlé le visage de Theron. A caché cette vérité à Kael, qui l'a découverte via un souvenir transmis par les filaments. Accompagne Kael vers Erebus malgré le risque de la perdre comme il a perdu Soren.",
-      "statut": "en route vers Erebus avec Kael",
-      "chapitre": "chapitre-03"
+      "description": "Dernier membre connu des Gardiens des Veines. Sa cicatrice de brûlure ne vient pas de la Fracture — elle vient d'Erebus, où il a guidé un Éveillé nommé Soren Kael quinze ans plus tôt. Le passage s'est ouvert, Soren est entré et n'est jamais ressorti, et la lumière du vestige a brûlé le visage de Theron. A caché cette vérité à Kael, qui l'a découverte via un souvenir transmis par les filaments. Porte en permanence un pistolet laser dissimulé. A donné à Kael son vieux manteau de cuir renforcé — un geste de transmission discret. Au chapitre 4, confronte Kellis sur ses dissimulations et obtient la révélation sur les Dissident·e·s Éveillé·e·s. Dit avoir choisi de guider Kael non pas par volonté de mourir pour elle, mais pour qu'elle « ne meure pas seule » — et pour faire, cette fois, ce qu'il n'a pas pu faire pour Soren : *protéger*.",
+      "statut": "en approche d'Erebus-IV avec Kael",
+      "chapitre": "chapitre-04"
     },
     {
       "nom": "Aran Kellis",
       "role": "envoyé des Cartographes",
-      "description": "Membre des Cartographes, un ordre ancien qui lit les couches profondes du réseau des Bâtisseurs. A révélé à Kael la vérité sur les Bâtisseurs (transférés dans le réseau) et sur Erebus (tombeau habité). Ses motivations ne sont pas désintéressées : les Cartographes veulent *contrôler* le contact entre l'humanité et les Bâtisseurs. Pilote la navette qui emmène Kael et Theron vers Erebus.",
-      "statut": "en route vers Erebus, pilote de la navette",
-      "chapitre": "chapitre-03"
+      "description": "Membre des Cartographes, un ordre ancien qui lit les couches profondes du réseau des Bâtisseurs. A révélé à Kael la vérité sur les Bâtisseurs (transférés dans le réseau) et sur Erebus (tombeau habité). Ses motivations ne sont pas désintéressées : les Cartographes veulent *contrôler* le contact entre l'humanité et les Bâtisseurs. Pilote la navette qui emmène Kael et Theron vers Erebus. Prend mentalement des notes sur les réactions de Kael aux immersions. Au chapitre 4, contraint par Theron, finit par révéler l'existence des Dissident·e·s Éveillé·e·s et la fenêtre de temps limitée avant le réveil complet du nœud d'Erebus. Maîtrise un protocole Cartographe ancien qui ouvre la Veine par résonance avec les filaments locaux, sans recours à une Éveillée.",
+      "statut": "en approche d'Erebus-IV, pilote de la navette",
+      "chapitre": "chapitre-04"
     },
     {
       "nom": "Petrov",
@@ -239,9 +269,9 @@
     {
       "nom": "Soren Kael",
       "role": "Éveillé disparu",
-      "description": "Éveillé guidé par Theron Voss il y a quinze ans. Partage le même nom de famille que Kael Seren et Kael Prime — un schéma observé par les Gardiens chez les Éveillé·e·s lié·e·s aux sites des Bâtisseurs, sans explication connue. Après trois ans de voyage à travers la Lisière, il est entré dans le vestige d'Erebus en disant « Je comprends maintenant ». Le passage s'est refermé derrière lui et il n'est jamais ressorti. Son sort est inconnu — absorbé par le réseau ou transformé.",
-      "statut": "disparu dans le vestige d'Erebus",
-      "chapitre": "chapitre-03"
+      "description": "Éveillé guidé par Theron Voss il y a quinze ans. Partage le même nom de famille que Kael Seren et Kael Prime — un schéma observé par les Gardiens chez les Éveillé·e·s lié·e·s aux sites des Bâtisseurs, sans explication connue. Après trois ans de voyage à travers la Lisière, il est entré dans le vestige d'Erebus en disant « Je comprends maintenant ». Révélation du chapitre 4 : il n'est pas mort. Sa conscience persiste dans le nœud d'Erebus sous une forme qualifiée de *kaeliforme* — il n'a plus de corps ni de voix, mais a gardé la forme particulière de ce qu'il était en tant qu'humain, laissant sa marque sur les consciences plus vastes autour de lui. Il a vu Kael lors de sa seconde immersion et attend son arrivée. Ses derniers mots à Theron avant d'entrer : « Ne me suis pas. Pas tout de suite. Laisse-moi comprendre ce qu'ils veulent de nous d'abord. »",
+      "statut": "conscience persistante dans le nœud d'Erebus",
+      "chapitre": "chapitre-04"
     }
   ],
   "artefacts": [
@@ -274,6 +304,16 @@
       "nom": "Glyphe du Seuil",
       "description": "Symbole des Bâtisseurs désignant un point de convergence dans le réseau. Brodé sur le col d'Aran Kellis — semble vivant, brillant faiblement au rythme des filaments en présence de Kael, avec un éclat organique plutôt que réfléchissant.",
       "chapitre": "chapitre-03"
+    },
+    {
+      "nom": "Filaments de Selene-6",
+      "description": "Filaments secondaires tissés par les Bâtisseurs dans la structure de Selene-6, courant le long de la spine. Moins denses qu'à Komarov et non connectés à un nœud majeur, mais vivants. Bleu très pâle, presque blanc, pulsation lente presque agonique. Les ingénieur·e·s hégémoniques avaient choisi Selene-6 comme point de transit majeur précisément parce que ces filaments stabilisaient les Veines — un fait connu des seul·e·s Gardiens et Cartographes. Gardent trace des passages récents : Kael y a perçu l'empreinte d'une présence humaine inconnue de moins de deux ans.",
+      "chapitre": "chapitre-04"
+    },
+    {
+      "nom": "Texture collective du réseau",
+      "description": "Personnalité composite qui a émergé, avec le temps, de la cohabitation des millions de consciences de Bâtisseurs transférées dans le réseau. N'est plus réductible à ses composantes individuelles — un *quelqu'un* orchestré, ni un Bâtisseur particulier ni un simple souvenir. Attentif, non hostile, non bienveillant. Kael perçoit cette trame comme *la cherchant* activement lors de la première Veine, et lui transmettant le sens d'un *« Enfin. »* au moment de la sortie à Erebus.",
+      "chapitre": "chapitre-04"
     },
     {
       "nom": "Vestige d'Erebus",
@@ -396,6 +436,41 @@
       "nom": "Départ de Kael de Komarov-III",
       "description": "Kael, Theron Voss et Aran Kellis quittent Komarov-III à bord de la navette de Kellis, traversant la Veine stabilisée vers Selene-6, en route pour Erebus. Un signal se propage dans le réseau : « Elle vient ». Quelque chose remue dans les profondeurs d'Erebus.",
       "chapitre": "chapitre-03"
+    },
+    {
+      "nom": "Première immersion de Kael dans la Veine",
+      "description": "Dans la Veine vers Selene-6, Kael vit sa première immersion profonde. Elle traverse les souvenirs du transfert des Bâtisseurs — la douleur cristalline d'une civilisation qui renonce volontairement au corps, à la mort et à la chair pour se couler dans le réseau. Elle voit des dizaines de scènes particulières (une scientifique au transfert inachevé, un·e enfant apeuré·e, un ancien qui refuse et reste seul·e jusqu'à sa mort). Elle perçoit que le réseau la *cherche* — qu'il lui déverse ses archives profondes, comportement inhabituel selon Kellis.",
+      "chapitre": "chapitre-04"
+    },
+    {
+      "nom": "Arrivée à Selene-6",
+      "description": "La navette sort de la Veine sans violence au-dessus de Selene-6 — couronne de métal noir morte en orbite d'une géante gazeuse, cernée par trente à quarante épaves post-Fracture. Station condamnée depuis cinquante ans, signalée pour épidémie respiratoire. Énergie résiduelle des cellules de secours permet l'accostage au dock trois. Recalibrage forcé de la navette requis avant le saut vers Erebus.",
+      "chapitre": "chapitre-04"
+    },
+    {
+      "nom": "Découverte de traces récentes sur Selene-6",
+      "description": "Dans la spine de la station, au contact des filaments secondaires, Kael perçoit l'empreinte ténue d'une présence humaine récente — moins de deux ans, pas Kellis ni Theron. Plus tard, au dock, elle croit apercevoir une silhouette près d'un vieux transporteur ; l'inspection ne donne rien, mais les filaments confirment qu'il y a eu passage. La peur ne la quitte plus.",
+      "chapitre": "chapitre-04"
+    },
+    {
+      "nom": "Révélation des Dissident·e·s Éveillé·e·s",
+      "description": "Pressé par Theron sous menace de l'éjecter par un sas, Kellis avoue l'existence d'un groupe de Dissident·e·s Éveillé·e·s apparu ces dernières années. Refusent l'entrée dans le réseau et le contrôle par les Cartographes, veulent potentiellement détruire ou saboter les vestiges. Des traces de leur passage ont été relevées à Selene-6 huit mois plus tôt. Kellis admet aussi que la fenêtre pour atteindre Erebus se referme — le nœud central se réveille, chaque jour le rend plus exigeant.",
+      "chapitre": "chapitre-04"
+    },
+    {
+      "nom": "Seconde immersion et vision de Soren Kael",
+      "description": "Lors de la seconde Veine (Selene-6 → Erebus), Kael, ancrée par le mot *Komarov*, reçoit l'immersion comme une conversation plutôt qu'une invasion. Elle perçoit le nœud d'Erebus de l'intérieur et y reconnaît Soren Kael — non pas mort, mais persistant sous une forme *kaeliforme* de conscience sans corps. Il la voit. Le nœud entier se concentre sur elle et lui transmet directement un sens : *« Kael. Ne viens pas pour comprendre. Viens pour choisir. »*",
+      "chapitre": "chapitre-04"
+    },
+    {
+      "nom": "Silhouette sur Selene-6 au départ",
+      "description": "Au moment où Kellis ouvre la seconde Veine, une lueur clignote trois fois régulièrement sur un bras secondaire de Selene-6 — un signal délibéré. Kellis et Theron le voient aussi et se taisent. Après le départ, une silhouette sort de l'ombre d'un transporteur, marche jusqu'au hublot du hangar et regarde s'éteindre les coordonnées du saut dans le tableau d'un relais qu'on croyait éteint depuis cinquante ans. Elle sourit — mais pas du même sourire que Soren.",
+      "chapitre": "chapitre-04"
+    },
+    {
+      "nom": "Arrivée dans le système d'Erebus",
+      "description": "La navette sort de la seconde Veine dans le système d'Erebus — naine ocre vieillissante, trois planètes mortes, lune glacée Erebus-IV sous laquelle dort le nœud central. Les filaments du système entier convergent vers la lune, orchestrés comme les nerfs d'un corps. Une attention dense, cohérente, *dirigée* se pose sur la navette. Sur la glace, en bordure d'un ancien cratère, une zone se met à luire d'un bleu pâle pulsant — le passage s'ouvre. À la question de Kellis « Voulez-vous toujours le faire ? », Kael répond : « Je viens pour choisir. » Descente vers Erebus-IV, quatre-vingt-seize minutes d'approche.",
+      "chapitre": "chapitre-04"
     }
   ]
 }

@@ -4,7 +4,7 @@ import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
   output: 'server',
-  adapter: netlify(),
+  adapter: netlify({ imageCDN: false }),
   vite: {
     plugins: [tailwindcss()],
   },

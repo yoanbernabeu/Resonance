@@ -11,11 +11,21 @@ const chapters = await getAllChapters();
       <h1 class="font-[--font-display] text-3xl sm:text-4xl text-text">Table des matières</h1>
     </div>
 
-    <div class="bg-void-card/30 border border-cyan/10 rounded-xl px-5 py-4 mb-10 flex items-center gap-4">
-      <svg class="w-5 h-5 text-cyan shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
-      <p class="text-sm text-text-secondary">
-        Pour un confort de lecture optimal, <a href="/telechargement" class="text-cyan font-semibold hover:underline">téléchargez la version EPUB</a> — compatible liseuses, tablettes et smartphones.
-      </p>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-10">
+      <a href="/telechargement" class="group bg-void-card/30 border border-cyan/10 rounded-xl px-5 py-4 flex items-center gap-4 hover:border-cyan/30 hover:bg-void-card/50 transition-all">
+        <svg class="w-5 h-5 text-cyan shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
+        <div class="flex-1 min-w-0">
+          <p class="text-sm font-semibold text-text group-hover:text-cyan transition-colors">Version EPUB</p>
+          <p class="text-xs text-text-muted leading-relaxed">Liseuses, tablettes, smartphones</p>
+        </div>
+      </a>
+      <a href="/podcast" class="group bg-void-card/30 border border-cyan/10 rounded-xl px-5 py-4 flex items-center gap-4 hover:border-cyan/30 hover:bg-void-card/50 transition-all">
+        <svg class="w-5 h-5 text-cyan shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+        <div class="flex-1 min-w-0">
+          <p class="text-sm font-semibold text-text group-hover:text-cyan transition-colors">Version podcast</p>
+          <p class="text-xs text-text-muted leading-relaxed">Spotify, Apple, Amazon, Deezer</p>
+        </div>
+      </a>
     </div>
 
     {chapters.length === 0 ? (

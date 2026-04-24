@@ -253,14 +253,23 @@ const phaseInfo = await getActivePhase().catch(() => ({ phase: null, chapterTitl
   </section>
 
 <script>
-  const parallax = document.querySelector('.hero-parallax') as HTMLElement | null;
-  if (parallax && window.matchMedia('(prefers-reduced-motion: no-preference)').matches) {
-    window.addEventListener('scroll', () => {
+  function initParallax() {
+    const parallax = document.querySelector('.hero-parallax') as HTMLElement | null;
+    if (!parallax) return;
+    if (!window.matchMedia('(prefers-reduced-motion: no-preference)').matches) return;
+    const handler = () => {
+      if (!document.body.contains(parallax)) {
+        window.removeEventListener('scroll', handler);
+        return;
+      }
       requestAnimationFrame(() => {
         parallax.style.transform = `translateY(${window.scrollY * 0.4}px)`;
       });
-    }, { passive: true });
+    };
+    window.addEventListener('scroll', handler, { passive: true });
   }
+  initParallax();
+  document.addEventListener('astro:page-load', initParallax);
 </script>
 
 </BaseLayout>

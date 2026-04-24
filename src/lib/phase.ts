@@ -6,20 +6,38 @@ export interface ActivePhaseInfo {
   issueNumber: number | null;
 }
 
-export async function getActivePhase(): Promise<ActivePhaseInfo> {
-  // Avoid importing github.ts at module level to prevent errors when env vars are missing
+const CACHE_TTL_MS = 60_000;
+let cache: { value: ActivePhaseInfo; expiresAt: number } | null = null;
+let inflight: Promise<ActivePhaseInfo> | null = null;
+
+async function fetchActivePhase(): Promise<ActivePhaseInfo> {
   const { getActiveChapterIssue } = await import('./github');
 
-  for (const phase of ['propositions', 'votes', 'redaction'] as Phase[]) {
-    try {
-      const issue = await getActiveChapterIssue(phase);
-      if (issue) {
-        return { phase, chapterTitle: issue.title, issueNumber: issue.number };
-      }
-    } catch {
-      continue;
+  const phases: Phase[] = ['propositions', 'votes', 'redaction'];
+  const results = await Promise.all(
+    phases.map((phase) => getActiveChapterIssue(phase).catch(() => null))
+  );
+
+  for (let i = 0; i < phases.length; i++) {
+    const issue = results[i];
+    if (issue) {
+      return { phase: phases[i], chapterTitle: issue.title, issueNumber: issue.number };
     }
   }
-
   return { phase: null, chapterTitle: null, issueNumber: null };
+}
+
+export async function getActivePhase(): Promise<ActivePhaseInfo> {
+  const now = Date.now();
+  if (cache && cache.expiresAt > now) return cache.value;
+  if (inflight) return inflight;
+
+  inflight = fetchActivePhase()
+    .then((value) => {
+      cache = { value, expiresAt: Date.now() + CACHE_TTL_MS };
+      return value;
+    })
+    .finally(() => { inflight = null; });
+
+  return inflight;
 }

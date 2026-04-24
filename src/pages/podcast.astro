@@ -2,6 +2,9 @@
 import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import coverImage from '../assets/cover.jpg';
+import { getPodcastEpisodes, formatPubDate } from '../lib/podcast';
+
+const episodes = await getPodcastEpisodes();
 
 const platforms = [
   {
@@ -32,10 +35,10 @@ const platforms = [
 ---
 
 <BaseLayout title="Podcast — Résonance">
-  <div class="max-w-3xl mx-auto px-5 py-16 md:py-24">
+  <div class="max-w-3xl mx-auto px-5 py-16 md:py-20">
 
     <!-- En-tête -->
-    <div class="flex flex-col sm:flex-row items-center gap-8 sm:gap-10 mb-14">
+    <div class="flex flex-col sm:flex-row items-center gap-8 sm:gap-10 mb-12">
       <div class="w-40 sm:w-48 shrink-0 relative">
         <div class="absolute -inset-3 rounded-2xl bg-cyan/8 blur-2xl"></div>
         <Image
@@ -51,41 +54,92 @@ const platforms = [
         <p class="text-xs tracking-[0.3em] uppercase text-text-muted mb-2">Version audio</p>
         <h1 class="font-[--font-display] text-3xl sm:text-4xl text-text mb-3">Écouter Résonance</h1>
         <p class="text-sm text-text-secondary leading-relaxed max-w-md">
-          Chaque chapitre devient un épisode. Disponible sur vos plateformes favorites — gratuit, sans inscription.
+          Chaque chapitre devient un épisode. Lancez l'écoute directement ici ou retrouvez le podcast sur vos plateformes favorites.
         </p>
       </div>
     </div>
 
-    <!-- Plateformes -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-      {platforms.map((p) => (
-        <a
-          href={p.url}
-          target="_blank"
-          rel="noopener"
-          class="group flex items-center gap-4 bg-void-card/40 border border-void-border rounded-xl px-5 py-4 hover:border-cyan/30 hover:bg-void-card/70 transition-all"
-        >
-          <div
-            class="platform-icon w-10 h-10 shrink-0 flex items-center justify-center group-hover:scale-105 transition-transform"
-            style={`color: ${p.color};`}
-            set:html={p.icon}
-          />
-          <div class="flex-1 min-w-0">
-            <p class="text-xs text-text-muted">Écouter sur</p>
-            <p class="text-sm font-semibold text-text group-hover:text-cyan transition-colors">{p.name}</p>
-          </div>
-          <svg class="w-4 h-4 text-text-muted group-hover:text-cyan group-hover:translate-x-0.5 transition-all shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="9 18 15 12 9 6"/>
-          </svg>
-        </a>
-      ))}
-    </div>
+    <!-- Épisodes -->
+    {episodes.length > 0 && (
+      <section class="mb-14">
+        <div class="flex items-baseline justify-between mb-5">
+          <h2 class="text-xs tracking-[0.3em] uppercase text-text-muted">Épisodes</h2>
+          <span class="text-xs text-text-muted">{episodes.length} disponible{episodes.length > 1 ? 's' : ''}</span>
+        </div>
 
-    <!-- Note -->
-    <p class="text-xs text-text-muted text-center mt-10 leading-relaxed">
-      Les épisodes sont générés automatiquement à partir du texte publié.<br class="hidden sm:block">
-      Nouveaux épisodes à chaque chapitre validé.
-    </p>
+        <div class="space-y-2">
+          {episodes.map((ep) => (
+            <div class="group bg-void-card/40 border border-void-border rounded-xl px-4 sm:px-5 py-4 hover:border-cyan/20 hover:bg-void-card/60 transition-all">
+              <div class="flex items-start gap-4">
+                <button
+                  type="button"
+                  data-podcast-play={ep.audioUrl}
+                  data-podcast-title={ep.title}
+                  class="w-11 h-11 shrink-0 rounded-full border border-cyan/40 text-cyan flex items-center justify-center hover:bg-cyan hover:text-void transition-all hover:shadow-[0_0_20px_rgba(0,212,170,0.2)]"
+                  aria-label={`Écouter ${ep.title}`}
+                >
+                  <svg class="w-4 h-4 translate-x-[1px]" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                </button>
+
+                <div class="flex-1 min-w-0">
+                  <p class="font-[--font-reading] text-base font-medium text-text leading-snug">
+                    {ep.title}
+                  </p>
+                  <div class="flex flex-wrap items-center gap-x-3 gap-y-1 mt-1.5 text-[11px] text-text-muted">
+                    <span>{formatPubDate(ep.pubDate)}</span>
+                    {ep.duration && (
+                      <>
+                        <span class="text-void-border">·</span>
+                        <span class="tabular-nums">{ep.duration}</span>
+                      </>
+                    )}
+                  </div>
+                  {ep.description && (
+                    <p class="text-sm text-text-secondary mt-2.5 leading-relaxed line-clamp-2">
+                      {ep.description}
+                    </p>
+                  )}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+    )}
+
+    <!-- Plateformes -->
+    <section>
+      <h2 class="text-xs tracking-[0.3em] uppercase text-text-muted mb-5">Aussi disponible sur</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        {platforms.map((p) => (
+          <a
+            href={p.url}
+            target="_blank"
+            rel="noopener"
+            class="group flex items-center gap-4 bg-void-card/40 border border-void-border rounded-xl px-5 py-4 hover:border-cyan/30 hover:bg-void-card/70 transition-all"
+          >
+            <div
+              class="platform-icon w-10 h-10 shrink-0 flex items-center justify-center group-hover:scale-105 transition-transform"
+              style={`color: ${p.color};`}
+              set:html={p.icon}
+            />
+            <div class="flex-1 min-w-0">
+              <p class="text-xs text-text-muted">Écouter sur</p>
+              <p class="text-sm font-semibold text-text group-hover:text-cyan transition-colors">{p.name}</p>
+            </div>
+            <svg class="w-4 h-4 text-text-muted group-hover:text-cyan group-hover:translate-x-0.5 transition-all shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="9 18 15 12 9 6"/>
+            </svg>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    {episodes.length === 0 && (
+      <p class="text-sm text-text-muted text-center mt-10">
+        Les épisodes apparaîtront ici dès la première publication.
+      </p>
+    )}
 
   </div>
 </BaseLayout>
